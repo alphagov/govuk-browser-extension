@@ -1,0 +1,37 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+}
+
+.envs {
+  padding: 20px 0 20px 10px;
+  background-color: #000;
+}
+
+.envs a {
+  color: #fff;
+  padding: 5px 7px;
+}
+
+.envs a.current,
+.envs a:hover {
+  background-color: #005ea5;
+}
+
+li a {
+  display: block;
+  padding: 10px;
+  color: #000;
+  text-decoration: none;
+}
+
+li a img {
+  vertical-align: middle;
+}
+
+li a.current,
+li a:hover {
+  background-color: #005ea5;
+  color: #fff;
+}

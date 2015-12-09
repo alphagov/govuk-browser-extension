@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src='menu/lib/mustache.min.js'></script>
+  <script src='menu/lib/jquery.min.js'></script>
+  <script src='menu/popup_view.js'></script>
+  <script src='menu/menu.js'></script>
+  <link href="menu/reset.css" rel="stylesheet" type="text/css">
+  <link href="menu/menu.css" rel="stylesheet" type="text/css">
+</head>
+<body style="width: 600px;">
+  <script id="template" type="x-tmpl-mustache">
+    <div class='envs'>
+      {{#environments}}
+        <a href="{{url}}" class="{{class}}">{{name}}</a>
+      {{/environments}}
+    </div>
+
+    <ul>
+      {{#contentLinks}}
+        <li><a href="{{url}}" class="{{class}}">{{name}}</a></li>
+      {{/contentLinks}}
+
+      {{#renderingAppName}}
+      <hr/>
+      <li>
+        <a href="https://github.com/alphagov/{{renderingAppName}}" class="external">
+          Rendered by {{renderingAppName}} <img src="menu/github.png" width="16" />
+        </a>
+      </li>
+      {{/renderingAppName}}
+    </ul>
+  </script>
+
+  <div id="content">Loading...</div>
+</body>
+</html>

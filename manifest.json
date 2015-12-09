@@ -1,0 +1,30 @@
+{
+  "manifest_version": 2,
+  "name": "GOV.UK Toolkit",
+  "description": "Allows easy switching between the different GOV.UK environments and content representations.",
+  "homepage_url": "https://github.com/tijmenb/govuk-chrome",
+  "version": "0.1",
+  "content_scripts": [
+    {
+      "matches": ["https://*.gov.uk/*"],
+      "js": [
+        "menu/lib/jquery.min.js",
+        "menu/lib/mustache.min.js"
+      ]
+    }
+  ],
+  "permissions": [
+    "tabs",
+    "http://*.gov.uk/*",
+    "https://*.gov.uk/*",
+    "https://*.alphagov.co.uk/*"
+  ],
+  "page_action": {
+    "default_icon": "menu/govuk-chrome-button.png",
+    "default_title": "GOV.UK",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  }
+}
