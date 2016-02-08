@@ -46,12 +46,6 @@ Popup.generateEnvironmentLinks = function(location) {
       protocol: "https",
       serviceDomain: "integration.publishing.service.gov.uk",
       host: "https://www-origin.integration.publishing.service.gov.uk"
-    },
-    {
-      name: "Preview",
-      protocol: "https",
-      serviceDomain: "preview.alphagov.co.uk",
-      host: "https://www.preview.alphagov.co.uk"
     }
   ]
 

@@ -60,8 +60,7 @@ describe("PopupView", function() {
         'http://www.dev.gov.uk/browse/disabilities?foo=bar',
         'https://www.staging.publishing.service.gov.uk/browse/disabilities?foo=bar',
         'https://www-origin.publishing.service.gov.uk/browse/disabilities?foo=bar',
-        'https://www-origin.integration.publishing.service.gov.uk/browse/disabilities?foo=bar',
-        'https://www.preview.alphagov.co.uk/browse/disabilities?foo=bar'
+        'https://www-origin.integration.publishing.service.gov.uk/browse/disabilities?foo=bar'
       ])
     })
 
@@ -75,8 +74,7 @@ describe("PopupView", function() {
         'http://www.dev.gov.uk/browse/disabilities?foo=bar',
         'https://www.staging.publishing.service.gov.uk/browse/disabilities?foo=bar',
         'https://www-origin.publishing.service.gov.uk/browse/disabilities?foo=bar',
-        'https://www-origin.integration.publishing.service.gov.uk/browse/disabilities?foo=bar',
-        'https://www.preview.alphagov.co.uk/browse/disabilities?foo=bar',
+        'https://www-origin.integration.publishing.service.gov.uk/browse/disabilities?foo=bar'
       ])
     })
 

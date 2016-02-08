@@ -16,8 +16,7 @@
   "permissions": [
     "tabs",
     "http://*.gov.uk/*",
-    "https://*.gov.uk/*",
-    "https://*.alphagov.co.uk/*"
+    "https://*.gov.uk/*"
   ],
   "page_action": {
     "default_icon": "menu/govuk-chrome-button.png",
