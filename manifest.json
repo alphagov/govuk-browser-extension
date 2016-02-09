@@ -3,7 +3,7 @@
   "name": "GOV.UK Toolkit",
   "description": "Allows easy switching between the different GOV.UK environments and content representations.",
   "homepage_url": "https://github.com/tijmenb/govuk-chrome",
-  "version": "0.1",
+  "version": "0.2",
   "content_scripts": [
     {
       "matches": ["https://*.gov.uk/*"],
