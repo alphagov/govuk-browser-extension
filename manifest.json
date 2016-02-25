@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "GOV.UK Toolkit",
   "description": "Switch between GOV.UK environments and content",
-  "homepage_url": "https://github.com/tijmenb/govuk-chrome",
+  "homepage_url": "https://github.com/alphagov/govuk-toolkit-chrome",
   "version": "0.2",
   "content_scripts": [
     {
