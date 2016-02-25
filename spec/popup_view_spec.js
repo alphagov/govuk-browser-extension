@@ -59,8 +59,8 @@ describe("PopupView", function() {
         'https://www.gov.uk/browse/disabilities?foo=bar',
         'http://www.dev.gov.uk/browse/disabilities?foo=bar',
         'https://www.staging.publishing.service.gov.uk/browse/disabilities?foo=bar',
+        'https://www-origin.integration.publishing.service.gov.uk/browse/disabilities?foo=bar',
         'https://www-origin.publishing.service.gov.uk/browse/disabilities?foo=bar',
-        'https://www-origin.integration.publishing.service.gov.uk/browse/disabilities?foo=bar'
       ])
     })
 
@@ -73,8 +73,21 @@ describe("PopupView", function() {
         'https://www.gov.uk/browse/disabilities?foo=bar',
         'http://www.dev.gov.uk/browse/disabilities?foo=bar',
         'https://www.staging.publishing.service.gov.uk/browse/disabilities?foo=bar',
+        'https://www-origin.integration.publishing.service.gov.uk/browse/disabilities?foo=bar',
         'https://www-origin.publishing.service.gov.uk/browse/disabilities?foo=bar',
-        'https://www-origin.integration.publishing.service.gov.uk/browse/disabilities?foo=bar'
+      ])
+    })
+
+    it("only has a prod-origin URL for frontend pages", function () {
+      var envs = Popup.generateEnvironmentLinks(
+        stubLocation("https://signon.publishing.service.gov.uk/")
+      );
+
+      expect(envs.map(fn('url'))).toEqual([
+        'https://signon.publishing.service.gov.uk/',
+        'http://signon.dev.gov.uk/',
+        'https://signon.staging.publishing.service.gov.uk/',
+        'https://signon.integration.publishing.service.gov.uk/',
       ])
     })
 

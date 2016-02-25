@@ -36,12 +36,6 @@ Popup.generateEnvironmentLinks = function(location) {
       host: "https://www.staging.publishing.service.gov.uk"
     },
     {
-      name: "Prod (origin)",
-      protocol: "https",
-      serviceDomain: "publishing.service.gov.uk",
-      host: "https://www-origin.publishing.service.gov.uk"
-    },
-    {
       name: "Integration",
       protocol: "https",
       serviceDomain: "integration.publishing.service.gov.uk",
@@ -49,10 +43,22 @@ Popup.generateEnvironmentLinks = function(location) {
     }
   ]
 
-  var application = location.host.split('.')[0],
-  inFrontend = application.match(/www/);
+  var ORIGIN = {
+    name: "Prod (origin)",
+    protocol: "https",
+    serviceDomain: "publishing.service.gov.uk",
+    host: "https://www-origin.publishing.service.gov.uk"
+  };
 
-  return ENVIRONMENTS.map(function (env) {
+  var application = location.host.split('.')[0],
+  inFrontend = application.match(/www/),
+  environments = ENVIRONMENTS;
+
+  if (inFrontend) {
+    environments.push(ORIGIN);
+  }
+
+  return environments.map(function (env) {
     if (inFrontend) {
       var replacement = env.host;
     } else {
