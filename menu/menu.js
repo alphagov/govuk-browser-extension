@@ -26,13 +26,21 @@ function renderPopup(location, renderingAppName) {
 
   // Clicking on a link won't open the tab because we're in a separate window.
   // Open external links (to GitHub etc) in a new tab.
-  $('a.external').on('click', function() {
+  $('a.external').on('click', function(e) {
+    if (userOpensPageInNewWindow(e)) {
+      return;
+    }
+
     chrome.tabs.create({ url: $(this).attr('href') });
   })
 
   // Clicking normal links should change the current tab. The popup will not
   // update itself automatically, we need to re-render the popup manually.
-  $('a:not(.external)').on('click', function() {
+  $('a:not(.external)').on('click', function(e) {
+    if (userOpensPageInNewWindow(e)) {
+      return;
+    }
+
     chrome.tabs.update(null, { url: $(this).attr('href') });
 
     // This will provide us with a `location` object just like `window.location`.
@@ -41,4 +49,10 @@ function renderPopup(location, renderingAppName) {
 
     renderPopup(location, renderingAppName);
   })
+}
+
+// Best guess if the user wants a new window opened.
+// https://stackoverflow.com/questions/20087368/how-to-detect-if-user-it-trying-to-open-a-link-in-a-new-tab
+function userOpensPageInNewWindow(e) {
+  return e.ctrlKey || e.shiftKey || e.metaKey || (e.button && e.button == 1);
 }

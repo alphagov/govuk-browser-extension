@@ -6,7 +6,9 @@ Allows easy switching between the different GOV.UK environments and content repr
 
 ### Installation
 
-The extension is not yet on the Chrome web store. You can install it like this:
+The extension is [downloadable on the Chrome web store](https://chrome.google.com/webstore/detail/govuk-toolkit/dclfaikcemljbaoagjnedmlppnbiljen).
+
+If you don't want to install from the web store for security reasons, you can install a non-self updating copy like this:
 
 1. [Download the source from GitHub](https://github.com/tijmenb/govuk-toolkit-chrome/archive/master.zip) and unzip.
 2. Visit [chrome://extensions](chrome://extensions) in your browser.
