@@ -24,7 +24,10 @@
     "https://*.gov.uk/*"
   ],
   "page_action": {
-    "default_icon": "menu/govuk-chrome-button.png",
+    "default_icon": {
+      "19": "icons/crown-logo-19-inactive.png",
+      "38": "icons/crown-logo-38-inactive.png"
+    },
     "default_title": "GOV.UK",
     "default_popup": "popup.html"
   },
