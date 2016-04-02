@@ -21,14 +21,18 @@ Source: [Getting Started: Building a Chrome Extension](https://developer.chrome.
 
 ### Running the tests
 
-Visit [spec_runner.html](spec_runner.html) in your browser.
+Run the Jasmine test suite with:
+
+```
+$ bundle exec rake jasmine:ci
+```
 
 ### Releasing the extension
 
 1. Update the version in `manifest.json`
 2. Run `rake build`
 3. Upload newly created package in `/build` to the [Chrome web store](https://chrome.google.com/webstore/developer/edit/dclfaikcemljbaoagjnedmlppnbiljen)
-4. Create a [new release on GitHub](https://github.com/alphagov/govuk-toolkit-chrome/releases/new) 
+4. Create a [new release on GitHub](https://github.com/alphagov/govuk-toolkit-chrome/releases/new)
 
 ### License
 

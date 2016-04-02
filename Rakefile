@@ -1,4 +1,7 @@
 require 'json'
+require 'jasmine'
+
+load 'jasmine/tasks/jasmine.rake'
 
 task :build do
   puts "Building package"
