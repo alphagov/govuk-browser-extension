@@ -31,7 +31,7 @@ $ bundle exec rake jasmine:ci
 
 1. Update the version in `manifest.json`
 2. Run `rake build`
-3. Upload newly created package in `/build` to the [Chrome web store](https://chrome.google.com/webstore/developer/edit/dclfaikcemljbaoagjnedmlppnbiljen)
+3. Upload newly created package in `/build` to the [Chrome web store](https://chrome.google.com/webstore/developer/edit/dclfaikcemljbaoagjnedmlppnbiljen). The extension is currently on [Tijmen's](https://github.com/tijmenb) account.
 4. Create a [new release on GitHub](https://github.com/alphagov/govuk-toolkit-chrome/releases/new)
 
 ### License
