@@ -1,0 +1,6 @@
+src_files:
+    - src/menu/lib/jquery.min.js
+    - src/menu/popup_view.js
+
+spec_files:
+  - '**/*[sS]pec.js'
