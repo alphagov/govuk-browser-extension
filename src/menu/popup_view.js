@@ -74,18 +74,24 @@ Popup.generateEnvironmentLinks = function(location) {
 // Extract the relevant path from a location, such as `/foo` from URLs like
 // `www.gov.uk/foo` and `www.gov.uk/api/content/foo`.
 Popup.extractPath = function(location) {
+  var extractedPath;
+
   if (location.href.match(/api\/content/)) {
-    return location.pathname.replace('api/content/', '');
+    extractedPath = location.pathname.replace('api/content/', '');
   } else if (location.href.match(/api\/incoming-links/)) {
-    return location.pathname.replace('api/incoming-links/', '');
+    extractedPath = location.pathname.replace('api/incoming-links/', '');
   } else if (location.href.match(/search.json/)) {
-    return location.href.split('filter_link=')[1];
+    extractedPath = location.href.split('filter_link=')[1];
   } else if (location.href.match(/info/)) {
-    return location.pathname.replace('info/', '');
+    extractedPath = location.pathname.replace('info/', '');
   } else if (location.href.match(/api.*\.json/)) {
-    return location.pathname.replace('api/', '').replace('.json', '');
+    extractedPath = location.pathname.replace('api/', '').replace('.json', '');
   } else if (location.href.match(/www/)) {
-    return location.pathname;
+    extractedPath = location.pathname;
+  }
+
+  if (extractedPath) {
+    return extractedPath.replace('//', '/');
   }
 }
 
