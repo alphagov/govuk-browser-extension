@@ -24,6 +24,12 @@ describe("PopupView", function() {
       expect(path).toBe("/browse/disabilities")
     })
 
+    it("returns the path for URLs with double slashes", function () {
+      var path = Popup.extractPath(stubLocation("https://www.gov.uk/api/content//browse/disabilities"))
+
+      expect(path).toBe("/browse/disabilities")
+    })
+
     it("returns the path for incoming-links pages", function () {
       var path = Popup.extractPath(stubLocation("https://www.gov.uk/api/incoming-links/alpha-taxonomy/4-nannies-and-au-pairs?types[]=topics"))
 
