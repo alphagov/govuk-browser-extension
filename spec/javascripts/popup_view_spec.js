@@ -70,7 +70,7 @@ describe("PopupView", function() {
       expect(envs.map(fn('url'))).toEqual([
         'https://www.gov.uk/browse/disabilities?foo=bar',
         'http://www.dev.gov.uk/browse/disabilities?foo=bar',
-        'https://www.staging.publishing.service.gov.uk/browse/disabilities?foo=bar',
+        'https://www-origin.staging.publishing.service.gov.uk/browse/disabilities?foo=bar',
         'https://www-origin.integration.publishing.service.gov.uk/browse/disabilities?foo=bar',
         'https://www-origin.publishing.service.gov.uk/browse/disabilities?foo=bar',
       ])
@@ -84,7 +84,7 @@ describe("PopupView", function() {
       expect(envs.map(fn('url'))).toEqual([
         'https://www.gov.uk/browse/disabilities?foo=bar',
         'http://www.dev.gov.uk/browse/disabilities?foo=bar',
-        'https://www.staging.publishing.service.gov.uk/browse/disabilities?foo=bar',
+        'https://www-origin.staging.publishing.service.gov.uk/browse/disabilities?foo=bar',
         'https://www-origin.integration.publishing.service.gov.uk/browse/disabilities?foo=bar',
         'https://www-origin.publishing.service.gov.uk/browse/disabilities?foo=bar',
       ])
