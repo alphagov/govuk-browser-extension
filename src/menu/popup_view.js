@@ -30,10 +30,10 @@ Popup.generateEnvironmentLinks = function(location) {
       host: "http://www.dev.gov.uk"
     },
     {
-      name: "Staging",
+      name: "Staging (origin)",
       protocol: "https",
       serviceDomain: "staging.publishing.service.gov.uk",
-      host: "https://www.staging.publishing.service.gov.uk"
+      host: "https://www-origin.staging.publishing.service.gov.uk"
     },
     {
       name: "Integration",
