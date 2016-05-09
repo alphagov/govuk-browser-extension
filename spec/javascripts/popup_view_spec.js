@@ -128,6 +128,14 @@ describe("PopupView", function() {
 
       expect(forProd[0].class).toEqual("current")
     })
+
+    it("returns nothing if not on GOV.UK", function () {
+      var links = Popup.generateEnvironmentLinks(
+        stubLocation("http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk/jobsearch")
+      );
+
+      expect(links).toEqual({ name: 'GOV.UK', url: 'https://www.gov.uk' })
+    })
   })
 
   describe("generateContentLinks", function () {

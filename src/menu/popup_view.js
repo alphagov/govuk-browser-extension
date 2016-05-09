@@ -16,6 +16,20 @@ Popup.createView = function(location, renderingAppName) {
 // Returns a hash with envs, including one with `class: "current"` to show
 // the current environment.
 Popup.generateEnvironmentLinks = function(location) {
+
+  function isPartOfGOVUK() {
+    return location.host.match(/www.gov.uk/) ||
+        location.host.match(/publishing.service.gov.uk/) ||
+        location.host.match(/dev.gov.uk/);
+  }
+
+  if (!isPartOfGOVUK()) {
+    return {
+      name: "GOV.UK",
+      url: "https://www.gov.uk"
+    }
+  }
+
   var ENVIRONMENTS = [
     {
       name: "Production",
