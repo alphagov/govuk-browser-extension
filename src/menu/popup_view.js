@@ -96,7 +96,7 @@ Popup.extractPath = function(location) {
     extractedPath = location.pathname.split('https://www.gov.uk')[1];
   } else if (location.href.match(/api\/incoming-links/)) {
     extractedPath = location.pathname.replace('api/incoming-links/', '');
-  } else if (location.href.match(/search.json/)) {
+  } else if (location.href.match(/api\/search.json/)) {
     extractedPath = location.href.split('filter_link=')[1];
   } else if (location.href.match(/info/)) {
     extractedPath = location.pathname.replace('info/', '');
