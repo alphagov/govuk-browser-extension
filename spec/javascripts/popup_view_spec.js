@@ -59,6 +59,12 @@ describe("PopupView", function() {
 
       expect(path).toBe("/browse/disabilities")
     })
+
+    it("returns the path for national archives pages", function () {
+      var path = Popup.extractPath(stubLocation("http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk/some/page"))
+
+      expect(path).toBe("/some/page")
+    })
   })
 
   describe("generateEnvironmentLinks", function () {
@@ -121,6 +127,32 @@ describe("PopupView", function() {
       );
 
       expect(forProd[0].class).toEqual("current")
+    })
+
+    it("returns nothing if not on GOV.UK", function () {
+      var links = Popup.generateEnvironmentLinks(
+        stubLocation("http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk/jobsearch")
+      );
+
+      expect(links).toEqual({ name: 'GOV.UK', url: 'https://www.gov.uk' })
+    })
+  })
+
+  describe("generateContentLinks", function () {
+    it("returns the correct URLs", function () {
+      var links = Popup.generateContentLinks(
+        stubLocation("https://www.gov.uk/browse/disabilities?foo=bar")
+      )
+
+      expect(links.map(fn('url'))).toEqual([
+        'https://www.gov.uk/browse/disabilities',
+        'https://www.gov.uk/api/content/browse/disabilities',
+        'https://www.gov.uk/api/incoming-links/browse/disabilities?types[]=mainstream_browse_pages&types[]=topics&types[]=organisations&types[]=alpha_taxons',
+        'https://www.gov.uk/api/search.json?filter_link=/browse/disabilities',
+        'https://www.gov.uk/info/browse/disabilities',
+        'https://www.gov.uk/api/browse/disabilities.json',
+        'http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk/browse/disabilities'
+      ])
     })
   })
 
