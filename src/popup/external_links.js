@@ -8,7 +8,8 @@ Popup.generateExternalLinks = function(contentItem, env) {
   function appNameToRepo(appName) {
     var APP_NAMES_TO_REPOS = {
       smartanswers: 'smart-answers',
-      designprinciples: 'design-principles'
+      designprinciples: 'design-principles',
+      'whitehall-frontend': 'whitehall'
     }
 
     return APP_NAMES_TO_REPOS[appName] || appName;
