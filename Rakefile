@@ -9,3 +9,5 @@ task :build do
   version = manifest['version']
   sh "cd src && zip -r ../build/govuk-toolkit-chrome-#{version}.zip ."
 end
+
+task :default => ['jasmine:ci']
