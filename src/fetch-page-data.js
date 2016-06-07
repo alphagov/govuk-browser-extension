@@ -4,11 +4,5 @@
 
 chrome.runtime.sendMessage({
   action: "populatePopup",
-  currentLocation: window.location,
-  renderingAppName: getMetatag('govuk:rendering-application'),
+  currentLocation: window.location
 });
-
-function getMetatag(name) {
-  meta = document.getElementsByTagName('meta')[name]
-  return meta && meta.getAttribute('content')
-}

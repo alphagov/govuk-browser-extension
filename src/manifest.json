@@ -8,8 +8,8 @@
     {
       "matches": ["https://*.gov.uk/*"],
       "js": [
-        "menu/lib/jquery.min.js",
-        "menu/lib/mustache.min.js"
+        "popup/lib/jquery.min.js",
+        "popup/lib/mustache.min.js"
       ]
     }
   ],
