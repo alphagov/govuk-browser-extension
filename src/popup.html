@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src='menu/lib/mustache.min.js'></script>
-  <script src='menu/lib/jquery.min.js'></script>
-  <script src='menu/popup_view.js'></script>
-  <script src='menu/menu.js'></script>
-  <link href="menu/reset.css" rel="stylesheet" type="text/css">
-  <link href="menu/menu.css" rel="stylesheet" type="text/css">
+  <script src='popup/lib/mustache.min.js'></script>
+  <script src='popup/lib/jquery.min.js'></script>
+
+  <script src='popup/content_links.js'></script>
+  <script src='popup/environment.js'></script>
+  <script src='popup/external_links.js'></script>
+  <script src='popup/extract_path.js'></script>
+  <script src='popup/popup.js'></script>
+
+  <link href="popup/reset.css" rel="stylesheet" type="text/css">
+  <link href="popup/popup.css" rel="stylesheet" type="text/css">
 </head>
 <body style="width: 550px;">
   <script id="template" type="x-tmpl-mustache">
@@ -16,19 +21,16 @@
       {{/environments}}
     </div>
 
-    <ul>
+    <ul class='content-links'>
       {{#contentLinks}}
         <li><a href="{{url}}" class="{{class}}">{{name}}</a></li>
       {{/contentLinks}}
+    </ul>
 
-      {{#renderingAppName}}
-      <hr/>
-      <li>
-        <a href="https://github.com/alphagov/{{renderingAppName}}" class="external">
-          Rendered by {{renderingAppName}} <img src="menu/github.png" width="16" />
-        </a>
-      </li>
-      {{/renderingAppName}}
+    <ul class='external-links'>
+      {{#externalLinks}}
+        <li><a href="{{url}}" class="external">{{{name}}}</a></li>
+      {{/externalLinks}}
     </ul>
   </script>
 
