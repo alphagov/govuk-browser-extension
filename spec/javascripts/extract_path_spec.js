@@ -1,8 +1,14 @@
 describe("Popup.extractPath", function () {
-  it("returns nothing for non-frontend URLs", function () {
+  it("returns nothing for publishing applications", function () {
     var path = Popup.extractPath(stubLocation("https://publisher.publishing.service.gov.uk/foo/bar"))
 
     expect(path).toBeUndefined();
+  })
+
+  it("returns the path for draft URLs", function () {
+    var path = Popup.extractPath(stubLocation("https://draft-origin.staging.publishing.service.gov.uk/browse/disabilities"))
+
+    expect(path).toEqual("/browse/disabilities");
   })
 
   it("returns the path for frontend applications", function () {

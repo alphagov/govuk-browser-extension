@@ -1,7 +1,7 @@
 var Popup = Popup || {};
 
 // Given a location, generate links to different content presentations
-Popup.generateContentLinks = function(location) {
+Popup.generateContentLinks = function(location, currentEnvironment) {
   var path = Popup.extractPath(location);
 
   // If no path can be found (which means we're probably in a publishing app)
@@ -17,7 +17,7 @@ Popup.generateContentLinks = function(location) {
   // This is 'https://www.gov.uk' or 'https://www-origin.integration.publishing.service.gov.uk/', etc.
   var originHost = location.origin;
 
-  if (originHost == 'http://webarchive.nationalarchives.gov.uk') {
+  if (originHost == 'http://webarchive.nationalarchives.gov.uk' || originHost.match(/draft-origin/)) {
     originHost = "https://www.gov.uk"
   }
 
@@ -27,6 +27,7 @@ Popup.generateContentLinks = function(location) {
     { name: "Search data (JSON)", url: originHost + "/api/search.json?filter_link=" + path },
     { name: "Info page (not always available)", url: originHost + "/info" + path },
     { name: "Content API (JSON, deprecated)", url: originHost + "/api" + path + ".json" },
+    { name: "Draft (may not always work)", url: currentEnvironment.protocol + '://draft-origin.' + currentEnvironment.serviceDomain + path },
     { name: "National Archives", url: "http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk" + path },
   ]
 
