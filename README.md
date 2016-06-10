@@ -21,7 +21,15 @@ Source: [Getting Started: Building a Chrome Extension](https://developer.chrome.
 
 ### Running the tests
 
-Run the Jasmine test suite with:
+In development it's easiest to run:
+
+```
+$ bundle exec rake jasmine
+```
+
+This will start a server on http://localhost:8888/ that serves the tests.
+
+You can also run the Jasmine test suite in slower "headless" mode with:
 
 ```
 $ bundle exec rake jasmine:ci

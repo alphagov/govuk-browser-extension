@@ -78,8 +78,8 @@ var Popup = Popup || {};
   // app and creates an object with all URLs and other view data to render the
   // pop.
    function createView(location) {
-    var contentLinks = Popup.generateContentLinks(location),
-        environment = Popup.environment(location);
+    var environment = Popup.environment(location);
+    var contentLinks = Popup.generateContentLinks(location, environment.currentEnvironment);
 
     return {
       environments: environment.allEnvironments,
