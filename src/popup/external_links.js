@@ -43,8 +43,8 @@ Popup.generateExternalLinks = function(contentItem, env) {
   })
 
   links.push({
-    name: 'Publishing API debug (dev only)',
-    url: 'http://publishing-api.dev.gov.uk/debug/' + contentItem.content_id
+    name: 'Publishing API debug (SSH tunnel required)',
+    url: env.protocol + '://publishing-api.' + env.serviceDomain + '/debug/' + contentItem.content_id
   })
 
   return links.filter(function(item) { return item != undefined });

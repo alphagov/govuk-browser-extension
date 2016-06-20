@@ -131,8 +131,8 @@ describe("Popup.generateExternalLinks", function () {
     var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
 
     expect(links).toContain({
-      name: 'Publishing API debug (dev only)',
-      url: 'http://publishing-api.dev.gov.uk/debug/4d8568c4-67f2-48da-a578-5ac6f35b69b4'
+      name: 'Publishing API debug (SSH tunnel required)',
+      url: 'https://publishing-api.publishing.service.gov.uk/debug/4d8568c4-67f2-48da-a578-5ac6f35b69b4'
     })
   })
 })
