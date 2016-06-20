@@ -27,12 +27,11 @@ var Popup = Popup || {};
     $('#content').html(Mustache.render(template, view));
     setupClicks();
 
-    if (view.contentLinks.length != 0) {
-      // TODO: fix a better way to get to the content-store URI
-      var contentStoreUrl = view.contentLinks[1].url;
+    var contentStore = view.contentLinks.find(function (el) { return el.name == "Content item (JSON)" })
 
+    if (contentStore) {
       // Request the content item to add some extra links.
-      $.getJSON(contentStoreUrl, function(contentStoreData) {
+      $.getJSON(contentStore.url, function(contentStoreData) {
         view.externalLinks = Popup.generateExternalLinks(contentStoreData, view.currentEnvironment);
         $('#content').html(Mustache.render(template, view));
         setupClicks();

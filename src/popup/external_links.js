@@ -43,8 +43,8 @@ Popup.generateExternalLinks = function(contentItem, env) {
   })
 
   links.push({
-    name: 'Publishing API debug (dev only)',
-    url: 'http://publishing-api.dev.gov.uk/debug/' + contentItem.content_id
+    name: 'Publishing API debug (SSH tunnel required)',
+    url: env.protocol + '://publishing-api.' + env.serviceDomain + '/debug/' + contentItem.content_id
   })
 
   return links.filter(function(item) { return item != undefined });
@@ -69,7 +69,7 @@ function generateEditLink(contentItem, env) {
   } else if (contentItem.publishing_app == 'whitehall') {
     return {
       name: 'Go to Whitehall Publisher',
-      url: env.protocol + '://whitehall.' + env.serviceDomain + '/',
+      url: env.protocol + '://whitehall-admin.' + env.serviceDomain + '/',
     }
   } else if (contentItem.document_type == 'manual') {
     return {

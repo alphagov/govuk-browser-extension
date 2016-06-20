@@ -25,6 +25,10 @@ body {
   border-top: 1px solid #ccc;
 }
 
+.external-links:empty {
+  display: none;
+}
+
 li a {
   display: block;
   padding: 10px;
