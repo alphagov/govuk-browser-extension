@@ -93,7 +93,7 @@ describe("Popup.generateExternalLinks", function () {
 
     expect(links).toContain({
       name: 'Go to Whitehall Publisher',
-      url: 'https://whitehall.publishing.service.gov.uk/'
+      url: 'https://whitehall-admin.publishing.service.gov.uk/'
     })
   })
 

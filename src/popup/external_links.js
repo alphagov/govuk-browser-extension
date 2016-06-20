@@ -69,7 +69,7 @@ function generateEditLink(contentItem, env) {
   } else if (contentItem.publishing_app == 'whitehall') {
     return {
       name: 'Go to Whitehall Publisher',
-      url: env.protocol + '://whitehall.' + env.serviceDomain + '/',
+      url: env.protocol + '://whitehall-admin.' + env.serviceDomain + '/',
     }
   } else if (contentItem.document_type == 'manual') {
     return {
