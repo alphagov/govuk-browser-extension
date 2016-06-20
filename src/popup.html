@@ -21,17 +21,8 @@
       {{/environments}}
     </div>
 
-    <ul class='content-links'>
-      {{#contentLinks}}
-        <li><a href="{{url}}" class="{{class}}">{{name}}</a></li>
-      {{/contentLinks}}
-    </ul>
-
-    <ul class='external-links'>
-      {{#externalLinks}}
-        <li><a href="{{url}}" class="external">{{{name}}}</a></li>
-      {{/externalLinks}}
-    </ul>
+    <ul class='content-links'>{{#contentLinks}}<li><a href="{{url}}" class="{{class}}">{{name}}</a></li>{{/contentLinks}}</ul>
+    <ul class='external-links'>{{#externalLinks}}<li><a href="{{url}}" class="external">{{{name}}}</a></li>{{/externalLinks}}</ul>
   </script>
 
   <div id="content">Loading...</div>
