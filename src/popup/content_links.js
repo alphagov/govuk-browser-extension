@@ -21,15 +21,15 @@ Popup.generateContentLinks = function(location, currentEnvironment) {
     originHost = "https://www.gov.uk"
   }
 
-  var links = [
-    { name: "On GOV.UK", url: originHost + path },
-    { name: "Content item (JSON)", url: originHost + "/api/content" + path },
-    { name: "Search data (JSON)", url: originHost + "/api/search.json?filter_link=" + path },
-    { name: "Info page (not always available)", url: originHost + "/info" + path },
-    { name: "Content API (JSON, deprecated)", url: originHost + "/api" + path + ".json" },
-    { name: "Draft (may not always work)", url: currentEnvironment.protocol + '://draft-origin.' + currentEnvironment.serviceDomain + path },
-    { name: "National Archives", url: "http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk" + path },
-  ]
+  var links = []
+
+  links.push({ name: "On GOV.UK", url: originHost + path })
+  links.push({ name: "Content item (JSON)", url: originHost + "/api/content" + path })
+  links.push({ name: "Search data (JSON)", url: originHost + "/api/search.json?filter_link=" + path })
+  links.push({ name: "Info page (not always available)", url: originHost + "/info" + path })
+  links.push({ name: "Content API (JSON, deprecated)", url: originHost + "/api" + path + ".json" })
+  links.push({ name: "Draft (may not always work)", url: currentEnvironment.protocol + '://draft-origin.' + currentEnvironment.serviceDomain + path })
+  links.push({ name: "National Archives", url: "http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk" + path })
 
   return links.map(function (link) {
     link.class = link.url == location.href ? "current" : ""
