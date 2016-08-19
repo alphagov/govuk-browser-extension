@@ -15,6 +15,10 @@ Popup.extractPath = function(location) {
     extractedPath = location.pathname.replace('info/', '');
   } else if (location.href.match(/api.*\.json/)) {
     extractedPath = location.pathname.replace('api/', '').replace('.json', '');
+  } else if (location.href.match(/\.txt$/)) {
+    extractedPath = location.pathname.replace('.txt', '');
+  } else if (location.href.match(/\/visualise\/?$/)) {
+    extractedPath = location.pathname.replace('/visualise', '');
   } else if (location.href.match(/www/) || location.href.match(/draft-origin/)) {
     extractedPath = location.pathname;
   }
