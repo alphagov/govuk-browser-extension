@@ -19,13 +19,13 @@ body {
   background-color: #005ea5;
 }
 
-.external-links {
+.external-links, .content-tools-links {
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid #ccc;
 }
 
-.external-links:empty {
+.external-links:empty, .content-tools-links:empty {
   display: none;
 }
 

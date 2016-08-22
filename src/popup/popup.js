@@ -31,8 +31,16 @@ var Popup = Popup || {};
 
     if (contentStore) {
       // Request the content item to add some extra links.
-      $.getJSON(contentStore.url, function(contentStoreData) {
-        view.externalLinks = Popup.generateExternalLinks(contentStoreData, view.currentEnvironment);
+      $.getJSON(contentStore.url).complete(function(contentStoreData){
+        var contentItem = contentStoreData.responseJSON;
+        if( typeof contentItem === 'undefined' && contentStore.url.match(/\/y\/?.*/) ) {
+          var contentItemLinks = Popup.generateContentToolsLinks(contentStore.url, view.currentEnvironment);
+          view.contentToolsLinks = contentItemLinks.links
+          view.externalLinks = Popup.generateExternalLinks(contentItemLinks.contentItem, view.currentEnvironment);
+        } else {
+          view.externalLinks = Popup.generateExternalLinks(contentItem, view.currentEnvironment);
+        }
+
         $('#content').html(Mustache.render(template, view));
         setupClicks();
       })
