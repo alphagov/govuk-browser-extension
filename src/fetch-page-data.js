@@ -4,5 +4,6 @@
 
 chrome.runtime.sendMessage({
   action: "populatePopup",
-  currentLocation: window.location
+  currentLocation: window.location,
+  renderingApplication: $('meta[name="govuk:rendering-application"]').attr('content'),
 });

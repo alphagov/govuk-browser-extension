@@ -15,12 +15,12 @@ var Popup = Popup || {};
   // render function.
   chrome.runtime.onMessage.addListener(function (request, _sender) {
     if (request.action == "populatePopup") {
-      renderPopup(request.currentLocation);
+      renderPopup(request.currentLocation, request.renderingApplication);
     }
   });
 
   // Render the popup.
-  function renderPopup(location) {
+  function renderPopup(location, renderingApplication) {
     // Creates a view object with the data and render a template with it.
     var view = createView(location);
     var template = $('#template').html();
