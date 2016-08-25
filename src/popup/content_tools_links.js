@@ -4,11 +4,15 @@ var Popup = Popup || {};
 Popup.generateContentToolsLinks = function(renderingApplication, env) {
   var links = [];
 
-  if (renderingApplication == "smartanswers") {
+  if (renderingApplication == "smartanswers" && isNotSmartAnswerLandingPage(env.url)) {
     links.push(
       { name: "SmartAnswers: Display GovSpeak", url: env.url + ".txt"}
     );
   }
 
   return links;
+}
+
+function isNotSmartAnswerLandingPage(url) {
+  return url.match(/\/y\/?.*$/);
 }
