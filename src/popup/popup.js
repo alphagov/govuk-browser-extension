@@ -22,7 +22,7 @@ var Popup = Popup || {};
   // Render the popup.
   function renderPopup(location, renderingApplication) {
     // Creates a view object with the data and render a template with it.
-    var view = createView(location);
+    var view = createView(location, renderingApplication);
     var template = $('#template').html();
     $('#content').html(Mustache.render(template, view));
     setupClicks();
@@ -76,9 +76,9 @@ var Popup = Popup || {};
   // This is the view object. It takes a location and the name of the rendering
   // app and creates an object with all URLs and other view data to render the
   // pop.
-   function createView(location) {
+   function createView(location, renderingApplication) {
     var environment = Popup.environment(location);
-    var contentLinks = Popup.generateContentLinks(location, environment.currentEnvironment);
+    var contentLinks = Popup.generateContentLinks(location, environment.currentEnvironment, renderingApplication);
 
     return {
       environments: environment.allEnvironments,
