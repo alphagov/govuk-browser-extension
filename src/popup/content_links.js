@@ -1,8 +1,8 @@
 var Popup = Popup || {};
 
 // Given a location, generate links to different content presentations
-Popup.generateContentLinks = function(location, currentEnvironment) {
-  var path = Popup.extractPath(location);
+Popup.generateContentLinks = function(location, currentEnvironment, renderingApplication) {
+  var path = Popup.extractPath(location, renderingApplication);
 
   // If no path can be found (which means we're probably in a publishing app)
   if (!path) {

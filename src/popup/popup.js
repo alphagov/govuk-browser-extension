@@ -15,14 +15,14 @@ var Popup = Popup || {};
   // render function.
   chrome.runtime.onMessage.addListener(function (request, _sender) {
     if (request.action == "populatePopup") {
-      renderPopup(request.currentLocation);
+      renderPopup(request.currentLocation, request.renderingApplication);
     }
   });
 
   // Render the popup.
-  function renderPopup(location) {
+  function renderPopup(location, renderingApplication) {
     // Creates a view object with the data and render a template with it.
-    var view = createView(location);
+    var view = createView(location, renderingApplication);
     var template = $('#template').html();
     $('#content').html(Mustache.render(template, view));
     setupClicks();
@@ -32,6 +32,7 @@ var Popup = Popup || {};
     if (contentStore) {
       // Request the content item to add some extra links.
       $.getJSON(contentStore.url, function(contentStoreData) {
+        view.contentToolsLinks = Popup.generateContentToolsLinks(renderingApplication, view.currentEnvironment);
         view.externalLinks = Popup.generateExternalLinks(contentStoreData, view.currentEnvironment);
         $('#content').html(Mustache.render(template, view));
         setupClicks();
@@ -76,9 +77,9 @@ var Popup = Popup || {};
   // This is the view object. It takes a location and the name of the rendering
   // app and creates an object with all URLs and other view data to render the
   // pop.
-   function createView(location) {
+   function createView(location, renderingApplication) {
     var environment = Popup.environment(location);
-    var contentLinks = Popup.generateContentLinks(location, environment.currentEnvironment);
+    var contentLinks = Popup.generateContentLinks(location, environment.currentEnvironment, renderingApplication);
 
     return {
       environments: environment.allEnvironments,
