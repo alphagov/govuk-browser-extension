@@ -18,6 +18,11 @@ Popup.generateExternalLinks = function(contentItem, env) {
 
   var links = [generateEditLink(contentItem, env)];
 
+  var schemaName = contentItem.schema_name || ""; 
+  if (schemaName.indexOf("placeholder") !== -1) {
+    schemaName = "placeholder"
+  }
+
   links.push({
     name: 'Look up in content-tagger',
     url: env.protocol + '://content-tagger.' + env.serviceDomain + '/content/' + contentItem.content_id,
@@ -39,8 +44,8 @@ Popup.generateExternalLinks = function(contentItem, env) {
   })
 
   links.push({
-    name: 'Content schema: ' + contentItem.schema_name + ' <img src="popup/github.png" width="16" />',
-    url: 'https://github.com/alphagov/govuk-content-schemas/tree/master/dist/formats/' + contentItem.schema_name
+    name: 'Content schema: ' + schemaName + ' <img src="popup/github.png" width="16" />',
+    url: 'https://github.com/alphagov/govuk-content-schemas/tree/master/dist/formats/' + schemaName
   })
 
   links.push({

@@ -40,6 +40,18 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
+  it("correctly links to placeholder schemas", function () {
+    var contentItem = {
+      schema_name: 'placeholder_something_or_other'
+    }
+
+    var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
+
+    expect(links).toContain({
+      name: 'Content schema: placeholder <img src="popup/github.png" width="16" />',
+      url: 'https://github.com/alphagov/govuk-content-schemas/tree/master/dist/formats/placeholder'
+    })
+  })
 
   it("generates edit links for topics", function () {
     var contentItem = {
