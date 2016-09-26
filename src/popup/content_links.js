@@ -12,7 +12,7 @@ Popup.generateContentLinks = function(location, currentEnvironment, renderingApp
   // This is 'https://www.gov.uk' or 'https://www-origin.integration.publishing.service.gov.uk/', etc.
   var originHost = location.origin;
 
-  if (originHost == 'http://webarchive.nationalarchives.gov.uk' || originHost.match(/draft-origin/)) {
+  if (originHost == 'http://webarchive.nationalarchives.gov.uk' || originHost.match(/draft-origin/) || originHost.match(/support/)) {
     originHost = "https://www.gov.uk"
   }
 
@@ -27,6 +27,7 @@ Popup.generateContentLinks = function(location, currentEnvironment, renderingApp
     links.push({ name: "Info page (not always available)", url: originHost + "/info" + path })
     links.push({ name: "Content API (JSON, deprecated)", url: originHost + "/api" + path + ".json" })
     links.push({ name: "Draft (may not always work)", url: currentEnvironment.protocol + '://draft-origin.' + currentEnvironment.serviceDomain + path })
+    links.push({ name: "Anonymous feedback", url: currentEnvironment.protocol + '://support.' + currentEnvironment.serviceDomain + '/anonymous_feedback?path=' + path })
   }
 
   links.push({ name: "National Archives", url: "http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk" + path })
