@@ -16,6 +16,7 @@ describe("PopupView.generateContentLinks", function () {
       'https://www.gov.uk/info/browse/disabilities',
       'https://www.gov.uk/api/browse/disabilities.json',
       'https://draft-origin.publishing.service.gov.uk/browse/disabilities',
+      'https://support.publishing.service.gov.uk/anonymous_feedback?path=/browse/disabilities',
       'http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk/browse/disabilities'
     ])
   })
@@ -54,5 +55,25 @@ describe("PopupView.generateContentLinks", function () {
     )
 
     expect(links).toEqual([])
+  })
+
+  it("only generates URLs for publishing-apps when it's the support application", function () {
+    var links = Popup.generateContentLinks(
+      stubLocation("https://support.publishing.service.gov.uk/anonymous_feedback?path=/browse/disabilities"),
+      PROD_ENV
+    )
+
+    var urls = pluck(links, 'url')
+
+    expect(urls).toEqual([
+      'https://www.gov.uk/browse/disabilities',
+      'https://www.gov.uk/api/content/browse/disabilities',
+      'https://www.gov.uk/api/search.json?filter_link=/browse/disabilities',
+      'https://www.gov.uk/info/browse/disabilities',
+      'https://www.gov.uk/api/browse/disabilities.json',
+      'https://draft-origin.publishing.service.gov.uk/browse/disabilities',
+      'https://support.publishing.service.gov.uk/anonymous_feedback?path=/browse/disabilities',
+      'http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk/browse/disabilities'
+    ])
   })
 })

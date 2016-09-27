@@ -8,6 +8,9 @@ Popup.extractPath = function(location, renderingApplication) {
   if (location.href.match(/api\/content/)) {
     extractedPath = location.pathname.replace('api/content/', '');
   }
+  else if (location.href.match(/anonymous_feedback/)) {
+    extractedPath = location.href.split('path=')[1];
+  }
   else if (location.href.match(/nationalarchives.gov.uk/)) {
     extractedPath = location.pathname.split('https://www.gov.uk')[1];
   }
