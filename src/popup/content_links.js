@@ -24,7 +24,7 @@ Popup.generateContentLinks = function(location, currentEnvironment, renderingApp
   if (path != '/') {
     links.push({ name: "Content item (JSON)", url: originHost + "/api/content" + path })
     links.push({ name: "Search data (JSON)", url: originHost + "/api/search.json?filter_link=" + path })
-    links.push({ name: "Info page (not always available)", url: originHost + "/info" + path })
+    links.push({ name: "Info page", url: originHost + "/info" + path })
     links.push({ name: "Content API (JSON, deprecated)", url: originHost + "/api" + path + ".json" })
     links.push({ name: "Draft (may not always work)", url: currentEnvironment.protocol + '://draft-origin.' + currentEnvironment.serviceDomain + path })
   }
