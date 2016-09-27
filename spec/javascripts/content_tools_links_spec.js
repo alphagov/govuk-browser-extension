@@ -1,24 +1,24 @@
 describe("PopupView.generateContentToolsLinks", function () {
-  var renderingApplication = "smartanswers";
-  var PROD_ENV = {}
+  describe("on a SmartAnswers question or outcome", function () {
+    var contentToolsLinks = Popup.generateContentToolsLinks("smartanswers", { url: "https://www.gov.uk/smart-answer/y/question-1" });
+    var contentToolsURLs = contentToolsLinks.map(function (link) { return link.url; });
 
-  it("returns the URL to the GovSpeak file", function () {
-    PROD_ENV.url = "https://www.gov.uk/smart-answer/y/question-1";
-    contentToolsLinks = Popup.generateContentToolsLinks(renderingApplication, PROD_ENV)
-
-    expect(contentToolsLinks[0].url).toEqual(PROD_ENV.url + ".txt")
+    it("generates a GovSpeak link", function () {
+      expect(contentToolsURLs).toContain("https://www.gov.uk/smart-answer/y/question-1.txt");
+    });
   });
 
-  it("does not add a link to the GovSpeak of landing pages", function () {
-    PROD_ENV.url = "https://www.gov.uk/smart-answer";
-    contentToolsLinks = Popup.generateContentToolsLinks(renderingApplication, PROD_ENV)
+  describe("on a SmartAnswers landing page", function () {
+    var contentToolsLinks = Popup.generateContentToolsLinks("smartanswers", { url: "https://www.gov.uk/smart-answer" });
+    var contentToolsURLs = contentToolsLinks.map(function (link) { return link.url; });
 
-    expect(contentToolsLinks).toEqual([])
+    it("does not generate a GovSpeak link", function () {
+      expect(contentToolsURLs).not.toContain("https://www.gov.uk/smart-answer.txt");
+    });
   });
 
-  it("does not add a link to GovSpeak for other non-smartanswer pages", function () {
-    PROD_ENV.url = "https://wwww.gov.uk/not-a-smartanswer";
-    contentToolsLinks = Popup.generateContentToolsLinks("something-else", PROD_ENV)
+  it("does not add content tools links on non-SmartAnswers pages", function () {
+    var contentToolsLinks = Popup.generateContentToolsLinks("something-else", { url: "https://wwww.gov.uk/not-a-smartanswer" });
 
     expect(contentToolsLinks).toEqual([])
   });
