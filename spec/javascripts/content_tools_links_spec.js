@@ -6,6 +6,10 @@ describe("PopupView.generateContentToolsLinks", function () {
     it("generates a GovSpeak link", function () {
       expect(contentToolsURLs).toContain("https://www.gov.uk/smart-answer/y/question-1.txt");
     });
+
+    it("generates a visualise link", function () {
+      expect(contentToolsURLs).toContain("https://www.gov.uk/smart-answer/visualise");
+    });
   });
 
   describe("on a SmartAnswers landing page", function () {
@@ -14,6 +18,10 @@ describe("PopupView.generateContentToolsLinks", function () {
 
     it("does not generate a GovSpeak link", function () {
       expect(contentToolsURLs).not.toContain("https://www.gov.uk/smart-answer.txt");
+    });
+
+    it("generates a visualise link", function () {
+      expect(contentToolsURLs).toContain("https://www.gov.uk/smart-answer/visualise");
     });
   });
 
