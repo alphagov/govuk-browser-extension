@@ -5,5 +5,10 @@
 chrome.runtime.sendMessage({
   action: "populatePopup",
   currentLocation: window.location,
-  renderingApplication: $('meta[name="govuk:rendering-application"]').attr('content'),
+  renderingApplication: getMetatag('govuk:rendering-application'),
 });
+
+function getMetatag(name) {
+  var meta = document.getElementsByTagName('meta')[name]
+  return meta && meta.getAttribute('content')
+}
