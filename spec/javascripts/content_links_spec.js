@@ -91,7 +91,21 @@ describe("PopupView.generateContentLinks", function () {
     )
   })
 
-  it("generates a links for smart answers", function () {
+  it("generates correct mainstream content store URL", function () {
+    var links = Popup.generateContentLinks(
+      stubLocation("https://www.gov.uk/holiday-entitlement-rights/holiday-pay-the-basics"),
+      PROD_ENV,
+      "frontend"
+    )
+
+    var urls = pluck(links, 'url')
+
+    expect(urls).toContain(
+      "https://www.gov.uk/api/content/holiday-entitlement-rights"
+    )
+  })
+
+  it("generates a link for smart answers", function () {
     var links = Popup.generateContentLinks(
       stubLocation("https://www.gov.uk/smart-answer/y/question-1"),
       PROD_ENV,
