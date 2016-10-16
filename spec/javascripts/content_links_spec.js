@@ -76,4 +76,18 @@ describe("PopupView.generateContentLinks", function () {
       'http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk/browse/disabilities'
     ])
   })
+
+  it("generates correct smartanswers URLs", function () {
+    var links = Popup.generateContentLinks(
+      stubLocation("https://www.gov.uk/maternity-paternity-calculator/y/maternity"),
+      PROD_ENV,
+      "smartanswers"
+    )
+
+    var urls = pluck(links, 'url')
+
+    expect(urls).toContain(
+      'https://www.gov.uk/api/content/maternity-paternity-calculator'
+    )
+  })
 })
