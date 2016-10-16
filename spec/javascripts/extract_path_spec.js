@@ -64,4 +64,10 @@ describe("Popup.extractPath", function () {
 
     expect(path).toBe("/some/page")
   })
+
+  it("returns the path for the smart answers visualisation", function () {
+    var path = Popup.extractPath(stubLocation("https://www.gov.uk/maternity-paternity-calculator/visualise"))
+
+    expect(path).toBe("/maternity-paternity-calculator")
+  })
 })
