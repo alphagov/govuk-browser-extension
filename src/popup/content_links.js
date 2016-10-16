@@ -38,6 +38,16 @@ Popup.generateContentLinks = function(location, currentEnvironment, renderingApp
 
   links.push({ name: "National Archives", url: "http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk" + path })
 
+  var currentUrl = originHost + path;
+
+  if (renderingApplication == "smartanswers") {
+    if (currentUrl.match(/\/y\/?.*$/)) {
+      links.push({ name: "SmartAnswers: Display GovSpeak", url: currentUrl + ".txt"})
+    }
+
+    links.push({ name: "SmartAnswers: Visualise", url: currentUrl.replace(/\/y.*$/, "") + "/visualise" })
+  }
+
   return links.map(function (link) {
     link.class = link.url == location.href ? "current" : ""
     return link;

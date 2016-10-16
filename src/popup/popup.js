@@ -32,7 +32,6 @@ var Popup = Popup || {};
     if (contentStore) {
       // Request the content item to add some extra links.
       $.getJSON(contentStore.url, function(contentStoreData) {
-        view.contentToolsLinks = Popup.generateContentToolsLinks(renderingApplication, view.currentEnvironment);
         view.externalLinks = Popup.generateExternalLinks(contentStoreData, view.currentEnvironment);
         $('#content').html(Mustache.render(template, view));
         setupClicks();
