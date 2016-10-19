@@ -65,24 +65,9 @@ describe("Popup.extractPath", function () {
     expect(path).toBe("/some/page")
   })
 
-  it("returns the path to the landing page for smart-answer question pages", function () {
-    var renderingApplication = "smartanswers"
-    var path = Popup.extractPath(stubLocation("https://www.gov.uk/smart-answer/y/question-1"), renderingApplication)
+  it("returns the path for the smart answers visualisation", function () {
+    var path = Popup.extractPath(stubLocation("https://www.gov.uk/maternity-paternity-calculator/visualise"))
 
-    expect(path).toBe("/smart-answer")
-  })
-
-  it("returns the path to the landing page for the text version of smart-answer question pages", function () {
-    var renderingApplication = "smartanswers"
-    var path = Popup.extractPath(stubLocation("https://www.gov.uk/smart-answer/y/question-1.txt"), renderingApplication)
-
-    expect(path).toBe("/smart-answer")
-  })
-
-  it("returns the path to the landing page for the json version of smart-answer question pages", function () {
-    var renderingApplication = "smartanswers"
-    var path = Popup.extractPath(stubLocation("https://www.gov.uk/smart-answer/y/question-1.json"), renderingApplication)
-
-    expect(path).toBe("/smart-answer")
+    expect(path).toBe("/maternity-paternity-calculator")
   })
 })

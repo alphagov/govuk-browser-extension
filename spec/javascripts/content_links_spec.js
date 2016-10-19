@@ -76,4 +76,59 @@ describe("PopupView.generateContentLinks", function () {
       'http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk/browse/disabilities'
     ])
   })
+
+  it("generates correct smartanswers URLs", function () {
+    var links = Popup.generateContentLinks(
+      stubLocation("https://www.gov.uk/maternity-paternity-calculator/y/maternity"),
+      PROD_ENV,
+      "smartanswers"
+    )
+
+    var urls = pluck(links, 'url')
+
+    expect(urls).toContain(
+      'https://www.gov.uk/api/content/maternity-paternity-calculator'
+    )
+  })
+
+  it("generates correct mainstream content store URL", function () {
+    var links = Popup.generateContentLinks(
+      stubLocation("https://www.gov.uk/holiday-entitlement-rights/holiday-pay-the-basics"),
+      PROD_ENV,
+      "frontend"
+    )
+
+    var urls = pluck(links, 'url')
+
+    expect(urls).toContain(
+      "https://www.gov.uk/api/content/holiday-entitlement-rights"
+    )
+  })
+
+  it("generates a link for smart answers", function () {
+    var links = Popup.generateContentLinks(
+      stubLocation("https://www.gov.uk/smart-answer/y/question-1"),
+      PROD_ENV,
+      "smartanswers"
+    )
+
+    var urls = pluck(links, 'url')
+
+    expect(urls).toContain(
+      "https://www.gov.uk/smart-answer/y/question-1.txt",
+      "https://www.gov.uk/smart-answer/visualise"
+    )
+  })
+
+  it("does not generate a markdown link for landing pages", function () {
+    var links = Popup.generateContentLinks(
+      stubLocation("https://www.gov.uk/smart-answer"),
+      PROD_ENV,
+      "smartanswers"
+    )
+
+    var urls = pluck(links, 'url')
+
+    expect(urls).not.toContain("https://www.gov.uk/smart-answer.txt")
+  })
 })

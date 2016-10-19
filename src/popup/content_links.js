@@ -21,8 +21,16 @@ Popup.generateContentLinks = function(location, currentEnvironment, renderingApp
   // If we're on the homepage there's not much to show.
   links.push({ name: "On GOV.UK", url: originHost + path })
 
+  if (renderingApplication == "smartanswers") {
+    var contentStoreUrl = originHost + "/api/content" + path.replace(/\/y\/?.*$/, '');
+  } else if (renderingApplication == "frontend") {
+    var contentStoreUrl = originHost + "/api/content/" + path.split('/')[1];
+  } else {
+    var contentStoreUrl = originHost + "/api/content" + path;
+  }
+
   if (path != '/') {
-    links.push({ name: "Content item (JSON)", url: originHost + "/api/content" + path })
+    links.push({ name: "Content item (JSON)", url: contentStoreUrl })
     links.push({ name: "Search data (JSON)", url: originHost + "/api/search.json?filter_link=" + path })
     links.push({ name: "Info page", url: originHost + "/info" + path })
     links.push({ name: "Content API (JSON, deprecated)", url: originHost + "/api" + path + ".json" })
@@ -31,6 +39,16 @@ Popup.generateContentLinks = function(location, currentEnvironment, renderingApp
   }
 
   links.push({ name: "National Archives", url: "http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk" + path })
+
+  var currentUrl = originHost + path;
+
+  if (renderingApplication == "smartanswers") {
+    if (currentUrl.match(/\/y\/?.*$/)) {
+      links.push({ name: "SmartAnswers: Display GovSpeak", url: currentUrl + ".txt"})
+    }
+
+    links.push({ name: "SmartAnswers: Visualise", url: currentUrl.replace(/\/y.*$/, "") + "/visualise" })
+  }
 
   return links.map(function (link) {
     link.class = link.url == location.href ? "current" : ""

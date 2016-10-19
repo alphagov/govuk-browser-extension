@@ -23,11 +23,8 @@ Popup.extractPath = function(location, renderingApplication) {
   else if (location.href.match(/api.*\.json/)) {
     extractedPath = location.pathname.replace('api/', '').replace('.json', '');
   }
-  else if (renderingApplication === "smartanswers") {
-    extractedPath = location.pathname.replace(/\/y\/?.*$/, '');
-  }
-  else if (location.href.match(/\/y\/?.*$/)) {
-    extractedPath = location.pathname.replace(/\/y\/?.*$/, '');
+  else if (location.href.match(/visualise/)) {
+    extractedPath = location.pathname.replace('/visualise', '');
   }
   else if (location.href.match(/www/) || location.href.match(/draft-origin/)) {
     extractedPath = location.pathname;
