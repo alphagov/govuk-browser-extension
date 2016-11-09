@@ -79,8 +79,8 @@ function generateEditLink(contentItem, env) {
     }
   } else if (contentItem.document_type == 'manual') {
     return {
-      name: 'Edit in Specialist Publisher',
-      url: env.protocol + '://specialist-publisher.' + env.serviceDomain + '/manuals/' + contentItem.content_id,
+      name: 'Edit in Manuals Publisher',
+      url: env.protocol + '://manuals-publisher.' + env.serviceDomain + '/manuals/' + contentItem.content_id,
     }
   } else if (contentItem.publishing_app == 'specialist-publisher') {
     // TODO: link directly to the specialist document edit page
