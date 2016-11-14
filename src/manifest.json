@@ -19,7 +19,6 @@
     "128": "icons/128.png"
   },
   "permissions": [
-    "tabs",
     "http://*.gov.uk/*",
     "https://*.gov.uk/*"
   ],
