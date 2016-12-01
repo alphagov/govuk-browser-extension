@@ -14,6 +14,19 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
+  it("generates a Github link when the rendering app does not match the repository name", function () {
+    var contentItem = {
+      rendering_app: 'businesssupportfinder'
+    }
+
+    var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
+
+    expect(links).toContain({
+      name: 'Rendering app: businesssupportfinder <img src="popup/github.png" width="16" />',
+      url: 'https://github.com/alphagov/business-support-finder'
+    })
+  })
+
   it("generates a link to the publishing app GitHub", function () {
     var contentItem = {
       publishing_app: 'collections-publisher'
@@ -24,6 +37,19 @@ describe("Popup.generateExternalLinks", function () {
     expect(links).toContain({
       name: 'Publishing app: collections-publisher <img src="popup/github.png" width="16" />',
       url: 'https://github.com/alphagov/collections-publisher'
+    })
+  })
+
+  it("generates the correct Github link when a publishing app does not match the repository name", function () {
+    var contentItem = {
+      publishing_app: 'tariff'
+    }
+
+    var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
+
+    expect(links).toContain({
+      name: 'Publishing app: tariff <img src="popup/github.png" width="16" />',
+      url: 'https://github.com/alphagov/trade-tariff-backend'
     })
   })
 
