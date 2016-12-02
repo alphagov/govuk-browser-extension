@@ -91,6 +91,20 @@ describe("PopupView.generateContentLinks", function () {
     )
   })
 
+  it("generates the correct content api DVLA url", function () {
+    var links = Popup.generateContentLinks(
+      stubLocation("https://www.gov.uk/done/pay-dvla-fine"),
+      PROD_ENV,
+      "frontend"
+    )
+
+    var urls = pluck(links, 'url')
+
+    expect(urls).toContain(
+      "https://www.gov.uk/api/content/done/pay-dvla-fine"
+    )
+  });
+
   it("generates correct mainstream content store URL", function () {
     var links = Popup.generateContentLinks(
       stubLocation("https://www.gov.uk/holiday-entitlement-rights/holiday-pay-the-basics"),
