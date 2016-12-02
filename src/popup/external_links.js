@@ -3,22 +3,34 @@ var Popup = Popup || {};
 // With the content item we can generate a bunch of external links.
 Popup.generateExternalLinks = function(contentItem, env) {
 
-  // Not all publishing_app/rendering_app name corresponds to the name of the
+  // Not all publishing_apps name corresponds to the name of the
   // alphagov repo.
-  function appNameToRepo(appName) {
+  function publishingAppNameToRepo(appName) {
+    var APP_NAMES_TO_REPOS = {
+      smartanswers: 'smart-answers',
+      tariff: 'trade-tariff-backend'
+    };
+
+    return APP_NAMES_TO_REPOS[appName] || appName;
+  }
+
+  // Not all rendering_apps name corresponds to the name of the
+  // alphagov repo.
+  function renderingAppNameToRepo(appName) {
     var APP_NAMES_TO_REPOS = {
       smartanswers: 'smart-answers',
       designprinciples: 'design-principles',
       'whitehall-frontend': 'whitehall',
-      'businesssupportfinder': 'business-support-finder'
-    }
+      businesssupportfinder: 'business-support-finder',
+      tariff: 'trade-tariff-frontend'
+    };
 
     return APP_NAMES_TO_REPOS[appName] || appName;
   }
 
   var links = [generateEditLink(contentItem, env)];
 
-  var schemaName = contentItem.schema_name || ""; 
+  var schemaName = contentItem.schema_name || "";
   if (schemaName.indexOf("placeholder") !== -1) {
     schemaName = "placeholder"
   }
@@ -35,12 +47,12 @@ Popup.generateExternalLinks = function(contentItem, env) {
 
   links.push({
     name: 'Rendering app: ' + contentItem.rendering_app + ' <img src="popup/github.png" width="16" />',
-    url: 'https://github.com/alphagov/' + appNameToRepo(contentItem.rendering_app)
+    url: 'https://github.com/alphagov/' + renderingAppNameToRepo(contentItem.rendering_app)
   })
 
   links.push({
     name: 'Publishing app: ' + contentItem.publishing_app + ' <img src="popup/github.png" width="16" />',
-    url: 'https://github.com/alphagov/' + appNameToRepo(contentItem.publishing_app)
+    url: 'https://github.com/alphagov/' + publishingAppNameToRepo(contentItem.publishing_app)
   })
 
   links.push({
