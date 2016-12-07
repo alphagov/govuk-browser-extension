@@ -23,10 +23,12 @@ Popup.generateContentLinks = function(location, currentEnvironment, renderingApp
 
   if (renderingApplication == "smartanswers") {
     var contentStoreUrl = originHost + "/api/content" + path.replace(/\/y\/?.*$/, '');
-  } else if (path.split('/')[1] == "done" && renderingApplication == "frontend")
-    var contentStoreUrl = originHost + "/api/content" + path;
-  else if (renderingApplication == "frontend") {
-    var contentStoreUrl = originHost + "/api/content/" + path.split('/')[1];
+  } else if (renderingApplication == "frontend") {
+    if (path.split('/')[1] == "done" || path.split('/')[1] == "help") {
+      var contentStoreUrl = originHost + "/api/content" + path;
+    } else {
+      var contentStoreUrl = originHost + "/api/content/" + path.split('/')[1];
+    }
   } else {
     var contentStoreUrl = originHost + "/api/content" + path;
   }
