@@ -105,6 +105,20 @@ describe("PopupView.generateContentLinks", function () {
     )
   });
 
+  it("generates the correct content api for help pages", function () {
+    var links = Popup.generateContentLinks(
+      stubLocation("https://www.gov.uk/help/cookies"),
+      PROD_ENV,
+      "frontend"
+    )
+
+    var urls = pluck(links, 'url')
+
+    expect(urls).toContain(
+      "https://www.gov.uk/api/content/help/cookies"
+    )
+  });
+
   it("generates correct mainstream content store URL", function () {
     var links = Popup.generateContentLinks(
       stubLocation("https://www.gov.uk/holiday-entitlement-rights/holiday-pay-the-basics"),
