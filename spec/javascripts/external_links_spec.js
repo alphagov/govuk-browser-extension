@@ -9,8 +9,8 @@ describe("Popup.generateExternalLinks", function () {
     var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
 
     expect(links).toContain({
-      name: 'Rendering app: collections <img src="popup/github.png" width="16" />',
-      url: 'https://github.com/alphagov/collections'
+      name: 'Rendering app: collections',
+      url: 'https://docs.publishing.service.gov.uk/apps/collections.html'
     })
   })
 
@@ -22,8 +22,8 @@ describe("Popup.generateExternalLinks", function () {
     var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
 
     expect(links).toContain({
-      name: 'Rendering app: businesssupportfinder <img src="popup/github.png" width="16" />',
-      url: 'https://github.com/alphagov/business-support-finder'
+      name: 'Rendering app: businesssupportfinder',
+      url: 'https://docs.publishing.service.gov.uk/apps/business-support-finder.html'
     })
   })
 
@@ -35,8 +35,8 @@ describe("Popup.generateExternalLinks", function () {
     var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
 
     expect(links).toContain({
-      name: 'Publishing app: collections-publisher <img src="popup/github.png" width="16" />',
-      url: 'https://github.com/alphagov/collections-publisher'
+      name: 'Publishing app: collections-publisher',
+      url: 'https://docs.publishing.service.gov.uk/apps/collections-publisher.html'
     })
   })
 
@@ -48,8 +48,8 @@ describe("Popup.generateExternalLinks", function () {
     var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
 
     expect(links).toContain({
-      name: 'Publishing app: tariff <img src="popup/github.png" width="16" />',
-      url: 'https://github.com/alphagov/trade-tariff-backend'
+      name: 'Publishing app: tariff',
+      url: 'https://docs.publishing.service.gov.uk/apps/trade-tariff-backend.html'
     })
   })
 
@@ -61,8 +61,8 @@ describe("Popup.generateExternalLinks", function () {
     var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
 
     expect(links).toContain({
-      name: 'Content schema: topic <img src="popup/github.png" width="16" />',
-      url: 'https://github.com/alphagov/govuk-content-schemas/tree/master/dist/formats/topic'
+      name: 'Content schema: topic',
+      url: 'https://docs.publishing.service.gov.uk/content-schemas/topic.html'
     })
   })
 
@@ -74,8 +74,8 @@ describe("Popup.generateExternalLinks", function () {
     var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
 
     expect(links).toContain({
-      name: 'Content schema: placeholder <img src="popup/github.png" width="16" />',
-      url: 'https://github.com/alphagov/govuk-content-schemas/tree/master/dist/formats/placeholder'
+      name: 'Content schema: placeholder',
+      url: 'https://docs.publishing.service.gov.uk/content-schemas/placeholder.html'
     })
   })
 
