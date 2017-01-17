@@ -46,18 +46,18 @@ Popup.generateExternalLinks = function(contentItem, env) {
   })
 
   links.push({
-    name: 'Rendering app: ' + contentItem.rendering_app + ' <img src="popup/github.png" width="16" />',
-    url: 'https://github.com/alphagov/' + renderingAppNameToRepo(contentItem.rendering_app)
+    name: 'Rendering app: ' + contentItem.rendering_app,
+    url: 'https://docs.publishing.service.gov.uk/apps/' + renderingAppNameToRepo(contentItem.rendering_app) + '.html'
   })
 
   links.push({
-    name: 'Publishing app: ' + contentItem.publishing_app + ' <img src="popup/github.png" width="16" />',
-    url: 'https://github.com/alphagov/' + publishingAppNameToRepo(contentItem.publishing_app)
+    name: 'Publishing app: ' + contentItem.publishing_app,
+    url: 'https://docs.publishing.service.gov.uk/apps/' + publishingAppNameToRepo(contentItem.publishing_app) + '.html'
   })
 
   links.push({
-    name: 'Content schema: ' + schemaName + ' <img src="popup/github.png" width="16" />',
-    url: 'https://github.com/alphagov/govuk-content-schemas/tree/master/dist/formats/' + schemaName
+    name: 'Content schema: ' + schemaName,
+    url: 'https://docs.publishing.service.gov.uk/content-schemas/' + schemaName + '.html'
   })
 
   links.push({
