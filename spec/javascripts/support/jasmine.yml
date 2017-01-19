@@ -1,5 +1,6 @@
 src_files:
     - src/popup/lib/jquery.min.js
+    - src/popup/ab_tests.js
     - src/popup/content_links.js
     - src/popup/environment.js
     - src/popup/extract_path.js

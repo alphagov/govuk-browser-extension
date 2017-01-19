@@ -45,3 +45,35 @@ li a:hover {
   background-color: #005ea5;
   color: #fff;
 }
+
+.ab-tests {
+  margin-top: 10px;
+  padding: 20px 0 20px 10px;
+  border-top: 1px solid #ccc;
+}
+
+.ab-tests h1 {
+  margin-bottom: 9px;
+}
+
+.ab-test-name, .ab-test-bucket {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.ab-test-name {
+  width: 250px;
+  padding: 9px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ab-test-bucket {
+  padding: 7px 9px 7px 9px;
+}
+
+.ab-bucket-selected {
+  color: #fff;
+  background-color: #005ea5;
+}

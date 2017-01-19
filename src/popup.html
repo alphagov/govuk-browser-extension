@@ -4,6 +4,7 @@
   <script src='popup/lib/mustache.min.js'></script>
   <script src='popup/lib/jquery.min.js'></script>
 
+  <script src='popup/ab_tests.js'></script>
   <script src='popup/content_links.js'></script>
   <script src='popup/environment.js'></script>
   <script src='popup/external_links.js'></script>
@@ -23,6 +24,22 @@
 
     <ul class='content-links'>{{#contentLinks}}<li><a href="{{url}}" class="{{class}}">{{name}}</a></li>{{/contentLinks}}</ul>
     <ul class='external-links'>{{#externalLinks}}<li><a href="{{url}}" class="external">{{{name}}}</a></li>{{/externalLinks}}</ul>
+
+    {{#abTests.length}}
+      <div class='ab-tests'>
+        <h1>A/B tests</h1>
+        <ul>
+        {{#abTests}}
+          <li>
+            <span class='ab-test-name'>{{name}}</span>
+            {{#buckets}}
+              <span class='ab-test-bucket {{class}}'>{{name}}</span>
+            {{/buckets}}
+          </li>
+        {{/abTests}}
+        </ul>
+      </div>
+    {{/abTests.length}}
   </script>
 
   <div id="content">Loading...</div>
