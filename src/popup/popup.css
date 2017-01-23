@@ -71,9 +71,10 @@ li a:hover {
 
 .ab-test-bucket {
   padding: 7px 9px 7px 9px;
+  cursor: pointer;
 }
 
-.ab-bucket-selected {
+.ab-bucket-selected, .ab-test-bucket:hover {
   color: #fff;
   background-color: #005ea5;
 }
