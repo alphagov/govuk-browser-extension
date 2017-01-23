@@ -13,9 +13,9 @@ describe("Popup.findActiveAbTests", function () {
     });
 
     expect(abTests.length).toEqual(3);
-    expect(abTests[0].name).toEqual("first-AB-test-name");
-    expect(abTests[1].name).toEqual("second-AB-test-name");
-    expect(abTests[2].name).toEqual("third-AB-test-name");
+    expect(abTests[0].testName).toEqual("first-AB-test-name");
+    expect(abTests[1].testName).toEqual("second-AB-test-name");
+    expect(abTests[2].testName).toEqual("third-AB-test-name");
   });
 
   it("returns A and B buckets", function () {
@@ -24,8 +24,8 @@ describe("Popup.findActiveAbTests", function () {
     });
 
     expect(abTests[0].buckets.length).toEqual(2);
-    expect(abTests[0].buckets[0].name).toEqual("A");
-    expect(abTests[0].buckets[1].name).toEqual("B");
+    expect(abTests[0].buckets[0].bucketName).toEqual("A");
+    expect(abTests[0].buckets[1].bucketName).toEqual("B");
   });
 
   it("highlights 'A' bucket if user is in 'A' group", function () {

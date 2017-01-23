@@ -31,9 +31,9 @@
         <ul>
         {{#abTests}}
           <li>
-            <span class='ab-test-name'>{{name}}</span>
+            <span class='ab-test-name'>{{testName}}</span>
             {{#buckets}}
-              <span class='ab-test-bucket {{class}}'>{{name}}</span>
+              <span class='ab-test-bucket {{class}}' data-test-name='{{testName}}' data-bucket='{{bucketName}}'>{{bucketName}}</span>
             {{/buckets}}
           </li>
         {{/abTests}}

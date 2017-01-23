@@ -40,6 +40,8 @@ var Popup = Popup || {};
         setupClicks();
       })
     }
+
+    setupAbToggles();
   }
 
   function setupClicks() {
@@ -74,6 +76,20 @@ var Popup = Popup || {};
   // https://stackoverflow.com/questions/20087368/how-to-detect-if-user-it-trying-to-open-a-link-in-a-new-tab
   function userOpensPageInNewWindow(e) {
     return e.ctrlKey || e.shiftKey || e.metaKey || (e.button && e.button == 1);
+  }
+
+  function setupAbToggles() {
+    $('.ab-test-bucket').on('click', function(e) {
+
+      chrome.runtime.sendMessage({
+        action: 'set-ab-bucket',
+        abTestName: $(this).data('testName'),
+        abTestBucket: $(this).data('bucket')
+      });
+
+      $(this).addClass('ab-bucket-selected');
+      $(this).siblings('.ab-test-bucket').removeClass('ab-bucket-selected');
+    });
   }
 
   // This is the view object. It takes a location and the name of the rendering
