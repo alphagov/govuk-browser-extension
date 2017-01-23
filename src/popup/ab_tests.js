@@ -8,10 +8,10 @@ Popup.findActiveAbTests = function(abTestBuckets) {
     var currentBucket = abTestBuckets[abTestName];
 
     return {
-      name: abTestName,
+      testName: abTestName,
       buckets: buckets.map(function (bucketName) {
         return {
-          name: bucketName,
+          bucketName: bucketName,
           class: currentBucket === bucketName ? "ab-bucket-selected" : ""
         };
       })

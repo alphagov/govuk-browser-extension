@@ -20,7 +20,9 @@
   },
   "permissions": [
     "http://*.gov.uk/*",
-    "https://*.gov.uk/*"
+    "https://*.gov.uk/*",
+    "webRequest",
+    "webRequestBlocking"
   ],
   "page_action": {
     "default_icon": {
@@ -31,6 +33,6 @@
     "default_popup": "popup.html"
   },
   "background": {
-    "scripts": ["events/icon.js"]
+    "scripts": ["events/icon.js", "events/ab_test_settings.js"]
   }
 }
