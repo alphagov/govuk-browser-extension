@@ -15,14 +15,17 @@ var Popup = Popup || {};
   // render function.
   chrome.runtime.onMessage.addListener(function (request, _sender) {
     if (request.action == "populatePopup") {
-      renderPopup(request.currentLocation, request.renderingApplication);
+      renderPopup(
+        request.currentLocation,
+        request.renderingApplication,
+        request.abTestBuckets);
     }
   });
 
   // Render the popup.
-  function renderPopup(location, renderingApplication) {
+  function renderPopup(location, renderingApplication, abTestBuckets) {
     // Creates a view object with the data and render a template with it.
-    var view = createView(location, renderingApplication);
+    var view = createView(location, renderingApplication, abTestBuckets);
     var template = $('#template').html();
     $('#content').html(Mustache.render(template, view));
     setupClicks();
@@ -76,16 +79,18 @@ var Popup = Popup || {};
   // This is the view object. It takes a location and the name of the rendering
   // app and creates an object with all URLs and other view data to render the
   // pop.
-   function createView(location, renderingApplication) {
+   function createView(location, renderingApplication, abTestBuckets) {
     var environment = Popup.environment(location);
     var contentLinks = Popup.generateContentLinks(location, environment.currentEnvironment, renderingApplication);
+    var abTests = Popup.findActiveAbTests(abTestBuckets);
 
     return {
       environments: environment.allEnvironments,
       currentEnvironment: environment.currentEnvironment,
       contentLinks: contentLinks,
       // external links will be populated by a call to the content store
-      externalLinks: []
+      externalLinks: [],
+      abTests: abTests
     }
   }
 }());
