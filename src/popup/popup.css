@@ -5,13 +5,14 @@ body {
 }
 
 .envs {
-  padding: 20px 0 20px 10px;
+  padding: 0;
   background-color: #000;
 }
 
 .envs a {
   color: #fff;
-  padding: 5px 7px;
+  padding: 15px 8px;
+  display: inline-block;
 }
 
 .envs a.current,
@@ -47,13 +48,8 @@ li a:hover {
 }
 
 .ab-tests {
-  margin-top: 10px;
-  padding: 20px 0 20px 10px;
+  padding: 10px 0 10px 10px;
   border-top: 1px solid #ccc;
-}
-
-.ab-tests h1 {
-  margin-bottom: 9px;
 }
 
 .ab-test-name, .ab-test-bucket {
@@ -63,7 +59,6 @@ li a:hover {
 
 .ab-test-name {
   width: 250px;
-  padding: 9px 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -27,11 +27,10 @@
 
     {{#abTests.length}}
       <div class='ab-tests'>
-        <h1>A/B tests</h1>
         <ul>
         {{#abTests}}
           <li>
-            <span class='ab-test-name'>{{testName}}</span>
+            <span class='ab-test-name'>A/B test: <strong>{{testName}}</strong></span>
             {{#buckets}}
               <span class='ab-test-bucket {{class}}' data-test-name='{{testName}}' data-bucket='{{bucketName}}'>{{bucketName}}</span>
             {{/buckets}}
