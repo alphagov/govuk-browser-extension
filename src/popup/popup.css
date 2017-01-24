@@ -12,7 +12,7 @@ body {
 .envs a {
   color: #fff;
   padding: 15px 8px;
-  display: inline-block;;
+  display: inline-block;
 }
 
 .envs a.current,
