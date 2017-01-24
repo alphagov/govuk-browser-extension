@@ -20,14 +20,13 @@
 
     chrome.cookies.get({name: cookieName, url: url}, function (cookie) {
       if (cookie) {
-        console.log(cookie);
         cookie.value = bucket;
 
         var updatedCookie = {
           name: cookieName,
           value: bucket,
           url: url,
-          path: "/",
+          path: cookie.path,
           expirationDate: cookie.expirationDate
         };
 
