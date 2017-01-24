@@ -1,3 +1,10 @@
+// This script is executed in the background.
+//
+// - It sets the appropriate request headers like `GOVUK-ABTest-NewNavigation`
+// so that applications in integration, staging and development will respond
+// with the correct A/B variant. It gets the current variant from the meta tags.
+// - Responds to messages to change the current A/B variant. It updates the
+// headers it will send and set a cookie like Fastly would.
 (function initializeAbHeaders() {
   var abTestBuckets = {};
 
