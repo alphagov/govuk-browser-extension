@@ -15,21 +15,20 @@ var Popup = Popup || {};
   // render function.
   chrome.runtime.onMessage.addListener(function (request, _sender) {
     if (request.action == "populatePopup") {
-      initializeBuckets(request.abTestBuckets, function (initializedBuckets) {
+      // When we're asked to populate the popup, we'll first send the current
+      // buckets back to the main thread, which "persists" them.
+      chrome.runtime.sendMessage({
+        action: 'initialize-ab-buckets',
+        abTestBuckets: request.abTestBuckets
+      }, function (initializedBuckets) {
         renderPopup(
           request.currentLocation,
           request.renderingApplication,
-          initializedBuckets);
+          initializedBuckets
+        );
       });
     }
   });
-
-  function initializeBuckets(abTestBuckets, handleResponse) {
-    chrome.runtime.sendMessage({
-      action: 'initialize-ab-buckets',
-      abTestBuckets: abTestBuckets
-    }, handleResponse);
-  }
 
   // Render the popup.
   function renderPopup(location, renderingApplication, abTestBuckets) {
