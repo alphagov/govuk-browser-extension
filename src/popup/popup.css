@@ -48,8 +48,7 @@ li a:hover {
 }
 
 .ab-tests {
-  margin-top: 10px;
-  padding: 20px 0 20px 10px;
+  padding: 10px 0 10px 10px;
   border-top: 1px solid #ccc;
 }
 
@@ -60,7 +59,6 @@ li a:hover {
 
 .ab-test-name {
   width: 250px;
-  padding: 9px 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
