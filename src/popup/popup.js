@@ -41,7 +41,7 @@ var Popup = Popup || {};
       })
     }
 
-    setupAbToggles();
+    setupAbToggles(location.href);
   }
 
   function setupClicks() {
@@ -78,13 +78,14 @@ var Popup = Popup || {};
     return e.ctrlKey || e.shiftKey || e.metaKey || (e.button && e.button == 1);
   }
 
-  function setupAbToggles() {
+  function setupAbToggles(url) {
     $('.ab-test-bucket').on('click', function(e) {
 
       chrome.runtime.sendMessage({
         action: 'set-ab-bucket',
         abTestName: $(this).data('testName'),
-        abTestBucket: $(this).data('bucket')
+        abTestBucket: $(this).data('bucket'),
+        url: url
       });
 
       $(this).addClass('ab-bucket-selected');

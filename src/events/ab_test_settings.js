@@ -21,6 +21,25 @@
   chrome.runtime.onMessage.addListener(function (request, sender) {
     if (request.action == "set-ab-bucket") {
       abTestBuckets[request.abTestName] = request.abTestBucket;
+
+      var cookieName = "ABTest-" + request.abTestName;
+
+      chrome.cookies.get({name: cookieName, url: request.url}, function (cookie) {
+        if (cookie) {
+          console.log(cookie);
+          cookie.value = request.abTestBucket;
+
+          var updatedCookie = {
+            name: cookieName,
+            value: request.abTestBucket,
+            url: request.url,
+            path: "/",
+            expirationDate: cookie.expirationDate
+          };
+
+          chrome.cookies.set(updatedCookie);
+        }
+      });
     }
   });
 }());

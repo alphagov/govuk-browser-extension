@@ -21,6 +21,7 @@
   "permissions": [
     "http://*.gov.uk/*",
     "https://*.gov.uk/*",
+    "cookies",
     "webRequest",
     "webRequestBlocking"
   ],
