@@ -15,12 +15,21 @@ var Popup = Popup || {};
   // render function.
   chrome.runtime.onMessage.addListener(function (request, _sender) {
     if (request.action == "populatePopup") {
-      renderPopup(
-        request.currentLocation,
-        request.renderingApplication,
-        request.abTestBuckets);
+      initializeBuckets(request.abTestBuckets, function (initializedBuckets) {
+        renderPopup(
+          request.currentLocation,
+          request.renderingApplication,
+          initializedBuckets);
+      });
     }
   });
+
+  function initializeBuckets(abTestBuckets, handleResponse) {
+    chrome.runtime.sendMessage({
+      action: 'initialize-ab-buckets',
+      abTestBuckets: abTestBuckets
+    }, handleResponse);
+  }
 
   // Render the popup.
   function renderPopup(location, renderingApplication, abTestBuckets) {
