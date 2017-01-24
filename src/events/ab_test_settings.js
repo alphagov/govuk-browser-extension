@@ -12,14 +12,14 @@
     return Object.getOwnPropertyNames(abTestBuckets).length > 0;
   }
 
-  function initializeBuckets(initialBuckets, sendResponse) {
+  function initializeBuckets(initialBuckets, callback) {
     if (!areAbTestsInitialized()) {
       Object.keys(initialBuckets).map(function (testName) {
         abTestBuckets[testName] = initialBuckets[testName];
       });
     }
 
-    sendResponse(abTestBuckets);
+    callback(abTestBuckets);
   }
 
   function updateCookie(name, bucket, url) {
@@ -53,12 +53,12 @@
     return {requestHeaders: details.requestHeaders};
   }
 
-  chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  chrome.runtime.onMessage.addListener(function (request, sender, callback) {
     if (request.action === "set-ab-bucket") {
       abTestBuckets[request.abTestName] = request.abTestBucket;
       updateCookie(request.abTestName, request.abTestBucket, request.url);
     } else if (request.action === "initialize-ab-buckets") {
-      initializeBuckets(request.abTestBuckets, sendResponse);
+      initializeBuckets(request.abTestBuckets, callback);
     }
   });
 
