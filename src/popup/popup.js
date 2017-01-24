@@ -81,7 +81,10 @@ var Popup = Popup || {};
       var location = document.createElement('a');
       location.href = $(this).attr('href');
 
-      renderPopup(location);
+      // TODO: we're not actually re-rendering the popup correctly here, because
+      // we don't have access to the DOM here. This is a temporary solution to
+      // make most functionality work after the user clicks a button in the popup.
+      renderPopup(location, "", {});
     })
   }
 
