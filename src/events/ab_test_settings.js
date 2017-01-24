@@ -5,7 +5,7 @@
 // with the correct A/B variant. It gets the current variant from the meta tags.
 // - Responds to messages to change the current A/B variant. It updates the
 // headers it will send and set a cookie like Fastly would.
-(function initializeAbHeaders() {
+(function() {
   var abTestBuckets = {};
 
   function areAbTestsInitialized() {
