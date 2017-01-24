@@ -53,10 +53,6 @@ li a:hover {
   border-top: 1px solid #ccc;
 }
 
-.ab-tests h1 {
-  margin-bottom: 9px;
-}
-
 .ab-test-name, .ab-test-bucket {
   display: inline-block;
   vertical-align: middle;
