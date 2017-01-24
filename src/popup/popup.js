@@ -35,9 +35,6 @@ var Popup = Popup || {};
   function renderPopup(location, renderingApplication, abTestBuckets) {
     // Creates a view object with the data and render a template with it.
     var view = createView(location, renderingApplication, abTestBuckets);
-    var template = $('#template').html();
-    $('#content').html(Mustache.render(template, view));
-    setupClicks();
 
     var contentStore = view.contentLinks.find(function (el) { return el.name == "Content item (JSON)" })
 
@@ -45,15 +42,22 @@ var Popup = Popup || {};
       // Request the content item to add some extra links.
       $.getJSON(contentStore.url, function(contentStoreData) {
         view.externalLinks = Popup.generateExternalLinks(contentStoreData, view.currentEnvironment);
-        $('#content').html(Mustache.render(template, view));
-        setupClicks();
+        renderView(view, location.href);
       })
+    } else {
+      renderView(view, location.href);
     }
-
-    setupAbToggles(location.href);
   }
 
-  function setupClicks() {
+  function renderView(view, currentUrl) {
+    var template = $('#template').html();
+    $('#content').html(Mustache.render(template, view));
+    setupClicks(currentUrl);
+
+    setupAbToggles(currentUrl);
+  }
+
+  function setupClicks(currentUrl) {
     // Clicking on a link won't open the tab because we're in a separate window.
     // Open external links (to GitHub etc) in a new tab.
     $('a.external').on('click', function(e) {
