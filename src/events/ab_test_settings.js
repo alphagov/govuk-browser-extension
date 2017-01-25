@@ -1,18 +1,25 @@
-(function initializeAbHeaders() {
+// This script is executed in the background.
+//
+// - It sets the appropriate request headers like `GOVUK-ABTest-NewNavigation`
+// so that applications in integration, staging and development will respond
+// with the correct A/B variant. It gets the current variant from the meta tags.
+// - Responds to messages to change the current A/B variant. It updates the
+// headers it will send and set a cookie like Fastly would.
+(function() {
   var abTestBuckets = {};
 
   function areAbTestsInitialized() {
     return Object.getOwnPropertyNames(abTestBuckets).length > 0;
   }
 
-  function initializeBuckets(initialBuckets, sendResponse) {
+  function initializeBuckets(initialBuckets, callback) {
     if (!areAbTestsInitialized()) {
       Object.keys(initialBuckets).map(function (testName) {
         abTestBuckets[testName] = initialBuckets[testName];
       });
     }
 
-    sendResponse(abTestBuckets);
+    callback(abTestBuckets);
   }
 
   function updateCookie(name, bucket, url) {
@@ -46,12 +53,12 @@
     return {requestHeaders: details.requestHeaders};
   }
 
-  chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  chrome.runtime.onMessage.addListener(function (request, sender, callback) {
     if (request.action === "set-ab-bucket") {
       abTestBuckets[request.abTestName] = request.abTestBucket;
       updateCookie(request.abTestName, request.abTestBucket, request.url);
     } else if (request.action === "initialize-ab-buckets") {
-      initializeBuckets(request.abTestBuckets, sendResponse);
+      initializeBuckets(request.abTestBuckets, callback);
     }
   });
 
