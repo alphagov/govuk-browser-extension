@@ -8,16 +8,14 @@
 (function() {
   var abTestBuckets = {};
 
-  function areAbTestsInitialized() {
-    return Object.getOwnPropertyNames(abTestBuckets).length > 0;
-  }
-
   function initializeBuckets(initialBuckets, callback) {
-    if (!areAbTestsInitialized()) {
-      Object.keys(initialBuckets).map(function (testName) {
+    Object.keys(initialBuckets).map(function (testName) {
+      // Add any A/B tests that are not already defined, but do not overwrite
+      // any that we are already tracking.
+      if (!abTestBuckets[testName]) {
         abTestBuckets[testName] = initialBuckets[testName];
-      });
-    }
+      }
+    });
 
     callback(abTestBuckets);
   }
