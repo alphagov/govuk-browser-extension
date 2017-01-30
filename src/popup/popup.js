@@ -18,7 +18,7 @@ var Popup = Popup || {};
       // When we're asked to populate the popup, we'll first send the current
       // buckets back to the main thread, which "persists" them.
       var abTestSettings = chrome.extension.getBackgroundPage().abTestSettings;
-      var abTestBuckets = abTestSettings.initialize(request.abTestBuckets);
+      var abTestBuckets = abTestSettings.initialize(request.abTestBuckets, request.currentLocation.href);
 
       renderPopup(
         request.currentLocation,

@@ -9,9 +9,11 @@ var abTestSettings = (function() {
 
   var abBucketStore = chrome.extension.getBackgroundPage().abBucketStore.createStore();
 
-  function initialize(initialBuckets) {
-    abBucketStore.addAbTests(initialBuckets);
-    return abBucketStore.getAll();
+  function initialize(initialBuckets, url) {
+    var hostname = extractHostname(url);
+
+    abBucketStore.addAbTests(initialBuckets, hostname);
+    return abBucketStore.getAll(hostname);
   }
 
   function updateCookie(name, bucket, url) {
@@ -35,12 +37,12 @@ var abTestSettings = (function() {
   }
 
   function setBucket(testName, bucketName, url) {
-    abBucketStore.setBucket(testName, bucketName);
+    abBucketStore.setBucket(testName, bucketName, extractHostname(url));
     updateCookie(testName, bucketName, url);
   }
 
   function addAbHeaders(details) {
-    var abTestBuckets = abBucketStore.getAll();
+    var abTestBuckets = abBucketStore.getAll(extractHostname(details.url));
 
     Object.keys(abTestBuckets).map(function (abTestName) {
       details.requestHeaders.push({
@@ -50,6 +52,10 @@ var abTestSettings = (function() {
     });
 
     return {requestHeaders: details.requestHeaders};
+  }
+
+  function extractHostname(url) {
+    return new URL(url).hostname;
   }
 
   chrome.webRequest.onBeforeSendHeaders.addListener(

@@ -6,22 +6,24 @@ var abBucketStore = (function () {
   function createStore() {
     var abTestBuckets = {};
 
-    function addAbTests(initialBuckets) {
+    function addAbTests(initialBuckets, hostname) {
+      abTestBuckets[hostname] = abTestBuckets[hostname] || {};
+
       Object.keys(initialBuckets).map(function (testName) {
         // Add any A/B tests that are not already defined, but do not overwrite
         // any that we are already tracking.
-        if (!abTestBuckets[testName]) {
-          abTestBuckets[testName] = initialBuckets[testName];
+        if (!abTestBuckets[hostname][testName]) {
+          abTestBuckets[hostname][testName] = initialBuckets[testName];
         }
       });
     }
 
-    function getAll() {
-      return abTestBuckets;
+    function getAll(hostname) {
+      return abTestBuckets[hostname] || {};
     }
 
-    function setBucket(testName, bucket) {
-      abTestBuckets[testName] = bucket;
+    function setBucket(testName, bucket, hostname) {
+      abTestBuckets[hostname][testName] = bucket;
     }
 
     return {
