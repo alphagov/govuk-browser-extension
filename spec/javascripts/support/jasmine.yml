@@ -1,4 +1,5 @@
 src_files:
+    - src/events/ab_bucket_store.js
     - src/popup/lib/jquery.min.js
     - src/popup/ab_tests.js
     - src/popup/content_links.js

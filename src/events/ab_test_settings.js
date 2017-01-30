@@ -6,18 +6,12 @@
 // - Responds to messages to change the current A/B variant. It updates the
 // headers it will send and set a cookie like Fastly would.
 var abTestSettings = (function() {
-  var abTestBuckets = {};
+
+  var abBucketStore = chrome.extension.getBackgroundPage().abBucketStore.createStore();
 
   function initialize(initialBuckets) {
-    Object.keys(initialBuckets).map(function (testName) {
-      // Add any A/B tests that are not already defined, but do not overwrite
-      // any that we are already tracking.
-      if (!abTestBuckets[testName]) {
-        abTestBuckets[testName] = initialBuckets[testName];
-      }
-    });
-
-    return abTestBuckets;
+    abBucketStore.addAbTests(initialBuckets);
+    return abBucketStore.getAll();
   }
 
   function updateCookie(name, bucket, url) {
@@ -41,11 +35,13 @@ var abTestSettings = (function() {
   }
 
   function setBucket(testName, bucketName, url) {
-    abTestBuckets[testName] = bucketName;
+    abBucketStore.setBucket(testName, bucketName);
     updateCookie(testName, bucketName, url);
   }
 
   function addAbHeaders(details) {
+    var abTestBuckets = abBucketStore.getAll();
+
     Object.keys(abTestBuckets).map(function (abTestName) {
       details.requestHeaders.push({
         name: "GOVUK-ABTest-" + abTestName,
