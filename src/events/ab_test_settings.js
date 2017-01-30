@@ -16,7 +16,7 @@ var abTestSettings = (function() {
     return abBucketStore.getAll(hostname);
   }
 
-  function updateCookie(name, bucket, url) {
+  function updateCookie(name, bucket, url, callback) {
     var cookieName = "ABTest-" + name;
 
     chrome.cookies.get({name: cookieName, url: url}, function (cookie) {
@@ -31,14 +31,16 @@ var abTestSettings = (function() {
           expirationDate: cookie.expirationDate
         };
 
-        chrome.cookies.set(updatedCookie);
+        chrome.cookies.set(updatedCookie, callback);
+      } else {
+        callback();
       }
     });
   }
 
-  function setBucket(testName, bucketName, url) {
+  function setBucket(testName, bucketName, url, callback) {
     abBucketStore.setBucket(testName, bucketName, extractHostname(url));
-    updateCookie(testName, bucketName, url);
+    updateCookie(testName, bucketName, url, callback);
   }
 
   function addAbHeaders(details) {

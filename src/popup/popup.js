@@ -93,15 +93,20 @@ var Popup = Popup || {};
 
   function setupAbToggles(url) {
     $('.ab-test-bucket').on('click', function(e) {
+      var $selectedBucket = $(this);
 
       var abTestSettings = chrome.extension.getBackgroundPage().abTestSettings;
       abTestSettings.setBucket(
-        $(this).data('testName'),
-        $(this).data('bucket'),
-        url);
+        $selectedBucket.data('testName'),
+        $selectedBucket.data('bucket'),
+        url,
+        function () {
+          $selectedBucket.addClass('ab-bucket-selected');
+          $selectedBucket.siblings('.ab-test-bucket').removeClass('ab-bucket-selected');
 
-      $(this).addClass('ab-bucket-selected');
-      $(this).siblings('.ab-test-bucket').removeClass('ab-bucket-selected');
+          chrome.tabs.reload(null, { bypassCache: true });
+        }
+      );
     });
   }
 
