@@ -34,6 +34,10 @@
     "default_popup": "popup.html"
   },
   "background": {
-    "scripts": ["events/icon.js", "events/ab_test_settings.js"]
+    "scripts": [
+      "events/icon.js",
+      "events/ab_bucket_store.js",
+      "events/ab_test_settings.js"
+    ]
   }
 }
