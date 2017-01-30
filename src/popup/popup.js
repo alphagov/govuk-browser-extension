@@ -17,16 +17,14 @@ var Popup = Popup || {};
     if (request.action == "populatePopup") {
       // When we're asked to populate the popup, we'll first send the current
       // buckets back to the main thread, which "persists" them.
-      chrome.runtime.sendMessage({
-        action: 'initialize-ab-buckets',
-        abTestBuckets: request.abTestBuckets
-      }, function (initializedBuckets) {
-        renderPopup(
-          request.currentLocation,
-          request.renderingApplication,
-          initializedBuckets
-        );
-      });
+      var abTestSettings = chrome.extension.getBackgroundPage().abTestSettings;
+      var abTestBuckets = abTestSettings.initialize(request.abTestBuckets);
+
+      renderPopup(
+        request.currentLocation,
+        request.renderingApplication,
+        abTestBuckets
+      );
     }
   });
 
@@ -96,12 +94,11 @@ var Popup = Popup || {};
   function setupAbToggles(url) {
     $('.ab-test-bucket').on('click', function(e) {
 
-      chrome.runtime.sendMessage({
-        action: 'set-ab-bucket',
-        abTestName: $(this).data('testName'),
-        abTestBucket: $(this).data('bucket'),
-        url: url
-      });
+      var abTestSettings = chrome.extension.getBackgroundPage().abTestSettings;
+      abTestSettings.setBucket(
+        $(this).data('testName'),
+        $(this).data('bucket'),
+        url);
 
       $(this).addClass('ab-bucket-selected');
       $(this).siblings('.ab-test-bucket').removeClass('ab-bucket-selected');

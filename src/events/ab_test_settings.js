@@ -5,10 +5,10 @@
 // with the correct A/B variant. It gets the current variant from the meta tags.
 // - Responds to messages to change the current A/B variant. It updates the
 // headers it will send and set a cookie like Fastly would.
-(function() {
+var abTestSettings = (function() {
   var abTestBuckets = {};
 
-  function initializeBuckets(initialBuckets, callback) {
+  function initialize(initialBuckets) {
     Object.keys(initialBuckets).map(function (testName) {
       // Add any A/B tests that are not already defined, but do not overwrite
       // any that we are already tracking.
@@ -17,7 +17,7 @@
       }
     });
 
-    callback(abTestBuckets);
+    return abTestBuckets;
   }
 
   function updateCookie(name, bucket, url) {
@@ -40,6 +40,11 @@
     });
   }
 
+  function setBucket(testName, bucketName, url) {
+    abTestBuckets[testName] = bucketName;
+    updateCookie(testName, bucketName, url);
+  }
+
   function addAbHeaders(details) {
     Object.keys(abTestBuckets).map(function (abTestName) {
       details.requestHeaders.push({
@@ -51,18 +56,14 @@
     return {requestHeaders: details.requestHeaders};
   }
 
-  chrome.runtime.onMessage.addListener(function (request, sender, callback) {
-    if (request.action === "set-ab-bucket") {
-      abTestBuckets[request.abTestName] = request.abTestBucket;
-      updateCookie(request.abTestName, request.abTestBucket, request.url);
-    } else if (request.action === "initialize-ab-buckets") {
-      initializeBuckets(request.abTestBuckets, callback);
-    }
-  });
-
   chrome.webRequest.onBeforeSendHeaders.addListener(
     addAbHeaders,
     {urls: ["*://*.gov.uk/*"]},
     ["requestHeaders", "blocking"]
   );
+
+  return {
+    initialize: initialize,
+    setBucket: setBucket
+  };
 }());
