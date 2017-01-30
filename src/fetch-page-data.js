@@ -15,15 +15,15 @@ function getMetatag(name) {
 }
 
 function getAbTestBuckets() {
-  var abMetaTags = document.getElementsByTagName('meta');
+  var abMetaTags = document.querySelectorAll('meta[name="govuk:ab-test"]');
 
-  var abMetaTagPattern = /govuk:ab-test:([\w-]+):current-bucket/;
+  var metaTagPattern = /([\w-]+):([\w-]+)/;
+  var buckets = {};
 
-  return Object.keys(abMetaTags).filter(function (tagName) {
-    return tagName.match(abMetaTagPattern);
-  }).reduce(function (abTags, tagName) {
-    var abTestName = abMetaTagPattern.exec(tagName)[1];
-    abTags[abTestName] = abMetaTags[tagName].getAttribute('content');
-    return abTags;
-  }, {});
+  abMetaTags.forEach(function (metaTag) {
+    var testNameAndBucket = metaTagPattern.exec(metaTag.content);
+    buckets[testNameAndBucket[1]] = testNameAndBucket[2];
+  });
+
+  return buckets;
 }
