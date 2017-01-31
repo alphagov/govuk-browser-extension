@@ -79,6 +79,19 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
+  it("correctly links to document types", function () {
+    var contentItem = {
+      document_type: 'announcement'
+    }
+
+    var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
+
+    expect(links).toContain({
+      name: 'Document type: announcement',
+      url: 'https://docs.publishing.service.gov.uk/document-types/announcement.html'
+    })
+  })
+
   it("generates edit links for topics", function () {
     var contentItem = {
       content_id: '4d8568c4-67f2-48da-a578-5ac6f35b69b4',

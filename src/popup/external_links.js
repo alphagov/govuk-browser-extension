@@ -61,6 +61,11 @@ Popup.generateExternalLinks = function(contentItem, env) {
   })
 
   links.push({
+    name: 'Document type: ' + contentItem.document_type,
+    url: 'https://docs.publishing.service.gov.uk/document-types/' + contentItem.document_type + '.html'
+  })
+
+  links.push({
     name: 'Publishing API debug (SSH tunnel required)',
     url: env.protocol + '://publishing-api.' + env.serviceDomain + '/debug/' + contentItem.content_id
   })
