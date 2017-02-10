@@ -32,7 +32,7 @@ body {
 
 li a {
   display: block;
-  padding: 8px 10px;
+  padding: 7px 10px;
   color: #000;
   text-decoration: none;
 }
@@ -48,13 +48,15 @@ li a:hover {
 }
 
 .ab-tests {
-  padding: 10px 0 10px 10px;
+  margin-top: 10px;
+  padding-top: 10px;
   border-top: 1px solid #ccc;
 }
 
 .ab-test-name, .ab-test-bucket {
   display: inline-block;
   vertical-align: middle;
+  padding-left: 10px;
 }
 
 .ab-test-name {
@@ -65,7 +67,7 @@ li a:hover {
 }
 
 .ab-test-bucket {
-  padding: 7px 9px 7px 9px;
+  padding: 6px 9px;
   cursor: pointer;
 }
 
