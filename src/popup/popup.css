@@ -48,13 +48,15 @@ li a:hover {
 }
 
 .ab-tests {
-  padding: 10px 0 10px 10px;
+  margin-top: 10px;
+  padding-top: 10px;
   border-top: 1px solid #ccc;
 }
 
 .ab-test-name, .ab-test-bucket {
   display: inline-block;
   vertical-align: middle;
+  padding-left: 10px;
 }
 
 .ab-test-name {
