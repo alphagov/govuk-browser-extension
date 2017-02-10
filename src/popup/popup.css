@@ -32,7 +32,7 @@ body {
 
 li a {
   display: block;
-  padding: 8px 10px;
+  padding: 7px 10px;
   color: #000;
   text-decoration: none;
 }
@@ -65,7 +65,7 @@ li a:hover {
 }
 
 .ab-test-bucket {
-  padding: 7px 9px 7px 9px;
+  padding: 6px 9px;
   cursor: pointer;
 }
 
