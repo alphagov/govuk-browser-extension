@@ -21,7 +21,6 @@ Popup.generateExternalLinks = function(contentItem, env) {
       smartanswers: 'smart-answers',
       designprinciples: 'design-principles',
       'whitehall-frontend': 'whitehall',
-      businesssupportfinder: 'business-support-finder',
       tariff: 'trade-tariff-frontend'
     };
 
