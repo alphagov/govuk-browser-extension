@@ -16,14 +16,14 @@ describe("Popup.generateExternalLinks", function () {
 
   it("generates a Github link when the rendering app does not match the repository name", function () {
     var contentItem = {
-      rendering_app: 'businesssupportfinder'
+      rendering_app: 'smartanswers'
     }
 
     var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
 
     expect(links).toContain({
-      name: 'Rendering app: businesssupportfinder',
-      url: 'https://docs.publishing.service.gov.uk/apps/business-support-finder.html'
+      name: 'Rendering app: smartanswers',
+      url: 'https://docs.publishing.service.gov.uk/apps/smart-answers.html'
     })
   })
 
