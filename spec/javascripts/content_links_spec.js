@@ -14,7 +14,6 @@ describe("PopupView.generateContentLinks", function () {
       'https://www.gov.uk/api/content/browse/disabilities',
       'https://www.gov.uk/api/search.json?filter_link=/browse/disabilities',
       'https://www.gov.uk/info/browse/disabilities',
-      'https://www.gov.uk/api/browse/disabilities.json',
       'https://draft-origin.publishing.service.gov.uk/browse/disabilities',
       'https://support.publishing.service.gov.uk/anonymous_feedback?path=/browse/disabilities',
       'http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk/browse/disabilities'
@@ -70,7 +69,6 @@ describe("PopupView.generateContentLinks", function () {
       'https://www.gov.uk/api/content/browse/disabilities',
       'https://www.gov.uk/api/search.json?filter_link=/browse/disabilities',
       'https://www.gov.uk/info/browse/disabilities',
-      'https://www.gov.uk/api/browse/disabilities.json',
       'https://draft-origin.publishing.service.gov.uk/browse/disabilities',
       'https://support.publishing.service.gov.uk/anonymous_feedback?path=/browse/disabilities',
       'http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk/browse/disabilities'
@@ -90,34 +88,6 @@ describe("PopupView.generateContentLinks", function () {
       'https://www.gov.uk/api/content/maternity-paternity-calculator'
     )
   })
-
-  it("generates the correct content api DVLA url", function () {
-    var links = Popup.generateContentLinks(
-      stubLocation("https://www.gov.uk/done/pay-dvla-fine"),
-      PROD_ENV,
-      "frontend"
-    )
-
-    var urls = pluck(links, 'url')
-
-    expect(urls).toContain(
-      "https://www.gov.uk/api/content/done/pay-dvla-fine"
-    )
-  });
-
-  it("generates the correct content api for help pages", function () {
-    var links = Popup.generateContentLinks(
-      stubLocation("https://www.gov.uk/help/cookies"),
-      PROD_ENV,
-      "frontend"
-    )
-
-    var urls = pluck(links, 'url')
-
-    expect(urls).toContain(
-      "https://www.gov.uk/api/content/help/cookies"
-    )
-  });
 
   it("generates correct mainstream content store URL", function () {
     var links = Popup.generateContentLinks(
