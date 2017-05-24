@@ -41,18 +41,6 @@ describe("Popup.extractPath", function () {
     expect(path).toBe("/browse/disabilities")
   })
 
-  it("returns the path for content-api pages", function () {
-    var path = Popup.extractPath(stubLocation("https://www.gov.uk/api/browse/disabilities.json"))
-
-    expect(path).toBe("/browse/disabilities")
-  })
-
-  it("returns the path for content-api pages", function () {
-    var path = Popup.extractPath(stubLocation("https://www.gov.uk/api/foo.json"))
-
-    expect(path).toBe("/foo")
-  })
-
   it("returns the path for search pages", function () {
     var path = Popup.extractPath(stubLocation("https://www.gov.uk/api/search.json?filter_link=/browse/disabilities"))
 
