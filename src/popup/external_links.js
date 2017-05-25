@@ -35,7 +35,7 @@ Popup.generateExternalLinks = function(contentItem, env) {
   }
 
   links.push({
-    name: 'Look up in content-tagger',
+    name: 'Add tags in content-tagger',
     url: env.protocol + '://content-tagger.' + env.serviceDomain + '/content/' + contentItem.content_id,
   })
 
@@ -82,6 +82,11 @@ function generateEditLink(contentItem, env) {
     return {
       name: 'Edit in collections-publisher',
       url: env.protocol + '://collections-publisher.' + env.serviceDomain + '/mainstream-browse-pages/' + contentItem.content_id,
+    }
+  } else if (contentItem.document_type == 'taxon') {
+    return {
+      name: 'Edit in content-tagger',
+      url: env.protocol + '://content-tagger.' + env.serviceDomain + '/taxons/' + contentItem.content_id,
     }
   } else if (contentItem.publishing_app == 'publisher') {
     return {
