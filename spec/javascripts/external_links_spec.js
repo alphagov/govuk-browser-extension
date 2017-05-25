@@ -169,7 +169,7 @@ describe("Popup.generateExternalLinks", function () {
     var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
 
     expect(links).toContain({
-      name: 'Look up in content-tagger',
+      name: 'Add tags in content-tagger',
       url: 'https://content-tagger.publishing.service.gov.uk/content/4d8568c4-67f2-48da-a578-5ac6f35b69b4'
     })
   })

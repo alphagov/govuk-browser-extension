@@ -35,7 +35,7 @@ Popup.generateExternalLinks = function(contentItem, env) {
   }
 
   links.push({
-    name: 'Look up in content-tagger',
+    name: 'Add tags in content-tagger',
     url: env.protocol + '://content-tagger.' + env.serviceDomain + '/content/' + contentItem.content_id,
   })
 
