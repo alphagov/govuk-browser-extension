@@ -174,6 +174,20 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
+  it("includes an edit link to content-tagger", function () {
+    var contentItem = {
+      content_id: '4d8568c4-67f2-48da-a578-5ac6f35b69b4',
+      document_type: 'taxon'
+    }
+
+    var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
+
+    expect(links).toContain({
+      name: 'Edit in content-tagger',
+      url: 'https://content-tagger.publishing.service.gov.uk/taxons/4d8568c4-67f2-48da-a578-5ac6f35b69b4'
+    })
+  })
+
   it("includes a link to beta publishing-api debug tools", function () {
     var contentItem = {
       content_id: '4d8568c4-67f2-48da-a578-5ac6f35b69b4'

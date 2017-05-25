@@ -83,6 +83,11 @@ function generateEditLink(contentItem, env) {
       name: 'Edit in collections-publisher',
       url: env.protocol + '://collections-publisher.' + env.serviceDomain + '/mainstream-browse-pages/' + contentItem.content_id,
     }
+  } else if (contentItem.document_type == 'taxon') {
+    return {
+      name: 'Edit in content-tagger',
+      url: env.protocol + '://content-tagger.' + env.serviceDomain + '/taxons/' + contentItem.content_id,
+    }
   } else if (contentItem.publishing_app == 'publisher') {
     return {
       name: 'Look up in Mainstream Publisher',
