@@ -23,7 +23,9 @@ var abBucketStore = (function () {
     }
 
     function setBucket(testName, bucket, hostname) {
-      abTestBuckets[hostname][testName] = bucket;
+      abTest = abTestBuckets[hostname][testName];
+      abTest.currentBucket = bucket;
+      abTestBuckets[hostname][testName] = abTest;
     }
 
     return {

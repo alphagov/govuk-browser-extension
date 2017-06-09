@@ -7,9 +7,18 @@ describe("Popup.findActiveAbTests", function () {
 
   it("finds all A/B tests", function () {
     var abTests = Popup.findActiveAbTests({
-      "first-AB-test-name": "some-value",
-      "second-AB-test-name": "other-value",
-      "third-AB-test-name": "yet-another-value",
+      "first-AB-test-name": {
+        currentBucket: "some-value",
+        allowedBuckets: ["some-value", "B"]
+      },
+      "second-AB-test-name": {
+        currentBucket: "other-value",
+        allowedBuckets: ["other-value", "B"]
+      },
+      "third-AB-test-name": {
+        currentBucket: "yet-another-value",
+        allowedBuckets: ["A", "yet-another-value"]
+      }
     });
 
     expect(abTests.length).toEqual(3);
@@ -20,18 +29,27 @@ describe("Popup.findActiveAbTests", function () {
 
   it("returns A and B buckets", function () {
     var abTests = Popup.findActiveAbTests({
-      "some-AB-test-name": "some-value"
+      "some-AB-test-name": {
+        currentBucket: "A",
+        allowedBuckets: ["A", "B"]
+      }
     });
 
     expect(abTests[0].buckets.length).toEqual(2);
     expect(abTests[0].buckets[0].bucketName).toEqual("A");
     expect(abTests[0].buckets[1].bucketName).toEqual("B");
-  });
+  })
 
   it("highlights 'A' bucket if user is in 'A' group", function () {
     var abTests = Popup.findActiveAbTests({
-      "some-AB-test-name": "B",
-      "other-AB-test-name": "A"
+      "some-AB-test-name": {
+        currentBucket: "B",
+        allowedBuckets: ["A", "B"]
+      },
+      "other-AB-test-name": {
+        currentBucket: "A",
+        allowedBuckets: ["A", "B"]
+      }
     });
 
     expect(abTests[0].buckets[0].class).toEqual("");
@@ -43,7 +61,10 @@ describe("Popup.findActiveAbTests", function () {
 
   it("doesn't highlight any buckets if variant is unknown", function () {
     var abTests = Popup.findActiveAbTests({
-      "some-AB-test-name": "some-unknown-bucket"
+      "some-AB-test-name": {
+        currentBucket: "Unknown",
+        allowedBuckets: ["A", "B"]
+      }
     });
 
     expect(abTests[0].buckets[0].class).toEqual("");

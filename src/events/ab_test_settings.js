@@ -49,7 +49,7 @@ var abTestSettings = (function() {
     Object.keys(abTestBuckets).map(function (abTestName) {
       details.requestHeaders.push({
         name: "GOVUK-ABTest-" + abTestName,
-        value: abTestBuckets[abTestName]
+        value: abTestBuckets[abTestName].currentBucket
       });
     });
 
