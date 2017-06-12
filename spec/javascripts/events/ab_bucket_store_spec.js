@@ -81,34 +81,58 @@ describe("abBucketStore", function () {
     it("updates value of existing bucket", function () {
       var store = abBucketStore.createStore();
       store.addAbTests({
-        testName1: "originalBucket1",
-        testName2: "originalBucket2"
+        testName1: {
+          currentBucket: "originalBucket1",
+          allowedBuckets: ["originalBucket1", "updatedBucket"]
+        },
+        testName2: {
+          currentBucket: "originalBucket2",
+          allowedBuckets: ["originalBucket1", "originalBucket2"]
+        }
       }, "example.com");
 
       store.setBucket("testName1", "updatedBucket", "example.com");
 
       expect(store.getAll("example.com")).toEqual({
-        testName1: "updatedBucket",
-        testName2: "originalBucket2"
+        testName1: {
+          currentBucket: "updatedBucket",
+          allowedBuckets: ["originalBucket1", "updatedBucket"]
+        },
+        testName2: {
+          currentBucket: "originalBucket2",
+          allowedBuckets: ["originalBucket1", "originalBucket2"]
+        }
       });
     });
 
     it("updates bucket with matching domain name", function () {
       var store = abBucketStore.createStore();
       store.addAbTests({
-        abTestName: "originalBucket",
+        abTestName: {
+          currentBucket: "originalBucket",
+          allowedBuckets: ["originalBucket", "updatedBucket"]
+        }
       }, "www-origin.integration.publishing.service.gov.uk");
       store.addAbTests({
-        abTestName: "originalBucket",
+        abTestName: {
+          currentBucket: "originalBucket",
+          allowedBuckets: ["originalBucket", "updatedBucket"]
+        }
       }, "www.gov.uk");
 
       store.setBucket("abTestName", "updatedBucket", "www.gov.uk");
 
       expect(store.getAll("www-origin.integration.publishing.service.gov.uk")).toEqual({
-        abTestName: "originalBucket",
+        abTestName: {
+          currentBucket: "originalBucket",
+          allowedBuckets: ["originalBucket", "updatedBucket"]
+        }
       });
       expect(store.getAll("www.gov.uk")).toEqual({
-        abTestName: "updatedBucket",
+        abTestName: {
+          currentBucket: "updatedBucket",
+          allowedBuckets: ["originalBucket", "updatedBucket"]
+        }
       });
     });
   });

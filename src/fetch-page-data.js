@@ -22,7 +22,15 @@ function getAbTestBuckets() {
 
   abMetaTags.forEach(function (metaTag) {
     var testNameAndBucket = metaTagPattern.exec(metaTag.content);
-    buckets[testNameAndBucket[1]] = testNameAndBucket[2];
+    var testName = testNameAndBucket[1];
+    var currentBucket = testNameAndBucket[2];
+    var allowedBuckets =
+      (metaTag.dataset.allowedVariants || "A,B").split(",");
+
+    buckets[testName] = {
+      currentBucket: currentBucket,
+      allowedBuckets: allowedBuckets
+    }
   });
 
   return buckets;
