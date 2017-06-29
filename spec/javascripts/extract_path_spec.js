@@ -47,6 +47,12 @@ describe("Popup.extractPath", function () {
     expect(path).toBe("/browse/disabilities")
   })
 
+  it("returns the path for cache-busted search pages", function () {
+    var path = Popup.extractPath(stubLocation("https://www.gov.uk/api/search.json?filter_link=/browse/disabilities&c=some_cache_buster"))
+
+    expect(path).toBe("/browse/disabilities")
+  })
+
   it("returns the path for national archives pages", function () {
     var path = Popup.extractPath(stubLocation("http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk/some/page"))
 

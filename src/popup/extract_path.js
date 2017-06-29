@@ -9,13 +9,13 @@ Popup.extractPath = function(location, renderingApplication) {
     extractedPath = location.pathname.replace('api/content/', '');
   }
   else if (location.href.match(/anonymous_feedback/)) {
-    extractedPath = location.href.split('path=')[1];
+    extractedPath = extractQueryParameter(location, 'path');
   }
   else if (location.href.match(/nationalarchives.gov.uk/)) {
     extractedPath = location.pathname.split('https://www.gov.uk')[1];
   }
   else if (location.href.match(/api\/search.json/)) {
-    extractedPath = location.href.split('filter_link=')[1];
+    extractedPath = extractQueryParameter(location, 'filter_link');
   }
   else if (location.href.match(/info/)) {
     extractedPath = location.pathname.replace('info/', '');
@@ -32,5 +32,9 @@ Popup.extractPath = function(location, renderingApplication) {
 
   if (extractedPath) {
     return extractedPath.replace('//', '/');
+  }
+
+  function extractQueryParameter(location, parameter_name) {
+    return location.href.split(parameter_name + '=')[1].split('&')[0];
   }
 }
