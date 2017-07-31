@@ -38,7 +38,7 @@ Popup.generateContentLinks = function(location, currentEnvironment, renderingApp
       links.push({ name: "SmartAnswers: Display GovSpeak", url: currentUrl + ".txt"})
     }
 
-    links.push({ name: "SmartAnswers: Visualise", url: currentUrl.replace(/\/y.*$/, "") + "/visualise" })
+    links.push({ name: "SmartAnswers: Visualise", url: currentUrl.replace(/\/y.*$/, "") + "/y/visualise" })
   }
 
   return links.map(function (link) {

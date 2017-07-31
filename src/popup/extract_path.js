@@ -24,7 +24,7 @@ Popup.extractPath = function(location, renderingApplication) {
     extractedPath = location.pathname.replace('api/', '').replace('.json', '');
   }
   else if (location.href.match(/visualise/)) {
-    extractedPath = location.pathname.replace('/visualise', '');
+    extractedPath = location.pathname.replace('/y/visualise', '');
   }
   else if (location.href.match(/www/) || location.href.match(/draft-origin/)) {
     extractedPath = location.pathname;

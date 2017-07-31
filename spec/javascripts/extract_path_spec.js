@@ -60,7 +60,7 @@ describe("Popup.extractPath", function () {
   })
 
   it("returns the path for the smart answers visualisation", function () {
-    var path = Popup.extractPath(stubLocation("https://www.gov.uk/maternity-paternity-calculator/visualise"))
+    var path = Popup.extractPath(stubLocation("https://www.gov.uk/maternity-paternity-calculator/y/visualise"))
 
     expect(path).toBe("/maternity-paternity-calculator")
   })
