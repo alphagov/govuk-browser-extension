@@ -86,7 +86,7 @@ describe("PopupView.generateContentLinks", function () {
 
     expect(urls).toContain(
       "https://www.gov.uk/smart-answer/y/question-1.txt",
-      "https://www.gov.uk/smart-answer/visualise"
+      "https://www.gov.uk/smart-answer/y/visualise"
     )
   })
 
