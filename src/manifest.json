@@ -9,8 +9,10 @@
       "matches": ["https://*.gov.uk/*"],
       "js": [
         "popup/lib/jquery.min.js",
-        "popup/lib/mustache.min.js"
-      ]
+        "popup/lib/mustache.min.js",
+        "highlight-component.js"
+      ],
+      "css": ["highlight-component.css"]
     }
   ],
   "icons": {

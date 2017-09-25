@@ -1,14 +1,17 @@
 src_files:
-    - src/events/ab_bucket_store.js
-    - src/popup/lib/jquery.min.js
-    - src/popup/ab_tests.js
-    - src/popup/content_links.js
-    - src/popup/environment.js
-    - src/popup/extract_path.js
-    - src/popup/external_links.js
+  - src/events/ab_bucket_store.js
+  - src/popup/lib/jquery.min.js
+  - src/popup/ab_tests.js
+  - src/popup/content_links.js
+  - src/popup/environment.js
+  - src/popup/extract_path.js
+  - src/popup/external_links.js
+  - src/highlight-component.js
 
 helpers:
-    - support/helpers.js
+  - support/helpers.js
+  - support/jasmine-jquery.js
+  - support/polyfills/String.startsWith.js
 
 spec_files:
   - '**/*[sS]pec.js'

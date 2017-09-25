@@ -1,0 +1,20 @@
+.highlight-component {
+  cursor: pointer;
+  outline: 3px solid #FFBF47;
+  position: relative;
+}
+
+.highlight-component::before {
+  background-color: #FFBF47;
+  color: #0B0C0C;
+  content: attr(data-app-name)attr(data-component-name);
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+
+  padding-left: 3px;
+  padding-bottom: 3px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
