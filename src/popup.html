@@ -22,7 +22,12 @@
       {{/environments}}
     </div>
 
-    <ul class='content-links'>{{#contentLinks}}<li><a href="{{url}}" class="{{class}}">{{name}}</a></li>{{/contentLinks}}</ul>
+    <ul class='content-links'>
+      {{#contentLinks}}
+        <li><a href="{{url}}" class="internal {{class}}">{{name}}</a></li>
+      {{/contentLinks}}
+    </ul>
+
     {{#abTests.length}}
       <div class='ab-tests'>
         <ul>
@@ -34,10 +39,22 @@
             {{/buckets}}
           </li>
         {{/abTests}}
+
         </ul>
       </div>
     {{/abTests.length}}
-    <ul class='external-links'>{{#externalLinks}}<li><a href="{{url}}" class="external">{{{name}}}</a></li>{{/externalLinks}}</ul>
+
+    <ul class='add-top-border'>
+      {{#externalLinks}}
+        <li><a href="{{url}}" class="external">{{{name}}}</a></li>
+      {{/externalLinks}}
+    </ul>
+
+    <ul class='add-top-border'>
+      <li>
+        <a href='#' id='highlight-components'>Highlight Components</a>
+      </li>
+    </ul>
   </script>
 
   <div id="content">Loading...</div>

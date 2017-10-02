@@ -20,13 +20,13 @@ body {
   background-color: #005ea5;
 }
 
-.external-links {
+.add-top-border {
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid #ccc;
 }
 
-.external-links:empty {
+.add-top-border:empty {
   display: none;
 }
 

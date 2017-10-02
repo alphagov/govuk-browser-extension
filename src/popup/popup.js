@@ -8,6 +8,10 @@ var Popup = Popup || {};
     chrome.tabs.executeScript(null, {
       file: "fetch-page-data.js"
     });
+
+    chrome.tabs.executeScript(null, {
+      code: "window.highlightComponent = window.highlightComponent || new HighlightComponent"
+    });
   })
 
   // This listener waits for the `populatePopup` message to be sent, from
@@ -25,6 +29,17 @@ var Popup = Popup || {};
         request.renderingApplication,
         abTestBuckets
       );
+    }
+  });
+
+  chrome.runtime.onMessage.addListener(function (request, _sender) {
+    if (request.action == "highlightState") {
+      // When we're asked to populate the popup, we'll first send the current
+      // buckets back to the main thread, which "persists" them.
+      if (request.highlightState)
+        $('#highlight-components').text('Stop highlighting components');
+      else
+        $('#highlight-components').text('Highlight Components');
     }
   });
 
@@ -52,6 +67,10 @@ var Popup = Popup || {};
     setupClicks(currentUrl);
 
     setupAbToggles(currentUrl);
+
+    chrome.tabs.executeScript(null, {
+      code: "window.highlightComponent.sendState()"
+    });
   }
 
   function setupClicks(currentUrl) {
@@ -67,7 +86,7 @@ var Popup = Popup || {};
 
     // Clicking normal links should change the current tab. The popup will not
     // update itself automatically, we need to re-render the popup manually.
-    $('a:not(.external)').on('click', function(e) {
+    $('a.internal').on('click', function(e) {
       if (userOpensPageInNewWindow(e)) {
         return;
       }
@@ -82,6 +101,15 @@ var Popup = Popup || {};
       // we don't have access to the DOM here. This is a temporary solution to
       // make most functionality work after the user clicks a button in the popup.
       renderPopup(location, "", {});
+    })
+
+    $('#highlight-components').on('click', function(e) {
+      e.preventDefault();
+
+      chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        var govukTab = tabs[0];
+        chrome.tabs.sendMessage(govukTab.id, { trigger: 'toggleState' });
+      })
     })
   }
 

@@ -6,7 +6,8 @@ chrome.runtime.sendMessage({
   action: "populatePopup",
   currentLocation: window.location,
   renderingApplication: getMetatag('govuk:rendering-application'),
-  abTestBuckets: getAbTestBuckets()
+  abTestBuckets: getAbTestBuckets(),
+  highlightState: window.highlightComponent.state
 });
 
 function getMetatag(name) {
