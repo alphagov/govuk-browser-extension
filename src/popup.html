@@ -14,7 +14,7 @@
   <link href="popup/reset.css" rel="stylesheet" type="text/css">
   <link href="popup/popup.css" rel="stylesheet" type="text/css">
 </head>
-<body style="width: 550px;">
+<body>
   <script id="template" type="x-tmpl-mustache">
     <div class='envs'>
       {{#environments}}
@@ -28,32 +28,24 @@
       {{/contentLinks}}
     </ul>
 
-    {{#abTests.length}}
-      <div class='ab-tests'>
-        <ul>
-        {{#abTests}}
-          <li>
-            <span class='ab-test-name'>A/B test: <strong>{{testName}}</strong></span>
-            {{#buckets}}
-              <span class='ab-test-bucket {{class}}' data-test-name='{{testName}}' data-bucket='{{bucketName}}'>{{bucketName}}</span>
-            {{/buckets}}
-          </li>
-        {{/abTests}}
-
-        </ul>
-      </div>
-    {{/abTests.length}}
+    <ul class='add-top-border'>
+      <li>
+        <a href='#' id='highlight-components'>Highlight Components</a>
+      </li>
+      {{#abTests}}
+        <li>
+          <span class='ab-test-name'>A/B test: <strong>{{testName}}</strong></span>
+          {{#buckets}}
+            <span class='ab-test-bucket {{class}}' data-test-name='{{testName}}' data-bucket='{{bucketName}}'>{{bucketName}}</span>
+          {{/buckets}}
+        </li>
+      {{/abTests}}
+    </ul>
 
     <ul class='add-top-border'>
       {{#externalLinks}}
         <li><a href="{{url}}" class="js-external">{{{name}}}</a></li>
       {{/externalLinks}}
-    </ul>
-
-    <ul class='add-top-border'>
-      <li>
-        <a href='#' id='highlight-components'>Highlight Components</a>
-      </li>
     </ul>
   </script>
 
