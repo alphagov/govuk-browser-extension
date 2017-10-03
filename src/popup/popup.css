@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  width: 200px;
+  width: 550px;
 }
 
 .envs {
@@ -45,12 +45,6 @@ li a.current,
 li a:hover {
   background-color: #005ea5;
   color: #fff;
-}
-
-.ab-tests {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid #ccc;
 }
 
 .ab-test-name, .ab-test-bucket {
