@@ -76,7 +76,7 @@ var Popup = Popup || {};
   function setupClicks(currentUrl) {
     // Clicking on a link won't open the tab because we're in a separate window.
     // Open external links (to GitHub etc) in a new tab.
-    $('a.external').on('click', function(e) {
+    $('a.js-external').on('click', function(e) {
       if (userOpensPageInNewWindow(e)) {
         return;
       }
@@ -86,7 +86,7 @@ var Popup = Popup || {};
 
     // Clicking normal links should change the current tab. The popup will not
     // update itself automatically, we need to re-render the popup manually.
-    $('a.internal').on('click', function(e) {
+    $('a.js-rerender-popup').on('click', function(e) {
       if (userOpensPageInNewWindow(e)) {
         return;
       }
