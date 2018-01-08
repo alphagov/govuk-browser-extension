@@ -137,6 +137,7 @@ describe("Popup.generateExternalLinks", function () {
 
   it("generates edit links for Whitehall items", function () {
     var contentItem = {
+      content_id: '4d8568c4-67f2-48da-a578-5ac6f35b69b4',
       publishing_app: 'whitehall'
     }
 
@@ -144,7 +145,7 @@ describe("Popup.generateExternalLinks", function () {
 
     expect(links).toContain({
       name: 'Go to Whitehall Publisher',
-      url: 'https://whitehall-admin.publishing.service.gov.uk/'
+      url: 'https://whitehall-admin.publishing.service.gov.uk/government/admin/by-content-id/4d8568c4-67f2-48da-a578-5ac6f35b69b4'
     })
   })
 
