@@ -4,7 +4,10 @@
 
 chrome.runtime.sendMessage({
   action: "populatePopup",
-  currentLocation: window.location,
+  currentLocation: window.location.href,
+  currentHost: window.location.host,
+  currentOrigin: window.location.origin,
+  currentPathname: window.location.pathname,
   renderingApplication: getMetatag('govuk:rendering-application'),
   abTestBuckets: getAbTestBuckets(),
   highlightState: window.highlightComponent.state
@@ -36,3 +39,5 @@ function getAbTestBuckets() {
 
   return buckets;
 }
+
+undefined;

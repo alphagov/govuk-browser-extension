@@ -6,13 +6,13 @@ var Popup = Popup || {};
   // loaded page). This script will call back to us.
   $(function () {
     chrome.tabs.executeScript(null, {
-      file: "fetch-page-data.js"
+      code: "window.highlightComponent = window.highlightComponent || new HighlightComponent; undefined;"
     });
 
     chrome.tabs.executeScript(null, {
-      code: "window.highlightComponent = window.highlightComponent || new HighlightComponent"
+      file: "fetch-page-data.js"
     });
-  })
+  });
 
   // This listener waits for the `populatePopup` message to be sent, from
   // fetch-page-data.js (called above). It will forward the location to our main
@@ -22,10 +22,13 @@ var Popup = Popup || {};
       // When we're asked to populate the popup, we'll first send the current
       // buckets back to the main thread, which "persists" them.
       var abTestSettings = chrome.extension.getBackgroundPage().abTestSettings;
-      var abTestBuckets = abTestSettings.initialize(request.abTestBuckets, request.currentLocation.href);
+      var abTestBuckets = abTestSettings.initialize(request.abTestBuckets, request.currentLocation);
 
       renderPopup(
         request.currentLocation,
+        request.currentHost,
+        request.currentOrigin,
+        request.currentPathname,
         request.renderingApplication,
         abTestBuckets
       );
@@ -44,9 +47,9 @@ var Popup = Popup || {};
   });
 
   // Render the popup.
-  function renderPopup(location, renderingApplication, abTestBuckets) {
+  function renderPopup(location, host, origin, pathname, renderingApplication, abTestBuckets) {
     // Creates a view object with the data and render a template with it.
-    var view = createView(location, renderingApplication, abTestBuckets);
+    var view = createView(location, host, origin, pathname, renderingApplication, abTestBuckets);
 
     var contentStore = view.contentLinks.find(function (el) { return el.name == "Content item (JSON)" })
 
@@ -54,10 +57,10 @@ var Popup = Popup || {};
       // Request the content item to add some extra links.
       $.getJSON(contentStore.url, function(contentStoreData) {
         view.externalLinks = Popup.generateExternalLinks(contentStoreData, view.currentEnvironment);
-        renderView(view, location.href);
+        renderView(view, location);
       })
     } else {
-      renderView(view, location.href);
+      renderView(view, location);
     }
   }
 
@@ -69,7 +72,7 @@ var Popup = Popup || {};
     setupAbToggles(currentUrl);
 
     chrome.tabs.executeScript(null, {
-      code: "window.highlightComponent.sendState()"
+      code: "window.highlightComponent.sendState(); undefined;"
     });
   }
 
@@ -82,7 +85,7 @@ var Popup = Popup || {};
       }
 
       chrome.tabs.create({ url: $(this).attr('href') });
-    })
+    });
 
     // Clicking normal links should change the current tab. The popup will not
     // update itself automatically, we need to re-render the popup manually.
@@ -101,7 +104,7 @@ var Popup = Popup || {};
       // we don't have access to the DOM here. This is a temporary solution to
       // make most functionality work after the user clicks a button in the popup.
       renderPopup(location, "", {});
-    })
+    });
 
     $('#highlight-components').on('click', function(e) {
       e.preventDefault();
@@ -109,8 +112,8 @@ var Popup = Popup || {};
       chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         var govukTab = tabs[0];
         chrome.tabs.sendMessage(govukTab.id, { trigger: 'toggleState' });
-      })
-    })
+      });
+    });
   }
 
   // Best guess if the user wants a new window opened.
@@ -138,12 +141,12 @@ var Popup = Popup || {};
     });
   }
 
-  // This is the view object. It takes a location and the name of the rendering
-  // app and creates an object with all URLs and other view data to render the
-  // pop.
-   function createView(location, renderingApplication, abTestBuckets) {
-    var environment = Popup.environment(location);
-    var contentLinks = Popup.generateContentLinks(location, environment.currentEnvironment, renderingApplication);
+  // This is the view object. It takes a location, host, origin, the name of the
+  // rendering app and a list of A/B test buckets and creates an object with all
+  // URLs and other view data to render the popup.
+  function createView(location, host, origin, pathname, renderingApplication, abTestBuckets) {
+    var environment = Popup.environment(location, host, origin);
+    var contentLinks = Popup.generateContentLinks(location, origin, pathname, environment.currentEnvironment, renderingApplication);
     var abTests = Popup.findActiveAbTests(abTestBuckets);
 
     return {
