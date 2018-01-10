@@ -3,7 +3,9 @@ describe("PopupView.generateContentLinks", function () {
 
   it("returns the correct URIs", function () {
     var links = Popup.generateContentLinks(
-      stubLocation("https://www.gov.uk/browse/disabilities?foo=bar"),
+      "https://www.gov.uk/browse/disabilities?foo=bar",
+      "https://www.gov.uk",
+      "/browse/disabilities",
       PROD_ENV
     )
 
@@ -22,7 +24,9 @@ describe("PopupView.generateContentLinks", function () {
 
   it("returns the draft URIs for non-prod environments", function () {
     var links = Popup.generateContentLinks(
-      stubLocation("https://www.gov.uk/browse/disabilities?foo=bar"),
+      "https://www.gov.uk/browse/disabilities?foo=bar",
+      "https://www.gov.uk",
+      "/browse/disabilities",
       { protocol: 'https', serviceDomain: 'staging.publishing.service.gov.uk'}
     )
 
@@ -35,7 +39,9 @@ describe("PopupView.generateContentLinks", function () {
 
   it("generates a subset of URIs for the root page", function () {
     var links = Popup.generateContentLinks(
-      stubLocation("https://www.gov.uk/"),
+      "https://www.gov.uk/",
+      "https://www.gov.uk",
+      "/",
       PROD_ENV
     )
 
@@ -49,7 +55,9 @@ describe("PopupView.generateContentLinks", function () {
 
   it("does not generate URIs for publishing apps (non-www pages)", function () {
     var links = Popup.generateContentLinks(
-      stubLocation("https://search-admin.publishing.service.gov.uk/queries"),
+      "https://search-admin.publishing.service.gov.uk/queries",
+      "https://search-admin.publishing.service.gov.uk",
+      "/queries",
       PROD_ENV
     )
 
@@ -58,7 +66,9 @@ describe("PopupView.generateContentLinks", function () {
 
   it("only generates URLs for publishing-apps when it's the support application", function () {
     var links = Popup.generateContentLinks(
-      stubLocation("https://support.publishing.service.gov.uk/anonymous_feedback?path=/browse/disabilities"),
+      "https://support.publishing.service.gov.uk/anonymous_feedback?path=/browse/disabilities",
+      "https://support.publishing.service.gov.uk",
+      "/anonymous_feedback",
       PROD_ENV
     )
 
@@ -77,7 +87,9 @@ describe("PopupView.generateContentLinks", function () {
 
   it("generates a link for smart answers", function () {
     var links = Popup.generateContentLinks(
-      stubLocation("https://www.gov.uk/smart-answer/y/question-1"),
+      "https://www.gov.uk/smart-answer/y/question-1",
+      "https://www.gov.uk",
+      "/smart-answer/y/question-1",
       PROD_ENV,
       "smartanswers"
     )
@@ -92,7 +104,9 @@ describe("PopupView.generateContentLinks", function () {
 
   it("does not generate a markdown link for landing pages", function () {
     var links = Popup.generateContentLinks(
-      stubLocation("https://www.gov.uk/smart-answer"),
+      "https://www.gov.uk/smart-answer",
+      "https://www.gov.uk",
+      "/smart-answer",
       PROD_ENV,
       "smartanswers"
     )

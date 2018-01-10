@@ -1,15 +1,15 @@
 var Popup = Popup || {};
 
-// Given a location, generate URLs for all GOV.UK environments.
+// Given a location, host and origin, generate URLs for all GOV.UK environments.
 //
 // Returns a hash with envs, including one with `class: "current"` to show
 // the current environment.
-Popup.environment = function(location) {
+Popup.environment = function(location, host, origin) {
 
   function isPartOfGOVUK() {
-    return location.host.match(/www.gov.uk/) ||
-        location.host.match(/publishing.service.gov.uk/) ||
-        location.host.match(/dev.gov.uk/);
+    return host.match(/www.gov.uk/) ||
+        host.match(/publishing.service.gov.uk/) ||
+        host.match(/dev.gov.uk/);
   }
 
   if (!isPartOfGOVUK()) {
@@ -55,7 +55,7 @@ Popup.environment = function(location) {
     host: "https://www-origin.publishing.service.gov.uk"
   };
 
-  var application = location.host.split('.')[0],
+  var application = host.split('.')[0],
   inFrontend = application.match(/www/),
   environments = ENVIRONMENTS;
 
@@ -72,9 +72,9 @@ Popup.environment = function(location) {
       var replacement = env.protocol + "://" + application + "." + env.serviceDomain;
     }
 
-    env.url = location.href.replace(location.origin, replacement);
+    env.url = location.replace(origin, replacement);
 
-    if (location.href == env.url) {
+    if (location == env.url) {
       env.class = "current";
       currentEnvironment = env;
     } else {

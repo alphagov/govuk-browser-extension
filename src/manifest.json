@@ -24,6 +24,7 @@
     "http://*.gov.uk/*",
     "https://*.gov.uk/*",
     "cookies",
+    "tabs",
     "webRequest",
     "webRequestBlocking"
   ],
