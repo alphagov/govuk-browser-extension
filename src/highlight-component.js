@@ -5,10 +5,10 @@ function HighlightComponent() {
   this.components = extractComponentsFromPage();
 
   function extractComponentsFromPage() {
-    return $('[class*="app-c"], [class*="pub-c"], [class*="govuk"]')
+    return $('[class*="app-c"], [class*="pub-c"], [class*="gem-c"], [class*="govuk"]')
       .toArray()
       .reduce(function(array, element) {
-        var blockRegex = /(app-c-|pub-c-|govuk-c-|govuk-)([^ _\n]*(?=[ \n]|$))/;
+        var blockRegex = /(app-c-|pub-c-|gem-c-|govuk-c-|govuk-)([^ _\n]*(?=[ \n]|$))/;
         var match = $(element).attr('class').match(blockRegex);
 
         if (match) {
@@ -65,8 +65,10 @@ var Helpers = {
   documentationUrl: function (component) {
     if (component.prefix.startsWith('app-c')) {
       return "https://" + this.appHostname() + ".herokuapp.com/component-guide/" + component.name
+    } else if (component.prefix.startsWith('gem-c')) {
+      return "https://" + this.appHostname() + ".herokuapp.com/component-guide/" + component.name.replace(/-/g, '_');
     } else {
-      return "https://govuk-static.herokuapp.com/component-guide/" + component.name.replace('-', '_');
+      return "https://govuk-static.herokuapp.com/component-guide/" + component.name.replace(/-/g, '_');
     }
   },
 
