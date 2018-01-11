@@ -2,6 +2,7 @@
 
 function HighlightComponent() {
   this.state = false;
+  this.metaTags = false;
   this.components = extractComponentsFromPage();
 
   function extractComponentsFromPage() {
@@ -40,6 +41,8 @@ function HighlightComponent() {
   chrome.runtime.onMessage.addListener(function (request) {
     if (request.trigger == 'toggleState') {
       this.toggleState();
+    } else if (request.trigger == 'toggleMetaTags') {
+      this.toggleMetaTags();
     }
   }.bind(this));
 }
@@ -54,10 +57,36 @@ HighlightComponent.prototype.toggleState = function () {
   this.sendState();
 }
 
+HighlightComponent.prototype.toggleMetaTags = function () {
+  this.metaTags = !this.metaTags;
+
+  if(this.metaTags) {
+    var msgElm = document.createElement("div");
+    var selectElement = document.getElementsByTagName("title")[0];
+    var msg = "<p><strong>title (" + selectElement.innerHTML.length + "):</strong> " + selectElement.innerHTML + "</p>";
+    var codeSegments = document.getElementsByTagName("meta");
+
+    for (var i=0; i < codeSegments.length;i++) {
+      if (codeSegments[i].getAttribute("name") !== null) {
+        var strs = codeSegments[i].getAttribute("content");
+        msg += "<p><strong>" + codeSegments[i].getAttribute("name") + " (" + strs.length + "):</strong> " + strs + "</p>";
+      }
+    }
+
+    msgElm.innerHTML = '<div id="govuk-chrome-toolkit-banner" style="border:2px solid #000;background:#ffc;text-align:left;padding:1em;">' + msg + "</div>";
+    document.body.insertBefore(msgElm, document.body.firstChild);
+  } else {
+    $('#govuk-chrome-toolkit-banner').remove();
+  }
+
+  this.sendState();
+};
+
 HighlightComponent.prototype.sendState = function() {
   chrome.runtime.sendMessage({
     action: "highlightState",
-    highlightState: this.state
+    highlightState: this.state,
+    metaTags: this.metaTags
   });
 };
 
