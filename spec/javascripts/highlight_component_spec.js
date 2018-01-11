@@ -86,7 +86,8 @@ describe("highlightComponent", function () {
       loadFixtures(
         "app-c-back-to-top.html",
         "govuk-breadcrumbs.html",
-        "pub-c-button.html"
+        "pub-c-button.html",
+        "gem-c-label.html"
       )
 
       $html = $("#jasmine-fixtures");
@@ -112,6 +113,11 @@ describe("highlightComponent", function () {
             prefix: "pub-c-",
             element: $html.find(".pub-c-button")[0],
           },
+          {
+            name: "label",
+            prefix: "gem-c-",
+            element: $html.find(".gem-c-label")[0],
+          }
         ]
       )
     });
@@ -187,6 +193,21 @@ describe("Helpers.documentationUrl", function () {
       })
     ).toEqual(
       "https://govuk-static.herokuapp.com/component-guide/title"
+    )
+  });
+
+  it("creates the correct URL for 'gem' components", function () {
+    setFixtures('<head><meta name="govuk:rendering-application" content="rendering_app"></head>');
+    Helpers.substitutions =  {
+      'collections': 'another_host'
+    };
+    expect(
+      Helpers.documentationUrl({
+        prefix: "gem-c",
+        name: "label"
+      })
+    ).toEqual(
+      "https://rendering_app.herokuapp.com/component-guide/label"
     )
   });
 
