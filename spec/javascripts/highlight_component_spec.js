@@ -7,12 +7,12 @@ describe("Toggling component highlighting", function () {
   beforeEach(function () {
     loadFixtures("govuk-breadcrumbs.html")
 
-    // Mock addListener function to call toggleState trigger when initialized
+    // Mock addListener function to call toggleComponents trigger when initialized
     window.chrome = {
       runtime: {
         onMessage: {
           addListener: function(callback) {
-            callback({ trigger: 'toggleState' })
+            callback({ trigger: 'toggleComponents' })
           }
         },
         sendMessage: function(){}
@@ -49,14 +49,14 @@ describe("Toggling component highlighting", function () {
   });
 
   it("removes the highlight when toggled off", function () {
-    highlightComponent.toggleState();
+    highlightComponent.toggleComponents();
 
     expect($breadcrumbsEl).not.toHaveClass("highlight-component");
   });
 
   it("removes the click functionality when toggled off", function () {
     spyOn(window, "open").and.callThrough()
-    highlightComponent.toggleState();
+    highlightComponent.toggleComponents();
 
     var clickEvent = spyOnEvent($breadcrumbsEl, "click");
 
@@ -123,17 +123,17 @@ describe("highlightComponent", function () {
     });
   });
 
-  describe("toggleState", function () {
+  describe("toggleComponents", function () {
     it("toggles the internal state", function () {
 
       var highlightComponent = new HighlightComponent;
 
       expect(highlightComponent.state).toEqual(false);
 
-      highlightComponent.toggleState();
+      highlightComponent.toggleComponents();
       expect(highlightComponent.state).toEqual(true);
 
-      highlightComponent.toggleState();
+      highlightComponent.toggleComponents();
       expect(highlightComponent.state).toEqual(false);
     });
 
@@ -145,10 +145,10 @@ describe("highlightComponent", function () {
       var $buttonEl = $("#jasmine-fixtures .pub-c-button");
       expect($buttonEl).not.toHaveClass("highlight-component");
 
-      highlightComponent.toggleState();
+      highlightComponent.toggleComponents();
       expect($buttonEl).toHaveClass("highlight-component");
 
-      highlightComponent.toggleState();
+      highlightComponent.toggleComponents();
       expect($buttonEl).not.toHaveClass("highlight-component");
     });
   });

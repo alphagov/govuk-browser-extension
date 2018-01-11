@@ -39,15 +39,15 @@ function HighlightComponent() {
   }
 
   chrome.runtime.onMessage.addListener(function (request) {
-    if (request.trigger == 'toggleState') {
-      this.toggleState();
+    if (request.trigger == 'toggleComponents') {
+      this.toggleComponents();
     } else if (request.trigger == 'toggleMetaTags') {
       this.toggleMetaTags();
     }
   }.bind(this));
 }
 
-HighlightComponent.prototype.toggleState = function () {
+HighlightComponent.prototype.toggleComponents = function () {
   this.state = !this.state;
 
   for (var i = 0; i < this.components.length; i++) {

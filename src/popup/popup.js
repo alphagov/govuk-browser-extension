@@ -116,7 +116,7 @@ var Popup = Popup || {};
 
       chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         var govukTab = tabs[0];
-        chrome.tabs.sendMessage(govukTab.id, { trigger: 'toggleState' });
+        chrome.tabs.sendMessage(govukTab.id, { trigger: 'toggleComponents' });
       });
     });
 
