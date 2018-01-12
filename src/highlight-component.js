@@ -57,30 +57,52 @@ HighlightComponent.prototype.toggleComponents = function () {
   this.sendState();
 }
 
-HighlightComponent.prototype.toggleMetaTags = function () {
+HighlightComponent.prototype.toggleMetaTags = function() {
   this.metaTags = !this.metaTags;
 
   if(this.metaTags) {
-    var msgElm = document.createElement("div");
-    var selectElement = document.getElementsByTagName("title")[0];
-    var msg = "<p><strong>title (" + selectElement.innerHTML.length + "):</strong> " + selectElement.innerHTML + "</p>";
-    var codeSegments = document.getElementsByTagName("meta");
-
-    for (var i=0; i < codeSegments.length;i++) {
-      if (codeSegments[i].getAttribute("name") !== null) {
-        var strs = codeSegments[i].getAttribute("content");
-        msg += "<p><strong>" + codeSegments[i].getAttribute("name") + " (" + strs.length + "):</strong> " + strs + "</p>";
-      }
-    }
-
-    msgElm.innerHTML = '<div id="govuk-chrome-toolkit-banner" style="border:2px solid #000;background:#ffc;text-align:left;padding:1em;">' + msg + "</div>";
-    document.body.insertBefore(msgElm, document.body.firstChild);
+    this.showMetaTags();
   } else {
-    $('#govuk-chrome-toolkit-banner').remove();
+    this.hideMetaTags();
   }
 
   this.sendState();
 };
+
+HighlightComponent.prototype.showMetaTags = function() {
+  var container = $('<div id="govuk-chrome-toolkit-banner" style="border:2px solid #000;background:#ffc;text-align:left;padding:1em;"></div>');
+
+  var titleText = $("title").first().text();
+  var strongElement = $('<strong></strong>').text("title (" + titleText.length + "): ");
+  var textNode = document.createTextNode(titleText);
+  $('<p>').append(strongElement).append(textNode).appendTo(container);
+
+  var metaTags = $("meta");
+  metaTags.each(function() {
+    var metaTag = $(this);
+
+    var name = metaTag.attr("name");
+    if(name === undefined) {
+      return;
+    }
+
+    var content = metaTag.attr("content");
+    if(content === undefined) {
+      content = "";
+    }
+
+    strongElement = $('<strong></strong>').text(name + " (" + content.length + "): ");
+    textNode = document.createTextNode(content);
+
+    $('<p>').append(strongElement).append(textNode).appendTo(container);
+  });
+
+  $('body').prepend(container);
+}
+
+HighlightComponent.prototype.hideMetaTags = function() {
+  $('#govuk-chrome-toolkit-banner').remove();
+}
 
 HighlightComponent.prototype.sendState = function() {
   chrome.runtime.sendMessage({
