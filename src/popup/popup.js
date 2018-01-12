@@ -43,6 +43,11 @@ var Popup = Popup || {};
         $('#highlight-components').text('Stop highlighting components');
       else
         $('#highlight-components').text('Highlight Components');
+
+      if (request.metaTags)
+        $('#highlight-meta-tags').text('Hide meta tags');
+      else
+        $('#highlight-meta-tags').text('Show meta tags');
     }
   });
 
@@ -111,7 +116,16 @@ var Popup = Popup || {};
 
       chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         var govukTab = tabs[0];
-        chrome.tabs.sendMessage(govukTab.id, { trigger: 'toggleState' });
+        chrome.tabs.sendMessage(govukTab.id, { trigger: 'toggleComponents' });
+      });
+    });
+
+    $('#highlight-meta-tags').on('click', function(e) {
+      e.preventDefault();
+
+      chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        var govukTab = tabs[0];
+        chrome.tabs.sendMessage(govukTab.id, { trigger: 'toggleMetaTags' });
       });
     });
   }
