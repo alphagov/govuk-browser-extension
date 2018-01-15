@@ -99,6 +99,8 @@ var Popup = Popup || {};
         return;
       }
 
+      e.preventDefault();
+
       chrome.tabs.update(null, { url: $(this).attr('href') });
 
       // This will provide us with a `location` object just like `window.location`.
