@@ -70,7 +70,3 @@ li a:hover {
   color: #fff;
   background-color: #005ea5;
 }
-
-#content {
-  overflow-y: scroll;
-}
