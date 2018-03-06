@@ -10,6 +10,7 @@ chrome.runtime.sendMessage({
   currentPathname: window.location.pathname,
   renderingApplication: getMetatag('govuk:rendering-application'),
   abTestBuckets: getAbTestBuckets(),
+  windowHeight: window.innerHeight,
   highlightState: window.highlightComponent.state
 });
 

@@ -30,6 +30,7 @@ var Popup = Popup || {};
         request.currentOrigin,
         request.currentPathname,
         request.renderingApplication,
+        request.windowHeight,
         abTestBuckets
       );
     }
@@ -52,11 +53,15 @@ var Popup = Popup || {};
   });
 
   // Render the popup.
-  function renderPopup(location, host, origin, pathname, renderingApplication, abTestBuckets) {
+  function renderPopup(location, host, origin, pathname, renderingApplication, windowHeight, abTestBuckets) {
     // Creates a view object with the data and render a template with it.
     var view = createView(location, host, origin, pathname, renderingApplication, abTestBuckets);
 
     var contentStore = view.contentLinks.find(function (el) { return el.name == "Content item (JSON)" })
+
+    if (windowHeight < 600) {
+      $('#content').css({ height: windowHeight + "px" })
+    }
 
     if (contentStore) {
       // Request the content item to add some extra links.
