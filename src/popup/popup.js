@@ -60,7 +60,7 @@ var Popup = Popup || {};
     var contentStore = view.contentLinks.find(function (el) { return el.name == "Content item (JSON)" })
 
     if (windowHeight < 600) {
-      $('#content').css({ height: windowHeight + "px" })
+      $('#content').css({ height: windowHeight + "px", 'overflow-y': 'scroll' })
     }
 
     if (contentStore) {
