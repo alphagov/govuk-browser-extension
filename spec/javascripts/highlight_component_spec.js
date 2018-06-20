@@ -199,4 +199,15 @@ describe("Helpers.documentationUrl", function () {
       "https://govuk-publishing-components.herokuapp.com/component-guide/label"
     )
   });
+
+  it("creates the correct URL for Design System components", function () {
+    expect(
+      Helpers.documentationUrl({
+        prefix: "govuk-",
+        name: "error-message"
+      })
+    ).toEqual(
+      "https://design-system.service.gov.uk/components/error-message"
+    )
+  });
 });
