@@ -9,7 +9,7 @@ function HighlightComponent() {
     return $('[class*="app-c"], [class*="gem-c"], [class*="govuk"]')
       .toArray()
       .reduce(function(array, element) {
-        var blockRegex = /(app-c-|gem-c-|govuk-c-|govuk-)([^ _\n]*(?=[ \n]|$))/;
+        var blockRegex = /(app-c-|gem-c-|govuk-)([^ _\n]*(?=[ \n]|$))/;
         var match = $(element).attr('class').match(blockRegex);
 
         if (match) {
