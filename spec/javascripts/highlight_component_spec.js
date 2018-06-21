@@ -5,7 +5,7 @@ describe("Toggling component highlighting", function () {
   var highlightComponent;
 
   beforeEach(function () {
-    loadFixtures("govuk-breadcrumbs.html")
+    loadFixtures("gem-c-breadcrumbs.html")
 
     // Mock addListener function to call toggleComponents trigger when initialized
     window.chrome = {
@@ -21,7 +21,7 @@ describe("Toggling component highlighting", function () {
 
     highlightComponent = new HighlightComponent;
 
-    $breadcrumbsEl = $("#jasmine-fixtures .govuk-breadcrumbs");
+    $breadcrumbsEl = $("#jasmine-fixtures .gem-c-breadcrumbs");
   });
 
   it("highlights govuk components", function () {
@@ -33,7 +33,7 @@ describe("Toggling component highlighting", function () {
   });
 
   it("exposes the app name as data attribute", function () {
-    expect($breadcrumbsEl.data("app-name")).toEqual("govuk-");
+    expect($breadcrumbsEl.data("app-name")).toEqual("gem-c-");
   });
 
   it("adds the ability to click through to the component's documentation", function () {
@@ -44,7 +44,7 @@ describe("Toggling component highlighting", function () {
 
     expect(clickEvent).toHaveBeenTriggered();
     expect(window.open).toHaveBeenCalledWith(
-      "https://govuk-static.herokuapp.com/component-guide/breadcrumbs"
+      "https://govuk-publishing-components.herokuapp.com/component-guide/breadcrumbs"
     )
   });
 
@@ -85,8 +85,8 @@ describe("highlightComponent", function () {
     beforeEach(function () {
       loadFixtures(
         "app-c-back-to-top.html",
-        "govuk-breadcrumbs.html",
-        "pub-c-button.html",
+        "gem-c-breadcrumbs.html",
+        "gem-c-button.html",
         "gem-c-label.html"
       )
 
@@ -105,13 +105,13 @@ describe("highlightComponent", function () {
           },
           {
             name: "breadcrumbs",
-            prefix: "govuk-",
-            element: $html.find(".govuk-breadcrumbs")[0],
+            prefix: "gem-c-",
+            element: $html.find(".gem-c-breadcrumbs")[0],
           },
           {
             name: "button",
-            prefix: "pub-c-",
-            element: $html.find(".pub-c-button")[0],
+            prefix: "gem-c-",
+            element: $html.find(".gem-c-button")[0],
           },
           {
             name: "label",
@@ -138,11 +138,11 @@ describe("highlightComponent", function () {
     });
 
     it("toggles the highlight-component class", function () {
-      loadFixtures("pub-c-button.html");
+      loadFixtures("gem-c-button.html");
 
       var highlightComponent = new HighlightComponent;
 
-      var $buttonEl = $("#jasmine-fixtures .pub-c-button");
+      var $buttonEl = $("#jasmine-fixtures .gem-c-button");
       expect($buttonEl).not.toHaveClass("highlight-component");
 
       highlightComponent.toggleComponents();
@@ -185,17 +185,6 @@ describe("Helpers.documentationUrl", function () {
     )
   });
 
-  it("creates the correct URL for 'pub' components", function () {
-    expect(
-      Helpers.documentationUrl({
-        prefix: "pub-c",
-        name: "title"
-      })
-    ).toEqual(
-      "https://govuk-static.herokuapp.com/component-guide/title"
-    )
-  });
-
   it("creates the correct URL for 'gem' components", function () {
     setFixtures('<head><meta name="govuk:rendering-application" content="rendering_app"></head>');
     Helpers.substitutions =  {
@@ -207,32 +196,18 @@ describe("Helpers.documentationUrl", function () {
         name: "label"
       })
     ).toEqual(
-      "https://rendering_app.herokuapp.com/component-guide/label"
+      "https://govuk-publishing-components.herokuapp.com/component-guide/label"
     )
   });
 
-  it("creates the correct URL for (deprecated) 'govuk' components", function () {
+  it("creates the correct URL for Design System components", function () {
     expect(
       Helpers.documentationUrl({
-        prefix: "govuk",
-        name: "beta-label"
+        prefix: "govuk-",
+        name: "error-message"
       })
     ).toEqual(
-      "https://govuk-static.herokuapp.com/component-guide/beta_label"
-    )
-  });
-
-  // Currently there are no components that are using the newer govuk-c prefix
-  // but we have assumed that it will follow the same component-name and
-  // component_url mismatch (dashes & underscores) that exists in govuk-static
-  it("creates the correct URL for 'govuk' components", function () {
-    expect(
-      Helpers.documentationUrl({
-        prefix: "govuk-c",
-        name: "component-name"
-      })
-    ).toEqual(
-      "https://govuk-static.herokuapp.com/component-guide/component_name"
+      "https://design-system.service.gov.uk/components/error-message"
     )
   });
 });
