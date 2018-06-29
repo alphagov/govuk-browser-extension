@@ -33,7 +33,10 @@ Popup.generateContentLinks = function(location, origin, pathname, currentEnviron
 
   if (renderingApplication == "smartanswers") {
     if (currentUrl.match(/\/y\/?.*$/)) {
+      linkToTemplateOnGithub = "javascript: if (typeof(linkToTemplatesOnGithub) === 'function') { linkToTemplatesOnGithub(); };"
+
       links.push({ name: "SmartAnswers: Display GovSpeak", url: currentUrl + ".txt"})
+      links.push({ name: "SmartAnswers: Link(s) to Github", url: linkToTemplateOnGithub })
     }
 
     links.push({ name: "SmartAnswers: Visualise", url: currentUrl.replace(/\/y.*$/, "") + "/y/visualise" })
