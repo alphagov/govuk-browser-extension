@@ -188,17 +188,4 @@ describe("Popup.generateExternalLinks", function () {
       url: 'https://content-tagger.publishing.service.gov.uk/taxons/4d8568c4-67f2-48da-a578-5ac6f35b69b4'
     })
   })
-
-  it("includes a link to beta publishing-api debug tools", function () {
-    var contentItem = {
-      content_id: '4d8568c4-67f2-48da-a578-5ac6f35b69b4'
-    }
-
-    var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
-
-    expect(links).toContain({
-      name: 'Publishing API debug (SSH tunnel required)',
-      url: 'https://publishing-api.publishing.service.gov.uk/debug/4d8568c4-67f2-48da-a578-5ac6f35b69b4'
-    })
-  })
 })

@@ -64,11 +64,6 @@ Popup.generateExternalLinks = function(contentItem, env) {
     url: 'https://docs.publishing.service.gov.uk/document-types/' + contentItem.document_type + '.html'
   })
 
-  links.push({
-    name: 'Publishing API debug (SSH tunnel required)',
-    url: env.protocol + '://publishing-api.' + env.serviceDomain + '/debug/' + contentItem.content_id
-  })
-
   return links.filter(function(item) { return item != undefined });
 }
 
