@@ -118,8 +118,6 @@ var Helpers = {
       return "https://" + this.appHostname() + ".herokuapp.com/component-guide/" + component.name
     } else if (component.prefix.startsWith('gem-c')) {
       return "https://govuk-publishing-components.herokuapp.com/component-guide/" + component.name.replace(/-/g, '_');
-    } else if (component.prefix.startsWith('govuk-')) {
-      return "https://design-system.service.gov.uk/components/" + component.name;
     }
   },
 
