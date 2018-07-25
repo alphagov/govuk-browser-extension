@@ -37,22 +37,6 @@ describe("PopupView.generateContentLinks", function () {
     )
   })
 
-  it("generates a subset of URIs for the root page", function () {
-    var links = Popup.generateContentLinks(
-      "https://www.gov.uk/",
-      "https://www.gov.uk",
-      "/",
-      PROD_ENV
-    )
-
-    var urls = pluck(links, 'url')
-
-    expect(urls).toEqual([
-      'https://www.gov.uk/',
-      'http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk/'
-    ])
-  })
-
   it("does not generate URIs for publishing apps (non-www pages)", function () {
     var links = Popup.generateContentLinks(
       "https://search-admin.publishing.service.gov.uk/queries",
