@@ -64,6 +64,17 @@ Popup.generateExternalLinks = function(contentItem, env) {
     url: 'https://docs.publishing.service.gov.uk/document-types/' + contentItem.document_type + '.html'
   })
 
+  if (env.name === "Production" && (
+    contentItem.document_type === 'step_by_step_nav' ||
+    contentItem.links.part_of_step_navs ||
+    contentItem.links.related_to_step_navs
+  )) {
+    links.push({
+      name: "Convert step by step into a trello board",
+      url: "https://trello-step.netlify.com/?url=" + encodeURIComponent(env.url)
+    })
+  }
+
   return links.filter(function(item) { return item != undefined });
 }
 
