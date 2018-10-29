@@ -151,14 +151,16 @@ describe("Popup.generateExternalLinks", function () {
 
   it("generates edit links for Specalist Publisher items", function () {
     var contentItem = {
-      publishing_app: 'specialist-publisher'
+      publishing_app: 'specialist-publisher',
+      content_id: '4dd888e6-e890-4498-9913-b89e4e5a0059',
+      document_type: 'aaib_report',
     }
 
     var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
 
     expect(links).toContain({
-      name: 'Go to Specialist Publisher',
-      url: 'https://specialist-publisher.publishing.service.gov.uk/'
+      name: 'Edit in Specialist Publisher',
+      url: 'https://specialist-publisher.publishing.service.gov.uk/aaib-reports/4dd888e6-e890-4498-9913-b89e4e5a0059'
     })
   })
 

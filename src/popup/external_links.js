@@ -101,10 +101,9 @@ function generateEditLink(contentItem, env) {
       url: env.protocol + '://manuals-publisher.' + env.serviceDomain + '/manuals/' + contentItem.content_id,
     }
   } else if (contentItem.publishing_app == 'specialist-publisher') {
-    // TODO: link directly to the specialist document edit page
     return {
-      name: 'Go to Specialist Publisher',
-      url: env.protocol + '://specialist-publisher.' + env.serviceDomain + '/',
+      name: 'Edit in Specialist Publisher',
+      url: env.protocol + '://specialist-publisher.' + env.serviceDomain + '/' + contentItem.document_type.replace("_", "-") + 's/' + contentItem.content_id,
     }
   }
 }
