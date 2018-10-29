@@ -68,7 +68,7 @@ function generateEditLink(contentItem, env) {
   if (contentItem.document_type == 'topic') {
     return {
       name: 'Edit in collections-publisher',
-      url: env.protocol + '://collections-publisher.' + env.serviceDomain + '/topics/' + contentItem.content_id,
+      url: env.protocol + '://collections-publisher.' + env.serviceDomain + '/specialist-sector-pages/' + contentItem.content_id,
     }
   } else if (contentItem.document_type == 'step_by_step_nav') {
     return {

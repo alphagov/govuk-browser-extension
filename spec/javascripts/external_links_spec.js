@@ -102,7 +102,7 @@ describe("Popup.generateExternalLinks", function () {
 
     expect(links).toContain({
       name: 'Edit in collections-publisher',
-      url: 'https://collections-publisher.publishing.service.gov.uk/topics/4d8568c4-67f2-48da-a578-5ac6f35b69b4'
+      url: 'https://collections-publisher.publishing.service.gov.uk/specialist-sector-pages/4d8568c4-67f2-48da-a578-5ac6f35b69b4'
     })
   })
 
