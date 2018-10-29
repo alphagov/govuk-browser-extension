@@ -27,7 +27,7 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
-  it("generates a link to the publishing app GitHub", function () {
+  it("generates a link to the publishing app in the docs", function () {
     var contentItem = {
       publishing_app: 'collections-publisher'
     }
@@ -40,7 +40,7 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
-  it("generates the correct Github link when a publishing app does not match the repository name", function () {
+  it("generates the correct docs link when a publishing app does not match the repository name", function () {
     var contentItem = {
       publishing_app: 'tariff'
     }
