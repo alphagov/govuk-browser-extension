@@ -144,7 +144,7 @@ describe("Popup.generateExternalLinks", function () {
     var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
 
     expect(links).toContain({
-      name: 'Go to Whitehall Publisher',
+      name: 'Edit in Whitehall Publisher',
       url: 'https://whitehall-admin.publishing.service.gov.uk/government/admin/by-content-id/4d8568c4-67f2-48da-a578-5ac6f35b69b4'
     })
   })

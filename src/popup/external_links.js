@@ -92,7 +92,7 @@ function generateEditLink(contentItem, env) {
     }
   } else if (contentItem.publishing_app == 'whitehall') {
     return {
-      name: 'Go to Whitehall Publisher',
+      name: 'Edit in Whitehall Publisher',
       url: env.protocol + '://whitehall-admin.' + env.serviceDomain + '/government/admin/by-content-id/' + contentItem.content_id,
     }
   } else if (contentItem.document_type == 'manual') {
