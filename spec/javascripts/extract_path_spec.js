@@ -64,4 +64,10 @@ describe("Popup.extractPath", function () {
 
     expect(path).toBe("/maternity-paternity-calculator")
   })
+
+  it("returns the path for the content data manager", function () {
+    var path = Popup.extractPath("https://content-data-admin.publishing.service.gov.uk/metrics/browse/disabilities", "/metrics/browse/disabilities")
+
+    expect(path).toBe("/browse/disabilities")
+  })
 })
