@@ -70,6 +70,11 @@ function generateEditLink(contentItem, env) {
       name: 'Edit in collections-publisher',
       url: env.protocol + '://collections-publisher.' + env.serviceDomain + '/topics/' + contentItem.content_id,
     }
+  } else if (contentItem.document_type == 'step_by_step_nav') {
+    return {
+      name: 'Look up in collections-publisher',
+      url: env.protocol + '://collections-publisher.' + env.serviceDomain + '/step-by-step-pages',
+    }
   } else if (contentItem.document_type == 'mainstream_browse_page') {
     return {
       name: 'Edit in collections-publisher',

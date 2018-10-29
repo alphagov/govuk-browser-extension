@@ -120,6 +120,20 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
+  it("generates edit links for step by steps", function () {
+    var contentItem = {
+      content_id: '4d8568c4-67f2-48da-a578-5ac6f35b69b4',
+      document_type: 'step_by_step_nav'
+    }
+
+    var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
+
+    expect(links).toContain({
+      name: 'Look up in collections-publisher',
+      url: 'https://collections-publisher.publishing.service.gov.uk/step-by-step-pages'
+    })
+  })
+
   it("generates edit links for mainstream items", function () {
     var contentItem = {
       content_id: '4d8568c4-67f2-48da-a578-5ac6f35b69b4',
