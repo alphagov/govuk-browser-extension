@@ -8,7 +8,6 @@ Popup.generateExternalLinks = function(contentItem, env) {
   function publishingAppNameToRepo(appName) {
     var APP_NAMES_TO_REPOS = {
       smartanswers: 'smart-answers',
-      tariff: 'trade-tariff-backend'
     };
 
     return APP_NAMES_TO_REPOS[appName] || appName;
@@ -19,9 +18,7 @@ Popup.generateExternalLinks = function(contentItem, env) {
   function renderingAppNameToRepo(appName) {
     var APP_NAMES_TO_REPOS = {
       smartanswers: 'smart-answers',
-      designprinciples: 'design-principles',
       'whitehall-frontend': 'whitehall',
-      tariff: 'trade-tariff-frontend'
     };
 
     return APP_NAMES_TO_REPOS[appName] || appName;

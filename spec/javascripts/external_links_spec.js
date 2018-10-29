@@ -42,14 +42,14 @@ describe("Popup.generateExternalLinks", function () {
 
   it("generates the correct docs link when a publishing app does not match the repository name", function () {
     var contentItem = {
-      publishing_app: 'tariff'
+      publishing_app: 'smartanswers'
     }
 
     var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
 
     expect(links).toContain({
-      name: 'Publishing app: tariff',
-      url: 'https://docs.publishing.service.gov.uk/apps/trade-tariff-backend.html'
+      name: 'Publishing app: smartanswers',
+      url: 'https://docs.publishing.service.gov.uk/apps/smart-answers.html'
     })
   })
 
