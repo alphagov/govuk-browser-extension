@@ -162,6 +162,21 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
+  it("generates edit links for Content Publisher items", function () {
+    var contentItem = {
+      publishing_app: 'content-publisher',
+      content_id: '4d8568c4-67f2-48da-a578-5ac6f35b69b4',
+      locale: 'cy',
+    }
+
+    var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
+
+    expect(links).toContain({
+      name: 'Edit in Content Publisher',
+      url: 'https://content-publisher.publishing.service.gov.uk/documents/4d8568c4-67f2-48da-a578-5ac6f35b69b4:cy'
+    })
+  })
+
   it("includes a link to content-tagger", function () {
     var contentItem = {
       content_id: '4d8568c4-67f2-48da-a578-5ac6f35b69b4'

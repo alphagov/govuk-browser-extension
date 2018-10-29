@@ -88,6 +88,11 @@ function generateEditLink(contentItem, env) {
       name: 'Look up in Mainstream Publisher',
       url: env.protocol + '://publisher.' + env.serviceDomain + '/?list=published&string_filter=' + contentItem.base_path.substring(1) + '&user_filter=all',
     }
+  } else if (contentItem.publishing_app == 'content-publisher') {
+    return {
+      name: 'Edit in Content Publisher',
+      url: env.protocol + '://content-publisher.' + env.serviceDomain + '/documents/' + contentItem.content_id + ':' + contentItem.locale,
+    }
   } else if (contentItem.publishing_app == 'whitehall') {
     return {
       name: 'Go to Whitehall Publisher',
