@@ -68,6 +68,8 @@ var Popup = Popup || {};
       $.getJSON(contentStore.url, function(contentStoreData) {
         view.externalLinks = Popup.generateExternalLinks(contentStoreData, view.currentEnvironment);
         renderView(view, location);
+      }).fail(function () {
+        renderView(view, location);
       })
     } else {
       renderView(view, location);
