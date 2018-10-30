@@ -8,7 +8,6 @@ Popup.generateExternalLinks = function(contentItem, env) {
   function publishingAppNameToRepo(appName) {
     var APP_NAMES_TO_REPOS = {
       smartanswers: 'smart-answers',
-      tariff: 'trade-tariff-backend'
     };
 
     return APP_NAMES_TO_REPOS[appName] || appName;
@@ -19,9 +18,7 @@ Popup.generateExternalLinks = function(contentItem, env) {
   function renderingAppNameToRepo(appName) {
     var APP_NAMES_TO_REPOS = {
       smartanswers: 'smart-answers',
-      designprinciples: 'design-principles',
       'whitehall-frontend': 'whitehall',
-      tariff: 'trade-tariff-frontend'
     };
 
     return APP_NAMES_TO_REPOS[appName] || appName;
@@ -71,7 +68,12 @@ function generateEditLink(contentItem, env) {
   if (contentItem.document_type == 'topic') {
     return {
       name: 'Edit in collections-publisher',
-      url: env.protocol + '://collections-publisher.' + env.serviceDomain + '/topics/' + contentItem.content_id,
+      url: env.protocol + '://collections-publisher.' + env.serviceDomain + '/specialist-sector-pages/' + contentItem.content_id,
+    }
+  } else if (contentItem.document_type == 'step_by_step_nav') {
+    return {
+      name: 'Look up in collections-publisher',
+      url: env.protocol + '://collections-publisher.' + env.serviceDomain + '/step-by-step-pages',
     }
   } else if (contentItem.document_type == 'mainstream_browse_page') {
     return {
@@ -88,9 +90,14 @@ function generateEditLink(contentItem, env) {
       name: 'Look up in Mainstream Publisher',
       url: env.protocol + '://publisher.' + env.serviceDomain + '/?list=published&string_filter=' + contentItem.base_path.substring(1) + '&user_filter=all',
     }
+  } else if (contentItem.publishing_app == 'content-publisher') {
+    return {
+      name: 'Edit in Content Publisher',
+      url: env.protocol + '://content-publisher.' + env.serviceDomain + '/documents/' + contentItem.content_id + ':' + contentItem.locale,
+    }
   } else if (contentItem.publishing_app == 'whitehall') {
     return {
-      name: 'Go to Whitehall Publisher',
+      name: 'Edit in Whitehall Publisher',
       url: env.protocol + '://whitehall-admin.' + env.serviceDomain + '/government/admin/by-content-id/' + contentItem.content_id,
     }
   } else if (contentItem.document_type == 'manual') {
@@ -99,10 +106,9 @@ function generateEditLink(contentItem, env) {
       url: env.protocol + '://manuals-publisher.' + env.serviceDomain + '/manuals/' + contentItem.content_id,
     }
   } else if (contentItem.publishing_app == 'specialist-publisher') {
-    // TODO: link directly to the specialist document edit page
     return {
-      name: 'Go to Specialist Publisher',
-      url: env.protocol + '://specialist-publisher.' + env.serviceDomain + '/',
+      name: 'Edit in Specialist Publisher',
+      url: env.protocol + '://specialist-publisher.' + env.serviceDomain + '/' + contentItem.document_type.replace("_", "-") + 's/' + contentItem.content_id,
     }
   }
 }

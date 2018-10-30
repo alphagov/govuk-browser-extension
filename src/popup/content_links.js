@@ -10,7 +10,7 @@ Popup.generateContentLinks = function(location, origin, pathname, currentEnviron
   }
 
   // This is 'https://www.gov.uk' or 'https://www-origin.integration.publishing.service.gov.uk/', etc.
-  if (origin == 'http://webarchive.nationalarchives.gov.uk' || origin.match(/draft-origin/) || origin.match(/support/)) {
+  if (origin == 'http://webarchive.nationalarchives.gov.uk' || origin.match(/draft-origin/) || origin.match(/content-data-admin/) || origin.match(/support/)) {
     origin = "https://www.gov.uk"
   }
 
@@ -24,6 +24,7 @@ Popup.generateContentLinks = function(location, origin, pathname, currentEnviron
   links.push({ name: "Draft (may not always work)", url: currentEnvironment.protocol + '://draft-origin.' + currentEnvironment.serviceDomain + path })
   links.push({ name: "User feedback", url: currentEnvironment.protocol + '://support.' + currentEnvironment.serviceDomain + '/anonymous_feedback?path=' + path })
   links.push({ name: "National Archives", url: "http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk" + path })
+  links.push({ name: "Content data (beta)", url: currentEnvironment.protocol + '://content-data-admin.' + currentEnvironment.serviceDomain + '/metrics' + path })
 
   var currentUrl = origin + path;
 
