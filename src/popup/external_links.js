@@ -70,7 +70,7 @@ Popup.generateExternalLinks = function(contentItem, env) {
     contentItem.links.related_to_step_navs
   )) {
     links.push({
-      name: "Convert step by step into a trello board",
+      name: "Convert step by step into a Trello board",
       url: "https://trello-step.netlify.com/?url=" + encodeURIComponent(env.url)
     })
   }
