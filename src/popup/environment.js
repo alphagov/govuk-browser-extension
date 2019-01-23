@@ -29,41 +29,30 @@ Popup.environment = function(location, host, origin) {
       host: "https://www.gov.uk"
     },
     {
-      name: "Development",
-      protocol: "http",
-      serviceDomain: "dev.gov.uk",
-      host: "http://www.dev.gov.uk"
-    },
-    {
       name: "Staging",
       protocol: "https",
       serviceDomain: "staging.publishing.service.gov.uk",
-      host: "https://www-origin.staging.publishing.service.gov.uk"
+      host: "https://www.staging.publishing.service.gov.uk"
     },
     {
       name: "Integration",
       protocol: "https",
       serviceDomain: "integration.publishing.service.gov.uk",
-      host: "https://www-origin.integration.publishing.service.gov.uk"
+      host: "https://www.integration.publishing.service.gov.uk"
+    },
+    {
+      name: "Development",
+      protocol: "http",
+      serviceDomain: "dev.gov.uk",
+      host: "http://www.dev.gov.uk"
     }
   ]
-
-  var ORIGIN = {
-    name: "Prod (origin)",
-    protocol: "https",
-    serviceDomain: "publishing.service.gov.uk",
-    host: "https://www-origin.publishing.service.gov.uk"
-  };
 
   var application = host.split('.')[0],
   inFrontend = application.match(/www/),
   environments = ENVIRONMENTS;
 
   var currentEnvironment;
-
-  if (inFrontend) {
-    environments.push(ORIGIN);
-  }
 
   var allEnvironments = environments.map(function (env) {
     if (inFrontend) {
