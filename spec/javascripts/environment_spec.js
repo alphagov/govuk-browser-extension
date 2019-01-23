@@ -14,26 +14,9 @@ describe("Popup.environment", function() {
 
     expect(urls).toEqual([
       'https://www.gov.uk/browse/disabilities?foo=bar',
+      'https://www.staging.publishing.service.gov.uk/browse/disabilities?foo=bar',
+      'https://www.integration.publishing.service.gov.uk/browse/disabilities?foo=bar',
       'http://www.dev.gov.uk/browse/disabilities?foo=bar',
-      'https://www-origin.staging.publishing.service.gov.uk/browse/disabilities?foo=bar',
-      'https://www-origin.integration.publishing.service.gov.uk/browse/disabilities?foo=bar',
-      'https://www-origin.publishing.service.gov.uk/browse/disabilities?foo=bar',
-    ])
-  })
-
-  it("returns the correct variants for production origin", function() {
-    var envs = createEnvironmentForUrl(
-      "https://www-origin.production.publishing.service.gov.uk/browse/disabilities?foo=bar"
-    )
-
-    var urls = pluck(envs, 'url');
-
-    expect(urls).toEqual([
-      'https://www.gov.uk/browse/disabilities?foo=bar',
-      'http://www.dev.gov.uk/browse/disabilities?foo=bar',
-      'https://www-origin.staging.publishing.service.gov.uk/browse/disabilities?foo=bar',
-      'https://www-origin.integration.publishing.service.gov.uk/browse/disabilities?foo=bar',
-      'https://www-origin.publishing.service.gov.uk/browse/disabilities?foo=bar',
     ])
   })
 
@@ -46,14 +29,13 @@ describe("Popup.environment", function() {
 
     expect(urls).toEqual([
       'https://www.gov.uk/browse/disabilities?foo=bar',
+      'https://www.staging.publishing.service.gov.uk/browse/disabilities?foo=bar',
+      'https://www.integration.publishing.service.gov.uk/browse/disabilities?foo=bar',
       'http://www.dev.gov.uk/browse/disabilities?foo=bar',
-      'https://www-origin.staging.publishing.service.gov.uk/browse/disabilities?foo=bar',
-      'https://www-origin.integration.publishing.service.gov.uk/browse/disabilities?foo=bar',
-      'https://www-origin.publishing.service.gov.uk/browse/disabilities?foo=bar',
     ])
   })
 
-  it("shows production, dev, staging and integration on publisher-apps", function() {
+  it("shows production, staging, integration and development on publisher-apps", function() {
     var envs = createEnvironmentForUrl(
       "https://signon.publishing.service.gov.uk/"
     )
@@ -61,7 +43,7 @@ describe("Popup.environment", function() {
     var environmentNames = pluck(envs, 'name')
 
     expect(environmentNames).toEqual([
-      'Production', 'Development', 'Staging', 'Integration'
+      'Production', 'Staging', 'Integration', 'Development'
     ])
   })
 
