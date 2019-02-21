@@ -55,7 +55,7 @@ $ bundle exec rake jasmine:ci
 
 1. Update the version in `manifest.json`
 2. Run `rake build`
-3. Upload newly created package in `/build` to the [Chrome web store](https://chrome.google.com/webstore/developer/edit/dclfaikcemljbaoagjnedmlppnbiljen) (currently on [Tijmen's](https://github.com/tijmenb) account) and [AMO](https://addons.mozilla.org/en-US/developers/addon/govuk-toolkit/versions/submit/) (account details in the [2nd line password store](https://github.com/alphagov/govuk-secrets/tree/master/pass/2ndline/firefox))
+3. Upload newly created package in `/build` to the [Chrome web store](https://chrome.google.com/webstore/developer/edit/dclfaikcemljbaoagjnedmlppnbiljen) (you will need to have been added to the [govukdevelopers](govukdevelopers@googlegroups.com) google group) and [AMO](https://addons.mozilla.org/en-US/developers/addon/govuk-toolkit/versions/submit/) (account details in the [2nd line password store](https://github.com/alphagov/govuk-secrets/tree/master/pass/2ndline/firefox))
 4. Create a [new release on GitHub](https://github.com/alphagov/govuk-browser-extension/releases/new)
 
 ### License
