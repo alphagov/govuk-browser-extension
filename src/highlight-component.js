@@ -6,10 +6,10 @@ function HighlightComponent() {
   this.components = extractComponentsFromPage();
 
   function extractComponentsFromPage() {
-    return $('[class*="app-c"], [class*="gem-c"], [class*="govuk"]')
+    return $('[class*="app-c"], [class*="gem-c"]')
       .toArray()
       .reduce(function(array, element) {
-        var blockRegex = /(app-c-|gem-c-|govuk-)([^ _\n]*(?=[ \n]|$))/;
+        var blockRegex = /(app-c-|gem-c-)([^ _\n]*(?=[ \n]|$))/;
         var match = $(element).attr('class').match(blockRegex);
 
         if (match) {
