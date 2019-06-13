@@ -6,8 +6,8 @@ src_files:
   - src/popup/environment.js
   - src/popup/extract_path.js
   - src/popup/external_links.js
-  - src/highlight-component.js
-  - src/design-mode-component.js
+  - src/components/highlight-component/highlight-component.js
+  - src/components/design-mode-component/design-mode-component.js
 
 helpers:
   - support/helpers.js

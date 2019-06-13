@@ -10,9 +10,9 @@
       "js": [
         "popup/lib/jquery.min.js",
         "popup/lib/mustache.min.js",
-        "highlight-component.js"
+        "components/highlight-component/highlight-component.js"
       ],
-      "css": ["highlight-component.css"]
+      "css": ["components/highlight-component/highlight-component.css"]
     }
   ],
   "icons": {
