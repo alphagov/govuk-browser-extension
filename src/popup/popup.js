@@ -140,29 +140,17 @@ var Popup = Popup || {};
 
     $('#highlight-components').on('click', function(e) {
       e.preventDefault();
-
-      chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-        var govukTab = tabs[0];
-        chrome.tabs.sendMessage(govukTab.id, { trigger: 'toggleComponents' });
-      });
+      sendChromeTabMessage('toggleComponents');
     });
 
     $('#highlight-meta-tags').on('click', function(e) {
       e.preventDefault();
-
-      chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-        var govukTab = tabs[0];
-        chrome.tabs.sendMessage(govukTab.id, { trigger: 'toggleMetaTags' });
-      });
+      sendChromeTabMessage('toggleMetaTags');
     });
 
     $('#toggle-design-mode').on('click', function(e) {
       e.preventDefault();
-
-      chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-        var govukTab = tabs[0];
-        chrome.tabs.sendMessage(govukTab.id, { trigger: 'toggleDesignMode' });
-      });
+      sendChromeTabMessage('toggleDesignMode');
     });
   }
 
@@ -208,4 +196,12 @@ var Popup = Popup || {};
       abTests: abTests
     }
   }
+
+  function sendChromeTabMessage(trigger) {
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+      var govukTab = tabs[0];
+      chrome.tabs.sendMessage(govukTab.id, { trigger: trigger });
+    });
+  }
+
 }());
