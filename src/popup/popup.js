@@ -10,6 +10,10 @@ var Popup = Popup || {};
     });
 
     chrome.tabs.executeScript(null, {
+      code: "window.designModeComponent = window.designModeComponent || new DesignModeComponent; undefined;"
+    });
+
+    chrome.tabs.executeScript(null, {
       file: "fetch-page-data.js"
     });
   });
@@ -52,6 +56,16 @@ var Popup = Popup || {};
     }
   });
 
+  chrome.runtime.onMessage.addListener(function (request, _sender) {
+    if (request.action == "designModeState") {
+      var toggleLink = $("#toggle-design-mode");
+      if (request.designModeState)
+        toggleLink.text("Turn off design mode");
+      else
+        toggleLink.text("Turn on design mode");
+    }
+  });
+
   // Render the popup.
   function renderPopup(location, host, origin, pathname, renderingApplication, windowHeight, abTestBuckets) {
     // Creates a view object with the data and render a template with it.
@@ -85,6 +99,10 @@ var Popup = Popup || {};
 
     chrome.tabs.executeScript(null, {
       code: "window.highlightComponent.sendState(); undefined;"
+    });
+
+    chrome.tabs.executeScript(null, {
+      code: "window.designModeComponent.sendState(); undefined;"
     });
   }
 
@@ -135,6 +153,15 @@ var Popup = Popup || {};
       chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         var govukTab = tabs[0];
         chrome.tabs.sendMessage(govukTab.id, { trigger: 'toggleMetaTags' });
+      });
+    });
+
+    $('#toggle-design-mode').on('click', function(e) {
+      e.preventDefault();
+
+      chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        var govukTab = tabs[0];
+        chrome.tabs.sendMessage(govukTab.id, { trigger: 'toggleDesignMode' });
       });
     });
   }

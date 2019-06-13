@@ -1,0 +1,15 @@
+.govuk-panel.design-mode-component__banner {
+  color: #fff;
+  background-color: #005ea5;
+  margin-bottom: 0;
+  padding: 10px;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0; /* required */
+  z-index: 100;
+}
+
+.govuk-panel.design-mode-component__banner .govuk-panel__body {
+  font-size: 20px;
+  font-weight: bold;
+}
