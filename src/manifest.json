@@ -3,16 +3,20 @@
   "name": "GOV.UK Browser Extension",
   "description": "Switch between GOV.UK environments and content",
   "homepage_url": "https://github.com/alphagov/govuk-browser-extension",
-  "version": "1.16.0",
+  "version": "1.17.0",
   "content_scripts": [
     {
       "matches": ["https://*.gov.uk/*"],
       "js": [
         "popup/lib/jquery.min.js",
         "popup/lib/mustache.min.js",
-        "components/highlight-component/highlight-component.js"
+        "components/highlight-component/highlight-component.js",
+        "components/design-mode-component/design-mode-component.js"
       ],
-      "css": ["components/highlight-component/highlight-component.css"]
+      "css": [
+        "components/highlight-component/highlight-component.css",
+        "components/design-mode-component/design-mode-component.css"
+      ]
     }
   ],
   "icons": {
