@@ -108,7 +108,7 @@ function generateEditLink(contentItem, env) {
   } else if (contentItem.publishing_app == 'specialist-publisher') {
     return {
       name: 'Edit in Specialist Publisher',
-      url: env.protocol + '://specialist-publisher.' + env.serviceDomain + '/' + contentItem.document_type.replace("_", "-") + 's/' + contentItem.content_id,
+      url: env.protocol + '://specialist-publisher.' + env.serviceDomain + '/' + contentItem.document_type.replace(/_/g, "-") + 's/' + contentItem.content_id,
     }
   }
 }
