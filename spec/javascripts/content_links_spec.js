@@ -19,7 +19,8 @@ describe("PopupView.generateContentLinks", function () {
       'https://draft-origin.publishing.service.gov.uk/browse/disabilities',
       'https://support.publishing.service.gov.uk/anonymous_feedback?path=/browse/disabilities',
       'http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk/browse/disabilities',
-      'https://content-data-admin.publishing.service.gov.uk/metrics/browse/disabilities'
+      'https://content-data-admin.publishing.service.gov.uk/metrics/browse/disabilities',
+      'https://search.google.com/structured-data/testing-tool/u/0/#url=https://www.gov.uk/browse/disabilities',
     ])
   })
 
@@ -67,7 +68,8 @@ describe("PopupView.generateContentLinks", function () {
       'https://draft-origin.publishing.service.gov.uk/browse/disabilities',
       'https://support.publishing.service.gov.uk/anonymous_feedback?path=/browse/disabilities',
       'http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk/browse/disabilities',
-      'https://content-data-admin.publishing.service.gov.uk/metrics/browse/disabilities'
+      'https://content-data-admin.publishing.service.gov.uk/metrics/browse/disabilities',
+      'https://search.google.com/structured-data/testing-tool/u/0/#url=https://www.gov.uk/browse/disabilities'
     ])
   })
 
