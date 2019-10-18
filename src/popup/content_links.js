@@ -18,7 +18,7 @@ Popup.generateContentLinks = function(location, origin, pathname, currentEnviron
 
   // If we're on the homepage there's not much to show.
   links.push({ name: "On GOV.UK", url: origin + path })
-  links.push({ name: "Content item (JSON)", url: origin + "/api/content" + path })
+  links.push({ name: "Content item (JSON)", url: currentEnvironment.origin + "/api/content" + path })
   links.push({ name: "Search data (JSON)", url: origin + "/api/search.json?filter_link=" + path })
   links.push({ name: "Info page", url: origin + "/info" + path })
   links.push({ name: "Draft (may not always work)", url: currentEnvironment.protocol + '://draft-origin.' + currentEnvironment.serviceDomain + path })

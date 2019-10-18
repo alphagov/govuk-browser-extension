@@ -26,25 +26,29 @@ Popup.environment = function(location, host, origin) {
       name: "Production",
       protocol: "https",
       serviceDomain: "publishing.service.gov.uk",
-      host: "https://www.gov.uk"
+      host: "https://www.gov.uk",
+      origin: origin
     },
     {
       name: "Staging",
       protocol: "https",
       serviceDomain: "staging.publishing.service.gov.uk",
-      host: "https://www.staging.publishing.service.gov.uk"
+      host: "https://www.staging.publishing.service.gov.uk",
+      origin: origin
     },
     {
       name: "Integration",
       protocol: "https",
       serviceDomain: "integration.publishing.service.gov.uk",
-      host: "https://www.integration.publishing.service.gov.uk"
+      host: "https://www.integration.publishing.service.gov.uk",
+      origin: origin
     },
     {
       name: "Development",
       protocol: "http",
       serviceDomain: "dev.gov.uk",
-      host: "http://www.dev.gov.uk"
+      host: "http://www.dev.gov.uk",
+      origin: origin
     }
   ]
 
