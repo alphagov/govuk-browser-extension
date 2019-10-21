@@ -1,5 +1,6 @@
 describe("PopupView.generateContentLinks", function () {
-  var PROD_ENV = { protocol: 'https', serviceDomain: 'publishing.service.gov.uk' }
+  var PROD_ENV = { protocol: 'https', serviceDomain: 'publishing.service.gov.uk', origin: 'https://www.gov.uk' }
+  var DRAFT_PROD_ENV = { protocol: 'https', serviceDomain: 'publishing.service.gov.uk', origin: 'https://draft-origin.publishing.service.gov.uk' }
 
   it("returns the correct URIs", function () {
     var links = Popup.generateContentLinks(
@@ -102,5 +103,21 @@ describe("PopupView.generateContentLinks", function () {
     var urls = pluck(links, 'url')
 
     expect(urls).not.toContain("https://www.gov.uk/smart-answer.txt")
+  })
+
+  it("generates correct link for content API on draft stack", function () {
+    var links = Popup.generateContentLinks(
+      "https://draft-origin.publishing.service.gov.uk/apply-for-and-manage-a-gov-uk-domain-name",
+      "https://draft-origin.publishing.service.gov.uk",
+      "/apply-for-and-manage-a-gov-uk-domain-name",
+      DRAFT_PROD_ENV,
+      "collections"
+    )
+
+    expect(links[1]).toEqual({
+      name: "Content item (JSON)",
+      url:  "https://draft-origin.publishing.service.gov.uk/api/content/apply-for-and-manage-a-gov-uk-domain-name",
+      class: ""
+    })
   })
 })
