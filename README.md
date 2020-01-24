@@ -56,7 +56,7 @@ $ bundle exec rake jasmine:ci
 1. Update the version in `manifest.json`
 2. Run `rake build`
 3. Create a Pull Request with the new package committed
-4. Upload newly created package in `/build` to the [Chrome web store](https://chrome.google.com/webstore/developer/edit/dclfaikcemljbaoagjnedmlppnbiljen). You will need to have been added to the [govukdevelopers google group](https://groups.google.com/forum/#!forum/govukdevelopers) (at the time of writing, @tijmenb, @andysellick, and @alex-ju).
+4. Upload newly created package in `/build` to the [Chrome web store](https://chrome.google.com/webstore/developer/edit/dclfaikcemljbaoagjnedmlppnbiljen). You will need to have been added to the [govukdevelopers google group](https://groups.google.com/forum/#!forum/govukdevelopers) (at the time of writing, @andysellick, and @alex-ju).
 5. Upload newly created package in `/build` to [Firefox Add-ons](https://addons.mozilla.org/en-US/developers/addon/govuk-toolkit/versions/submit/). Account details in the [2nd line password store](https://github.com/alphagov/govuk-secrets/tree/master/pass/2ndline/firefox).
 
 ### License
