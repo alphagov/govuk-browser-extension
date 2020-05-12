@@ -6,7 +6,7 @@ Allows easy switching between the different GOV.UK environments and content repr
 
 ## Installation
 
-The extension is [downloadable on the Chrome web store](https://chrome.google.com/webstore/detail/govuk-toolkit/dclfaikcemljbaoagjnedmlppnbiljen) and [AMO for Firefox](https://addons.mozilla.org/en-GB/firefox/addon/govuk-toolkit/).
+The extension is [downloadable on the Chrome web store](https://chrome.google.com/webstore/detail/govuk-toolkit/dclfaikcemljbaoagjnedmlppnbiljen) and [AMO for Firefox](https://addons.mozilla.org/en-GB/firefox/addon/govuk-browser-extension/).
 
 If you don't want to install from your browser's web store for security reasons, you can install a local non-self updating copy.
 
