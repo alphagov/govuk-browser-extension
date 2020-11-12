@@ -1,11 +1,11 @@
 .highlight-component {
   cursor: pointer;
-  outline: 3px solid #FFBF47;
+  outline: 3px solid #ffdd00;
   position: relative;
 }
 
 .highlight-component::before {
-  background-color: #FFBF47;
+  background-color: #ffdd00;
   color: #0B0C0C;
   content: attr(data-app-name)attr(data-component-name);
   font-family: sans-serif;
