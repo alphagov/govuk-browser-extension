@@ -4,7 +4,7 @@
   position: relative;
 }
 
-.highlight-component::before {
+.highlight-component::after {
   background-color: #ffdd00;
   color: #0B0C0C;
   content: attr(data-app-name)attr(data-component-name);
@@ -17,4 +17,5 @@
   position: absolute;
   right: 0;
   top: 0;
+  z-index: 1;
 }
