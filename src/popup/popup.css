@@ -12,7 +12,7 @@ body {
 
 .envs {
   padding: 0;
-  background-color: #000;
+  background-color: #0B0C0C;
 }
 
 .envs a {
@@ -24,7 +24,7 @@ body {
 
 .envs a.current,
 .envs a:hover {
-  background-color: #005ea5;
+  background-color: #1d70b8;
 }
 
 .add-top-border {
@@ -40,15 +40,18 @@ body {
 li a {
   display: block;
   padding: 7px 10px;
-  color: #000;
+  color: #0B0C0C;
   text-decoration: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0.3);
 }
 
 li a:focus,
 .envs a:focus {
-  background-color: #ffbf47;
-  outline: 3px solid #ffbf47;
+  color: #0B0C0C;
+  background-color: #ffdd00;
+  outline: 3px solid transparent;
+  box-shadow: 0 -2px #ffdd00, 0 4px #0b0c0c;
+  text-decoration: none;
 }
 
 li a img {
@@ -57,7 +60,7 @@ li a img {
 
 li a.current,
 li a:hover {
-  background-color: #005ea5;
+  background-color: #1d70b8;
   color: #fff;
 }
 
@@ -81,5 +84,5 @@ li a:hover {
 
 .ab-bucket-selected, .ab-test-bucket:hover {
   color: #fff;
-  background-color: #005ea5;
+  background-color: #1d70b8;
 }
