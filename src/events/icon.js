@@ -3,7 +3,11 @@
 function showIconForGovukPages(tabId, changeInfo, tab) {
   if (tab.url.match(/www\.gov\.uk/) || tab.url.match(/dev\.gov\.uk/) || tab.url.match(/.*publishing\.service\.gov\.uk/)) {
     chrome.pageAction.show(tabId);
-    chrome.pageAction.setIcon({tabId: tabId, path: { '19': 'icons/crown-logo-19-active.png', '38': 'icons/crown-logo-38-active.png' }});
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      chrome.pageAction.setIcon({tabId: tabId, path: { '19': 'icons/crown-logo-19-active-dark-mode.png', '38': 'icons/crown-logo-38-active-dark-mode.png' }});
+    } else {
+      chrome.pageAction.setIcon({tabId: tabId, path: { '19': 'icons/crown-logo-19-active.png', '38': 'icons/crown-logo-38-active.png' }});
+    }
   }
 }
 
