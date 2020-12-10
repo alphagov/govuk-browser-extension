@@ -23,6 +23,7 @@ Popup.generateContentLinks = function(location, origin, pathname, currentEnviron
   links.push({ name: "Info page", url: origin + "/info" + path })
   links.push({ name: "Draft (may not always work)", url: currentEnvironment.protocol + '://draft-origin.' + currentEnvironment.serviceDomain + path })
   links.push({ name: "User feedback", url: currentEnvironment.protocol + '://support.' + currentEnvironment.serviceDomain + '/anonymous_feedback?path=' + path })
+  links.push({ name: "Content Data", url: "https://content-data.publishing.service.gov.uk/metrics" + path })
   links.push({ name: "National Archives", url: "http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk" + path })
   links.push({ name: "View data about page", url: currentEnvironment.protocol + '://content-data-admin.' + currentEnvironment.serviceDomain + '/metrics' + path })
   links.push({ name: "View structured data", url: "https://search.google.com/structured-data/testing-tool/u/0/#url=https://www.gov.uk" + path })
