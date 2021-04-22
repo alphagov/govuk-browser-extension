@@ -5,7 +5,8 @@ Popup.generateContentLinks = function(location, origin, pathname, currentEnviron
   var path = Popup.extractPath(location, pathname, renderingApplication);
 
   // If no path can be found (which means we're probably in a publishing app)
-  if (!path) {
+  // Similarly if we're on GOVUK account, not many of the links are relevant
+  if (!path || origin.match(/www.account/)) {
     return [];
   }
 

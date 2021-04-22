@@ -47,6 +47,18 @@ describe("Popup.environment", function() {
     ])
   })
 
+  it("Only shows production, staging and development on the GOVUK Account", function() {
+    var envs = createEnvironmentForUrl(
+      "https://www.account.publishing.service.gov.uk/"
+    )
+
+    var environmentNames = pluck(envs, 'name')
+
+    expect(environmentNames).toEqual([
+      'Production', 'Staging', 'Development'
+    ])
+  })
+
   it("correctly identifies the current environment", function() {
     var forProd = createEnvironmentForUrl(
       "https://www.gov.uk/browse/disabilities?foo=bar"
