@@ -12,6 +12,10 @@ Popup.environment = function(location, host, origin) {
         host.match(/dev.gov.uk/);
   }
 
+  function isGOVUKAccount() {
+    return host.match(/www.account/) || host.match(/login.service.dev/)
+  }
+
   if (!isPartOfGOVUK()) {
     return {
       allEnvironments: {
@@ -52,8 +56,8 @@ Popup.environment = function(location, host, origin) {
     }
   ]
 
-  var application = host.split('.')[0],
-  inFrontend = application.match(/www/),
+  var application = isGOVUKAccount() ? host.split('.')[1] : host.split('.')[0],
+  inFrontend = application.match(/www/) && !isGOVUKAccount(),
   environments = ENVIRONMENTS;
 
   var currentEnvironment;
@@ -61,11 +65,17 @@ Popup.environment = function(location, host, origin) {
   var allEnvironments = environments.map(function (env) {
     if (inFrontend) {
       var replacement = env.host;
+    } else if (isGOVUKAccount()) {
+      var replacement = env.protocol + "://www." + application + "." + env.serviceDomain;
     } else {
       var replacement = env.protocol + "://" + application + "." + env.serviceDomain;
     }
 
     env.url = location.replace(origin, replacement);
+    if (env.name === "Development" && isGOVUKAccount()) {
+      // The GOV.UK Account is a special snowflake app with a special snowflake dev environment URL
+      env.url = "http://www.login.service.dev.gov.uk/"
+    }
 
     if (location == env.url) {
       env.class = "current";
@@ -75,7 +85,11 @@ Popup.environment = function(location, host, origin) {
     }
 
     return env;
-  })
+  }).filter(function( env ) {
+    //  GOV.UK Account does not have an Integration environment – remove this option from the list of environments
+    if (env.name === "Integration" && isGOVUKAccount()) return;
+    return env;
+  });
 
   return {
     allEnvironments: allEnvironments,
