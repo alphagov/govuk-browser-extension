@@ -12,7 +12,7 @@ If you don't want to install from your browser's web store for security reasons,
 
 ### For Chrome:
 
-1. [Download the source from GitHub](https://github.com/alphagov/govuk-browser-extension/archive/master.zip) and unzip.
+1. [Download the source from GitHub](https://github.com/alphagov/govuk-browser-extension/archive/main.zip) and unzip.
 2. Visit [chrome://extensions](chrome://extensions) in your browser.
 3. Ensure that the Developer mode checkbox in the top right-hand corner is checked.
 4. Click `Load unpacked extension…` to pop up a file selection dialog.
