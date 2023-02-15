@@ -4,6 +4,15 @@ describe("Toggling meta tags", function () {
   var highlightComponent;
 
   beforeEach(function () {
+    window.chrome = {
+      runtime: {
+        onMessage: {
+          addListener: function () {},
+        },
+        sendMessage: function () {},
+      },
+    };
+
     loadFixtures("meta-tags.html")
 
     highlightComponent = new HighlightComponent;
