@@ -37,30 +37,32 @@ Source: [Temporary installation in Firefox](https://developer.mozilla.org/en-US/
 
 ## Running the tests
 
-In development, it's easiest to run:
+You'll need jasmine-browser, which you can set up with:
 
 ```
-$ bundle exec rake jasmine
+$ npm test
 ```
 
-This will start a server on http://localhost:8888/ that serves the tests.
-
-You can also run the Jasmine test suite in slower "headless" mode with:
+You can then run the tests with:
 
 ```
-$ bundle exec rake jasmine:ci
+$ npm test
 ```
 
+This will start a server and run the tests in a browser (chrome by default).
 
-## Getting permission to release
-1. You will need to be a registered Chrome Web Store Developer
-2. Once you are registered, ask to be added to the the [govukdevelopers google group](https://groups.google.com/forum/#!forum/govukdevelopers).
-3. An existing developer will then need to go into their Chrome web console and run the sync task so that you can release the extension as a member of the group.
+If you want the browser to remain open with the test results, you can use
+
+```
+$ npx jasmine-browser-runner serve
+```
+
+..then navigate to http://localhost:8888/
 
 ## Releasing the extension
 
 1. Update the version in `manifest.json`
-2. Run `bundle exec rake build`
+2. Run `npm run build`
 3. Create a Pull Request with the new package committed
 4. Upload newly created package in `/build` to the [Chrome web store](https://chrome.google.com/webstore/devconsole/06b3913d-07a7-479e-94aa-05bb5b3cd44d/dclfaikcemljbaoagjnedmlppnbiljen/edit/package).
 5. Upload newly created package in `/build` to [Firefox Add-ons](https://addons.mozilla.org/en-US/developers/addon/govuk-browser-extension/versions/submit/). Account details in the [2nd line password store](https://github.com/alphagov/govuk-secrets/tree/master/pass/2ndline/firefox).
