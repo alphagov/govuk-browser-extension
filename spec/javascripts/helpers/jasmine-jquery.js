@@ -50,7 +50,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   jasmine.Fixtures = function () {
     this.containerId = 'jasmine-fixtures'
     this.fixturesCache_ = {}
-    this.fixturesPath = 'spec/javascripts/fixtures'
+    this.fixturesPath = '__spec__/javascripts/fixtures'
   }
 
   jasmine.Fixtures.prototype.set = function (html) {
@@ -290,6 +290,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   jasmine.jQuery.events = {
     spyOn: function (selector, eventName) {
       var handler = function (e) {
+        console.log("ARGUMENTS: ")
+        console.log(arguments)
         var calls = (typeof data.spiedEvents[jasmine.spiedEventsKey(selector, eventName)] !== 'undefined') ? data.spiedEvents[jasmine.spiedEventsKey(selector, eventName)].calls : 0
         data.spiedEvents[jasmine.spiedEventsKey(selector, eventName)] = {
           args: jasmine.util.argsToArray(arguments),
