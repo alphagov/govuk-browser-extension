@@ -290,11 +290,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   jasmine.jQuery.events = {
     spyOn: function (selector, eventName) {
       var handler = function (e) {
-        console.log("ARGUMENTS: ")
-        console.log(arguments)
         var calls = (typeof data.spiedEvents[jasmine.spiedEventsKey(selector, eventName)] !== 'undefined') ? data.spiedEvents[jasmine.spiedEventsKey(selector, eventName)].calls : 0
         data.spiedEvents[jasmine.spiedEventsKey(selector, eventName)] = {
-          args: jasmine.util.argsToArray(arguments),
+          args: arguments, // jasmine.util.argsToArray(arguments),
           calls: ++calls
         }
       }
