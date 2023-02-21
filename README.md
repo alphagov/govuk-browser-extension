@@ -51,12 +51,18 @@ You can also run the Jasmine test suite in slower "headless" mode with:
 $ bundle exec rake jasmine:ci
 ```
 
+
+## Getting permission to release
+1. You will need to be a registered Chrome Web Store Developer
+2. Once you are registered, ask to be added to the the [govukdevelopers google group](https://groups.google.com/forum/#!forum/govukdevelopers).
+3. An existing developer will then need to go into their Chrome web console and run the sync task so that you can release the extension as a member of the group.
+
 ## Releasing the extension
 
 1. Update the version in `manifest.json`
-2. Run `rake build`
+2. Run `bundle exec rake build`
 3. Create a Pull Request with the new package committed
-4. Upload newly created package in `/build` to the [Chrome web store](https://chrome.google.com/webstore/devconsole/06b3913d-07a7-479e-94aa-05bb5b3cd44d/dclfaikcemljbaoagjnedmlppnbiljen/edit/package). You will need to have been added to the [govukdevelopers google group](https://groups.google.com/forum/#!forum/govukdevelopers) (at the time of writing, @andysellick, and @alex-ju).
+4. Upload newly created package in `/build` to the [Chrome web store](https://chrome.google.com/webstore/devconsole/06b3913d-07a7-479e-94aa-05bb5b3cd44d/dclfaikcemljbaoagjnedmlppnbiljen/edit/package).
 5. Upload newly created package in `/build` to [Firefox Add-ons](https://addons.mozilla.org/en-US/developers/addon/govuk-browser-extension/versions/submit/). Account details in the [2nd line password store](https://github.com/alphagov/govuk-secrets/tree/master/pass/2ndline/firefox).
 
 ### License
