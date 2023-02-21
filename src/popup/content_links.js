@@ -31,10 +31,6 @@ Popup.generateContentLinks = function(location, origin, pathname, currentEnviron
   var currentUrl = origin + path;
 
   if (renderingApplication == "smartanswers") {
-    if (currentUrl.match(/\/y\/?.*$/)) {
-      links.push({ name: "SmartAnswers: Display GovSpeak", url: currentUrl + ".txt"})
-    }
-
     links.push({ name: "SmartAnswers: Visualise", url: currentUrl.replace(/\/y.*$/, "") + "/y/visualise" })
   }
 
