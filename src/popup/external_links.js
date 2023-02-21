@@ -24,7 +24,11 @@ Popup.generateExternalLinks = function(contentItem, env) {
     return APP_NAMES_TO_REPOS[appName] || appName;
   }
 
-  var links = [generateEditLink(contentItem, env)];
+  var links = []
+
+  generateEditLink(contentItem, env).forEach(element => {
+    links.push(element);
+  });
 
   var schemaName = contentItem.schema_name || "";
   if (schemaName.indexOf("placeholder") !== -1) {
@@ -66,49 +70,62 @@ Popup.generateExternalLinks = function(contentItem, env) {
 
 function generateEditLink(contentItem, env) {
   if (contentItem.document_type == 'topic') {
-    return {
+    return [{
       name: 'Edit in collections-publisher',
       url: env.protocol + '://collections-publisher.' + env.serviceDomain + '/specialist-sector-pages/' + contentItem.content_id,
-    }
+    }]
   } else if (contentItem.document_type == 'step_by_step_nav') {
-    return {
+    return [{
       name: 'Look up in collections-publisher',
       url: env.protocol + '://collections-publisher.' + env.serviceDomain + '/step-by-step-pages',
-    }
+    }]
   } else if (contentItem.document_type == 'mainstream_browse_page') {
-    return {
+    return [{
       name: 'Edit in collections-publisher',
       url: env.protocol + '://collections-publisher.' + env.serviceDomain + '/mainstream-browse-pages/' + contentItem.content_id,
-    }
+    }]
   } else if (contentItem.document_type == 'taxon') {
-    return {
+    return [{
       name: 'Edit in content-tagger',
       url: env.protocol + '://content-tagger.' + env.serviceDomain + '/taxons/' + contentItem.content_id,
-    }
+    }]
   } else if (contentItem.publishing_app == 'publisher') {
-    return {
+    return [{
       name: 'Look up in Mainstream Publisher',
       url: env.protocol + '://publisher.' + env.serviceDomain + '/?list=published&string_filter=' + contentItem.base_path.substring(1) + '&user_filter=all',
-    }
+    }]
   } else if (contentItem.publishing_app == 'content-publisher') {
-    return {
+    return [{
       name: 'Edit in Content Publisher',
       url: env.protocol + '://content-publisher.' + env.serviceDomain + '/documents/' + contentItem.content_id + ':' + contentItem.locale,
-    }
+    }]
   } else if (contentItem.publishing_app == 'whitehall') {
-    return {
+    return [{
       name: 'Edit in Whitehall Publisher',
       url: env.protocol + '://whitehall-admin.' + env.serviceDomain + '/government/admin/by-content-id/' + contentItem.content_id,
-    }
+    }]
   } else if (contentItem.document_type == 'manual') {
-    return {
+    return [{
       name: 'Edit in Manuals Publisher',
       url: env.protocol + '://manuals-publisher.' + env.serviceDomain + '/manuals/' + contentItem.content_id,
-    }
+    }]
   } else if (contentItem.publishing_app == 'specialist-publisher') {
-    return {
+    return [{
       name: 'Edit in Specialist Publisher',
       url: env.protocol + '://specialist-publisher.' + env.serviceDomain + '/' + contentItem.document_type.replace(/_/g, "-") + 's/' + contentItem.content_id,
-    }
+    }]
+  } else if (contentItem.publishing_app == 'smartanswers') {
+    return [
+      {
+        name: 'View flow page in Github',
+        url: 'https://github.com/alphagov/smart-answers/tree/main/app/flows' + contentItem.base_path.replace(/-/g, "_") + "_flow.rb",
+      },
+      {
+        name: 'View flow details folder in Github',
+        url: 'https://github.com/alphagov/smart-answers/tree/main/app/flows' + contentItem.base_path.replace(/-/g, "_") + "_flow",
+      }
+    ]
+  } else {
+    return []
   }
 }
