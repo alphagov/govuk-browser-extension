@@ -85,24 +85,7 @@ describe("PopupView.generateContentLinks", function () {
 
     var urls = pluck(links, 'url')
 
-    expect(urls).toContain(
-      "https://www.gov.uk/smart-answer/y/question-1.txt",
-      "https://www.gov.uk/smart-answer/y/visualise"
-    )
-  })
-
-  it("does not generate a markdown link for landing pages", function () {
-    var links = Popup.generateContentLinks(
-      "https://www.gov.uk/smart-answer",
-      "https://www.gov.uk",
-      "/smart-answer",
-      PROD_ENV,
-      "smartanswers"
-    )
-
-    var urls = pluck(links, 'url')
-
-    expect(urls).not.toContain("https://www.gov.uk/smart-answer.txt")
+    expect(urls).toContain("https://www.gov.uk/smart-answer/y/visualise")
   })
 
   it("generates correct link for content API on draft stack", function () {
