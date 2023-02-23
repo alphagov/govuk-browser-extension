@@ -16,7 +16,8 @@ describe("Popup.generateExternalLinks", function () {
 
   it("generates a Github link when the rendering app does not match the repository name", function () {
     var contentItem = {
-      rendering_app: 'smartanswers'
+      rendering_app: 'smartanswers',
+      base_path: '/my-smart-answer'
     }
 
     var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
@@ -42,7 +43,8 @@ describe("Popup.generateExternalLinks", function () {
 
   it("generates the correct docs link when a publishing app does not match the repository name", function () {
     var contentItem = {
-      publishing_app: 'smartanswers'
+      publishing_app: 'smartanswers',
+      base_path: '/my-smart-answer'
     }
 
     var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
