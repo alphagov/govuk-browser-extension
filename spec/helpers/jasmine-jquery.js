@@ -50,7 +50,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   jasmine.Fixtures = function () {
     this.containerId = 'jasmine-fixtures'
     this.fixturesCache_ = {}
-    this.fixturesPath = 'spec/javascripts/fixtures'
+    this.fixturesPath = '__spec__/javascripts/fixtures'
   }
 
   jasmine.Fixtures.prototype.set = function (html) {
@@ -171,7 +171,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   jasmine.StyleFixtures = function () {
     this.fixturesCache_ = {}
     this.fixturesNodes_ = []
-    this.fixturesPath = 'spec/javascripts/fixtures'
+    this.fixturesPath = 'spec/fixtures'
   }
 
   jasmine.StyleFixtures.prototype.set = function (css) {
@@ -292,7 +292,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       var handler = function (e) {
         var calls = (typeof data.spiedEvents[jasmine.spiedEventsKey(selector, eventName)] !== 'undefined') ? data.spiedEvents[jasmine.spiedEventsKey(selector, eventName)].calls : 0
         data.spiedEvents[jasmine.spiedEventsKey(selector, eventName)] = {
-          args: jasmine.util.argsToArray(arguments),
+          args: arguments, // jasmine.util.argsToArray(arguments),
           calls: ++calls
         }
       }
