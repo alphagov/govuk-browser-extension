@@ -11,7 +11,7 @@ Popup.extractPath = function(location, pathname, renderingApplication) {
   else if (location.match(/anonymous_feedback/)) {
     extractedPath = extractQueryParameter(location, 'path');
   }
-  else if (location.match(/content-data-admin/)) {
+  else if (location.match(/content-data/)) {
     extractedPath = pathname.replace('metrics/', '');;
   }
   else if (location.match(/nationalarchives.gov.uk/)) {
