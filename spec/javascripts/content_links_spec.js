@@ -21,6 +21,7 @@ describe("PopupView.generateContentLinks", function () {
       'https://support.publishing.service.gov.uk/anonymous_feedback?path=/browse/disabilities',
       'http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk/browse/disabilities',
       'https://content-data.publishing.service.gov.uk/metrics/browse/disabilities',
+      'https://my2.siteimprove.com/QualityAssurance/1054012/Overview/Search?SearchIn=Url&Query=/browse/disabilities',
       'https://search.google.com/structured-data/testing-tool/u/0/#url=https://www.gov.uk/browse/disabilities',
     ])
   })
@@ -70,6 +71,7 @@ describe("PopupView.generateContentLinks", function () {
       'https://support.publishing.service.gov.uk/anonymous_feedback?path=/browse/disabilities',
       'http://webarchive.nationalarchives.gov.uk/*/https://www.gov.uk/browse/disabilities',
       'https://content-data.publishing.service.gov.uk/metrics/browse/disabilities',
+      'https://my2.siteimprove.com/QualityAssurance/1054012/Overview/Search?SearchIn=Url&Query=/browse/disabilities',
       'https://search.google.com/structured-data/testing-tool/u/0/#url=https://www.gov.uk/browse/disabilities'
     ])
   })
