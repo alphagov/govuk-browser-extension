@@ -1,9 +1,34 @@
 {
   "srcDir": "src",
-  "srcFiles": ["**/ab_bucket_store.js", "lib/jquery.min.js", "popup/ab_tests.js", "popup/content_links.js", "popup/environment.js", "popup/extract_path.js", "popup/external_links.js", "components/highlight-component/highlight-component.js", "components/design-mode-component/design-mode-component.js"],
+  "srcFiles": [
+    "**/ab_bucket_store.js",
+    "lib/jquery.min.js",
+    "popup/ab_tests.js",
+    "popup/content_links.js",
+    "popup/environment.js",
+    "popup/extract_path.js",
+    "popup/external_links.js",
+    "components/highlight-component/highlight-component.js",
+    "components/design-mode-component/design-mode-component.js"
+  ],
   "specDir": "spec",
-  "specFiles": ["**/show_meta_tags_spec.js", "**/highlight_component_spec.js", "**/extract_path_spec.js", "**/external_links_spec.js", "**/environment_spec.js", "**/design_mode_component_spec.js", "**/content_links_spec.js", "**/ab_tests_spec.js", "**/ab_bucket_store_spec.js"],
-  "helpers": ["helpers/jquery.min.js", "helpers/jasmine-jquery.js", "helpers/helpers.js", "helpers/polyfills/String.startsWith.js"],
+  "specFiles": [
+    "**/show_meta_tags_spec.js",
+    "**/highlight_component.spec.js",
+    "**/extract_path_spec.js",
+    "**/external_links_spec.js",
+    "**/environment_spec.js",
+    "**/design_mode_component.spec.js",
+    "**/content_links_spec.js",
+    "**/ab_tests_spec.js",
+    "**/ab_bucket_store_spec.js"
+  ],
+  "helpers": [
+    "helpers/jquery.min.js",
+    "helpers/jasmine-jquery.js",
+    "helpers/helpers.js",
+    "helpers/polyfills/String.startsWith.js"
+  ],
   "env": {
     "stopSpecOnExpectationFailure": false,
     "stopOnSpecFailure": false,

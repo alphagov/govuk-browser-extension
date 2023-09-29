@@ -1,6 +1,7 @@
 "use strict";
 describe("Toggling design mode", function () {
-  var $bannerEl;
+  var designModeBannerId = "govuk-chrome-toolkit-design-mode-banner";
+  var designModeBannerElement;
   var designModeComponent;
 
   beforeEach(function () {
@@ -16,16 +17,16 @@ describe("Toggling design mode", function () {
       }
     };
     designModeComponent = new DesignModeComponent;
-    $bannerEl = $("#govuk-chrome-toolkit-design-mode-banner");
+    designModeBannerElement = document.querySelector(`#${designModeBannerId}`)
   });
 
   it("shows design mode banner", function () {
-    expect($bannerEl.text()).toMatch(/You are in design mode./);
+    expect(designModeBannerElement.textContent).toMatch(/You are in design mode./);
   });
 
   it("removes the banner when toggled off", function () {
     designModeComponent.toggleDesignMode();
-    expect($bannerEl.parent()).toHaveLength(0);
+    expect(designModeBannerElement).not.toBeVisible();
   });
 
   it("design mode is on when toggled on", function () {
