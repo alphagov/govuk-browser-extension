@@ -5,39 +5,54 @@ function HighlightComponent() {
   this.metaTags = false;
   this.components = extractComponentsFromPage();
 
+  // Get an array of componenets on the page. 
   function extractComponentsFromPage() {
-    return $('[class*="app-c"], [class*="gem-c"]')
-      .toArray()
-      .reduce(function(array, element) {
-        var blockRegex = /(app-c-|gem-c-)([^ _\n]*(?=[ \n]|$))/;
-        var match = $(element).attr('class').match(blockRegex);
+    var componentsOnPage = document.querySelectorAll('[class*="app-c"], [class*="gem-c"]')
+    var componentsOnPageArray = Array.from(componentsOnPage)
+    return componentsOnPageArray.reduce(function(array, element) {
+      var componentRegex = /(app-c-|gem-c-)([^ _\n]*(?=[ \n]|$))/;
+      // Get the element
+      // Get the value of it's class attirbute
+      var elementClassName = null
+      if (typeof element.className === "string") {
+        elementClassName = element.className
+      }
+      // Check if it's an app or gem component 
+      var match = false;
+      
+      if (elementClassName) {
+        match = elementClassName.match(componentRegex);
+      }
 
-        if (match) {
-          array.push({
-            element: element,
-            prefix: match[1],
-            name: match[2]
-          });
-        }
+      if (match) {
+        array.push({
+          element: element, // 
+          prefix: match[1], // componentType 
+          name: match[2] // componentName 
+        });
+      }
 
-        return array
-      }, []);
+      return array
+    }, []);
   }
 
-  this.components.forEach(setupComponent.bind(this));
+  // This is looping over the components and for each component in the array it will call the setupComponent method and pass in the component to setup.
+  this.components.forEach(setupComponent.bind(this)); 
 
+  // This method, is going to modify the HTML for each component, it'll set the attribute data-component-name and data-app-name, 
+  // on line 37 the method will add a click event (listener), it'll then open a new window with the documentationUrl for that component.  
   function setupComponent(component) {
-    var $element = $(component.element);
-    $element.attr('data-component-name', component.name);
-    $element.attr('data-app-name', component.prefix);
+    component.element.setAttribute('data-component-name', component.name);
+    component.element.setAttribute('data-app-name', component.prefix);
 
-    $element.on('click', function() {
+    component.element.addEventListener('click', function() {
       if (this.state) {
         window.open( Helpers.documentationUrl(component) );
       }
     }.bind(this));
   }
 
+  // Feels like MetaTags and Components should be split up. Unless there's a good reason to keep them together. Their functionality is quite different. 
   chrome.runtime.onMessage.addListener(function (request) {
     if (request.trigger == 'toggleComponents') {
       this.toggleComponents();
@@ -49,9 +64,9 @@ function HighlightComponent() {
 
 HighlightComponent.prototype.toggleComponents = function () {
   this.state = !this.state;
-
+  // TODO: Reformat this loop to make it more readable. 
   for (var i = 0; i < this.components.length; i++) {
-    $(this.components[i].element).toggleClass('highlight-component', this.state);
+    this.components[i].element.classList.toggle('highlight-component', this.state);
   }
 
   this.sendState();
@@ -126,8 +141,8 @@ var Helpers = {
   },
 
   appHostname: function() {
-    var $rendering_element = $('meta[name="govuk:rendering-application"]');
-    var rendering_app = $rendering_element[0] && $rendering_element[0]['content'];
+    var rendering_element = document.querySelector('meta[name="govuk:rendering-application"]');
+    var rendering_app = rendering_element.getAttribute('content');
     return this.substitutions[rendering_app] || rendering_app;
   }
 
