@@ -9,11 +9,12 @@
     "popup/extract_path.js",
     "popup/external_links.js",
     "components/highlight-component/highlight-component.js",
-    "components/design-mode-component/design-mode-component.js"
+    "components/design-mode-component/design-mode-component.js",
+    "components/show-meta-tags-component/show-meta-tags-component.js"
   ],
   "specDir": "spec",
   "specFiles": [
-    "**/show_meta_tags_spec.js",
+    "**/show_meta_tags.spec.js",
     "**/highlight_component.spec.js",
     "**/extract_path_spec.js",
     "**/external_links_spec.js",

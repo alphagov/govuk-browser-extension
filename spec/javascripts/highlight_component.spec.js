@@ -128,13 +128,13 @@ describe("highlightComponent", function () {
 
       var highlightComponent = new HighlightComponent;
 
-      expect(highlightComponent.state).toEqual(false);
+      expect(highlightComponent.isComponentsHighlighted).toEqual(false);
 
       highlightComponent.toggleComponents();
-      expect(highlightComponent.state).toEqual(true);
+      expect(highlightComponent.isComponentsHighlighted).toEqual(true);
 
       highlightComponent.toggleComponents();
-      expect(highlightComponent.state).toEqual(false);
+      expect(highlightComponent.isComponentsHighlighted).toEqual(false);
     });
 
     it("toggles the highlight-component class", function () {

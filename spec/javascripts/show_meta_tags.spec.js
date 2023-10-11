@@ -1,7 +1,7 @@
 'use strict';
 describe("Toggling meta tags", function () {
   var $bannerEl;
-  var highlightComponent;
+  var showMetaTagsComponent;
 
   beforeEach(function () {
     window.chrome = {
@@ -15,8 +15,8 @@ describe("Toggling meta tags", function () {
 
     loadFixtures("meta-tags.html")
 
-    highlightComponent = new HighlightComponent;
-    highlightComponent.toggleMetaTags();
+    showMetaTagsComponent = new ShowMetaTagsComponent;
+    showMetaTagsComponent.toggleMetaTags();
 
     $bannerEl = $("#govuk-chrome-toolkit-banner");
   });
@@ -31,7 +31,7 @@ describe("Toggling meta tags", function () {
   });
 
   it("removes the banner when toggled off", function () {
-    highlightComponent.toggleMetaTags();
+    showMetaTagsComponent.toggleMetaTags();
 
     expect($bannerEl.parent()).toHaveLength(0);
   });

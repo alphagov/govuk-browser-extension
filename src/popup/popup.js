@@ -14,6 +14,10 @@ var Popup = Popup || {};
     });
 
     chrome.tabs.executeScript(null, {
+      code: "window.showMetaTagsComponent = window.showMetaTagsComponent || new ShowMetaTagsComponent; undefined;"
+    });    
+
+    chrome.tabs.executeScript(null, {
       file: "fetch-page-data.js"
     });
   });
@@ -40,6 +44,7 @@ var Popup = Popup || {};
     }
   });
 
+  // TODO: This may need to be refactored further.
   chrome.runtime.onMessage.addListener(function (request, _sender) {
     if (request.action == "highlightState") {
       // When we're asked to populate the popup, we'll first send the current
@@ -48,7 +53,13 @@ var Popup = Popup || {};
         $('#highlight-components').text('Stop highlighting components');
       else
         $('#highlight-components').text('Highlight Components');
+    }
+  });
 
+  chrome.runtime.onMessage.addListener(function (request, _sender) {
+    if (request.action == "showMetaTagState") {
+      // When we're asked to populate the popup, we'll first send the current
+      // buckets back to the main thread, which "persists" them.
       if (request.metaTags)
         $('#highlight-meta-tags').text('Hide meta tags');
       else
@@ -99,6 +110,10 @@ var Popup = Popup || {};
 
     chrome.tabs.executeScript(null, {
       code: "window.highlightComponent.sendState(); undefined;"
+    });
+
+    chrome.tabs.executeScript(null, {
+      code: "window.showMetaTagsComponent.sendState(); undefined;"
     });
 
     chrome.tabs.executeScript(null, {
