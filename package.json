@@ -1,10 +1,33 @@
 {
   "devDependencies": {
     "jasmine-browser-runner": "^2.3.0",
-    "jasmine-core": "^5.1.1"
+    "jasmine-core": "^5.1.1",
+    "standardx": "^7.0.0"
   },
   "scripts": {
+    "lint:js": "standardx 'spec/javascripts/**/*.js' 'src/**/*.js'",
+    "lint:js:fix": "npm run lint:js --fix",
     "test": "jasmine-browser-runner runSpecs",
     "build": "bash build.sh"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "jasmine": true
+    },
+    "rules":{
+      "no-var": 0,
+      "no-unused-vars": 0,
+      "no-use-before-define": 0
+    }
+  },
+  "standardx": {
+    "global": [
+      "chrome",
+      "Mustache",
+      "fetch",
+      "Popup",
+      "pluck"
+    ]
   }
 }
