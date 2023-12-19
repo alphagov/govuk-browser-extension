@@ -18,17 +18,21 @@ DesignModeComponent.prototype.toggleDesignMode = function () {
 }
 
 DesignModeComponent.prototype.toggleDesignModeBanner = function() {
-  var id = "govuk-chrome-toolkit-design-mode-banner";
+  var designModeBannerId = "govuk-chrome-toolkit-design-mode-banner";
   if (this.state) {
-    $('body').prepend("\
-      <div class=\"govuk-panel design-mode-component__banner\" id=\""+ id + "\">\
-        <div class=\"govuk-panel__body\">\
-          You are in design mode.\
-        </div>\
-      </div>\
-    ");
+    var designModeBanner = `
+    <div class="govuk-panel design-mode-component__banner" id="${designModeBannerId}">
+      <div class="govuk-panel__body">
+        You are in design mode.
+      </div>
+    </div>
+  `
+    var designModeWrapper = document.createElement("div")
+    designModeWrapper.innerHTML = designModeBanner
+    document.body.prepend(designModeWrapper);
   } else {
-    $("#"+id).remove();
+    var designModeBannerElement = document.querySelector(`#${designModeBannerId}`)
+    designModeBannerElement.remove()
   }
 }
 

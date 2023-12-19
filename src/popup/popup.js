@@ -4,7 +4,7 @@ var Popup = Popup || {};
 (function() {
   // Execute a script on the main thread (which has access to the currently
   // loaded page). This script will call back to us.
-  $(function () {
+  document.addEventListener("DOMContentLoaded", () => {
     chrome.tabs.executeScript(null, {
       code: "window.highlightComponent = window.highlightComponent || new HighlightComponent; undefined;"
     });
@@ -12,6 +12,10 @@ var Popup = Popup || {};
     chrome.tabs.executeScript(null, {
       code: "window.designModeComponent = window.designModeComponent || new DesignModeComponent; undefined;"
     });
+
+    chrome.tabs.executeScript(null, {
+      code: "window.showMetaTagsComponent = window.showMetaTagsComponent || new ShowMetaTagsComponent; undefined;"
+    });    
 
     chrome.tabs.executeScript(null, {
       file: "fetch-page-data.js"
@@ -45,24 +49,30 @@ var Popup = Popup || {};
       // When we're asked to populate the popup, we'll first send the current
       // buckets back to the main thread, which "persists" them.
       if (request.highlightState)
-        $('#highlight-components').text('Stop highlighting components');
+        document.querySelector('#highlight-components').textContent = 'Stop highlighting components';
       else
-        $('#highlight-components').text('Highlight Components');
+        document.querySelector('#highlight-components').textContent = 'Highlight Components';
+    }
+  });
 
+  chrome.runtime.onMessage.addListener(function (request, _sender) {
+    if (request.action == "showMetaTagState") {
+      // When we're asked to populate the popup, we'll first send the current
+      // buckets back to the main thread, which "persists" them.
       if (request.metaTags)
-        $('#highlight-meta-tags').text('Hide meta tags');
+        document.querySelector('#highlight-meta-tags').textContent = 'Hide meta tags';
       else
-        $('#highlight-meta-tags').text('Show meta tags');
+        document.querySelector('#highlight-meta-tags').textContent = 'Show meta tags';
     }
   });
 
   chrome.runtime.onMessage.addListener(function (request, _sender) {
     if (request.action == "designModeState") {
-      var toggleLink = $("#toggle-design-mode");
+      var toggleLink = document.querySelector("#toggle-design-mode");
       if (request.designModeState)
-        toggleLink.text("Turn off design mode");
+        toggleLink.textContent = "Turn off design mode";
       else
-        toggleLink.text("Turn on design mode");
+        toggleLink.textContent = "Turn on design mode";
     }
   });
 
@@ -74,26 +84,36 @@ var Popup = Popup || {};
     var contentStore = view.contentLinks.find(function (el) { return el.name == "Content item (JSON)" })
 
     if (windowHeight < 600) {
-      $('#content').css({ height: windowHeight + "px", 'overflow-y': 'scroll' })
+      var popupContent = document.querySelector('#content')
+      popupContent.style.overflowY = 'scroll'
+      popupContent.style.height = windowHeight + "px";
     }
 
-    if (contentStore) {
-      // Request the content item to add some extra links.
-      $.getJSON(contentStore.url, function(contentStoreData) {
-        view.externalLinks = Popup.generateExternalLinks(contentStoreData, view.currentEnvironment);
-        renderView(view, location);
-      }).fail(function () {
-        renderView(view, location);
-      })
+    if (contentStore) {      
+      renderViewWithExternalLinks(contentStore.url, view, location);
     } else {
       renderView(view, location);
     }
   }
 
+  async function renderViewWithExternalLinks(contentStoreUrl, view, location) {
+    try {
+      const response = await fetch(contentStoreUrl);
+      const responseJson = await response.json();
+  
+      // update the external links array
+      view.externalLinks = Popup.generateExternalLinks(responseJson, view.currentEnvironment);
+      renderView(view, location);
+    } catch (error) {
+      renderView(view, location);
+    }
+  }
+
   function renderView(view, currentUrl) {
-    var template = $('#template').html();
-    $('#content').html(Mustache.render(template, view));
-    setupClicks(currentUrl);
+    var template = document.querySelector('#template').innerHTML;
+    var popupContent = document.querySelector('#content');
+    popupContent.innerHTML = Mustache.render(template, view);
+    setupClicks();
 
     setupAbToggles(currentUrl);
 
@@ -102,53 +122,66 @@ var Popup = Popup || {};
     });
 
     chrome.tabs.executeScript(null, {
+      code: "window.showMetaTagsComponent.sendState(); undefined;"
+    });
+
+    chrome.tabs.executeScript(null, {
       code: "window.designModeComponent.sendState(); undefined;"
     });
   }
 
-  function setupClicks(currentUrl) {
+  function setupClicks() {
     // Clicking on a link won't open the tab because we're in a separate window.
     // Open external links (to GitHub etc) in a new tab.
-    $('a.js-external').on('click', function(e) {
-      if (userOpensPageInNewWindow(e)) {
-        return;
-      }
+    var externalLinks = document.querySelectorAll('a.js-external')
 
-      chrome.tabs.create({ url: $(this).attr('href') });
+    externalLinks.forEach(function(externalLink) {
+      externalLink.addEventListener('click', function(e) {
+        e.stopPropagation()
+        if (userOpensPageInNewWindow(e)) {
+          return;
+        }
+        var externalLinkHref = externalLink.getAttribute('href');
+        chrome.tabs.create({ url: externalLinkHref });
+      })
     });
 
     // Clicking normal links should change the current tab. The popup will not
     // update itself automatically, we need to re-render the popup manually.
-    $('a.js-rerender-popup').on('click', function(e) {
-      if (userOpensPageInNewWindow(e)) {
-        return;
-      }
+    var rerenderPopup = document.querySelectorAll('a.js-rerender-popup')
 
-      e.preventDefault();
+    rerenderPopup.forEach(function(reRender){
+      reRender.addEventListener('click', function(e){
+        if (userOpensPageInNewWindow(e)) {
+          return;
+        }
+        e.preventDefault();
 
-      chrome.tabs.update(null, { url: $(this).attr('href') });
+        var reRenderHref = reRender.getAttribute('href')
+        chrome.tabs.update({ url: reRenderHref });
 
-      // This will provide us with a `location` object just like `window.location`.
-      var location = document.createElement('a');
-      location.href = $(this).attr('href');
+        // This will provide us with a `location` object just like `window.location`.
+        var location = document.createElement('a');
+        location.href = reRenderHref;
 
-      // TODO: we're not actually re-rendering the popup correctly here, because
-      // we don't have access to the DOM here. This is a temporary solution to
-      // make most functionality work after the user clicks a button in the popup.
-      renderPopup(location, "", {});
+        // TODO: we're not actually re-rendering the popup correctly here, because
+        // we don't have access to the DOM here. This is a temporary solution to
+        // make most functionality work after the user clicks a button in the popup.
+        renderPopup(location, "", {});
+      })
     });
 
-    $('#highlight-components').on('click', function(e) {
+    document.querySelector('#highlight-components').addEventListener('click', function(e) {
       e.preventDefault();
       sendChromeTabMessage('toggleComponents');
     });
 
-    $('#highlight-meta-tags').on('click', function(e) {
+    document.querySelector('#highlight-meta-tags').addEventListener('click', function(e) {
       e.preventDefault();
       sendChromeTabMessage('toggleMetaTags');
     });
 
-    $('#toggle-design-mode').on('click', function(e) {
+    document.querySelector('#toggle-design-mode').addEventListener('click', function(e) {
       e.preventDefault();
       sendChromeTabMessage('toggleDesignMode');
     });
@@ -161,22 +194,28 @@ var Popup = Popup || {};
   }
 
   function setupAbToggles(url) {
-    $('.ab-test-bucket').on('click', function(e) {
-      var $selectedBucket = $(this);
+    var abTestBuckets = document.querySelectorAll('.ab-test-bucket')
 
-      var abTestSettings = chrome.extension.getBackgroundPage().abTestSettings;
-      abTestSettings.setBucket(
-        $selectedBucket.data('testName'),
-        $selectedBucket.data('bucket'),
-        url,
-        function () {
-          $selectedBucket.addClass('ab-bucket-selected');
-          $selectedBucket.siblings('.ab-test-bucket').removeClass('ab-bucket-selected');
+    abTestBuckets.forEach(function(abTestBucket){
+      abTestBucket.addEventListener('click', function(e){
+        var abTestSettings = chrome.extension.getBackgroundPage().abTestSettings;
 
-          chrome.tabs.reload(null, { bypassCache: true });
-        }
-      );
-    });
+        abTestSettings.setBucket(
+          abTestBucket.dataset.testName,
+          abTestBucket.dataset.bucket,
+          url,
+          function () {
+            var testBuckets = document.querySelectorAll('.ab-test-bucket')
+            for(var testBucket of testBuckets){
+              testBucket.classList.remove('ab-bucket-selected')
+            }
+            abTestBucket.classList.add('ab-bucket-selected');
+            chrome.tabs.reload(null, { bypassCache: true });
+          }
+        )
+
+      })
+    })
   }
 
   // This is the view object. It takes a location, host, origin, the name of the

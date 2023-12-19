@@ -1,7 +1,7 @@
 'use strict';
 describe("Toggling component highlighting", function () {
 
-  var $breadcrumbsEl;
+  var breadcrumbsElement;
   var highlightComponent;
 
   beforeEach(function () {
@@ -21,26 +21,26 @@ describe("Toggling component highlighting", function () {
 
     highlightComponent = new HighlightComponent;
 
-    $breadcrumbsEl = $("#jasmine-fixtures .gem-c-breadcrumbs");
+    breadcrumbsElement = document.querySelector("#jasmine-fixtures .gem-c-breadcrumbs");
   });
 
   it("highlights govuk components", function () {
-    expect($breadcrumbsEl).toHaveClass("highlight-component");
+    expect(breadcrumbsElement).toHaveClass("highlight-component");
   });
 
   it("exposes the component name as data attribute", function () {
-    expect($breadcrumbsEl.data("component-name")).toEqual("breadcrumbs");
+    expect(breadcrumbsElement.dataset.componentName).toEqual("breadcrumbs");
   });
 
   it("exposes the app name as data attribute", function () {
-    expect($breadcrumbsEl.data("app-name")).toEqual("gem-c-");
+    expect(breadcrumbsElement.dataset.appName).toEqual("gem-c-");
   });
 
   it("adds the ability to click through to the component's documentation", function () {
     spyOn(window, "open").and.callThrough()
-    var clickEvent = spyOnEvent($breadcrumbsEl, "click");
+    var clickEvent = spyOnEvent(breadcrumbsElement, "click");
 
-    $breadcrumbsEl.click();
+    breadcrumbsElement.click();
 
     expect(clickEvent).toHaveBeenTriggered();
     expect(window.open).toHaveBeenCalledWith(
@@ -51,16 +51,16 @@ describe("Toggling component highlighting", function () {
   it("removes the highlight when toggled off", function () {
     highlightComponent.toggleComponents();
 
-    expect($breadcrumbsEl).not.toHaveClass("highlight-component");
+    expect(breadcrumbsElement).not.toHaveClass("highlight-component");
   });
 
   it("removes the click functionality when toggled off", function () {
     spyOn(window, "open").and.callThrough()
     highlightComponent.toggleComponents();
 
-    var clickEvent = spyOnEvent($breadcrumbsEl, "click");
+    var clickEvent = spyOnEvent(breadcrumbsElement, "click");
 
-    $breadcrumbsEl.click();
+    breadcrumbsElement.click();
 
     expect(clickEvent).toHaveBeenTriggered();
     expect(window.open).not.toHaveBeenCalled();
@@ -80,7 +80,7 @@ describe("highlightComponent", function () {
   })
 
   describe("components", function () {
-    var $html;
+    var html;
 
     beforeEach(function () {
       loadFixtures(
@@ -90,7 +90,7 @@ describe("highlightComponent", function () {
         "gem-c-label.html"
       )
 
-      $html = $("#jasmine-fixtures");
+      html = document.querySelector("#jasmine-fixtures");
     });
 
     it("builds an array of components", function () {
@@ -101,22 +101,22 @@ describe("highlightComponent", function () {
           {
             name: "back-to-top",
             prefix: "app-c-",
-            element: $html.find(".app-c-back-to-top")[0],
+            element: html.querySelector(".app-c-back-to-top"),
           },
           {
             name: "breadcrumbs",
             prefix: "gem-c-",
-            element: $html.find(".gem-c-breadcrumbs")[0],
+            element: html.querySelector(".gem-c-breadcrumbs"),
           },
           {
             name: "button",
             prefix: "gem-c-",
-            element: $html.find(".gem-c-button")[0],
+            element: html.querySelector(".gem-c-button"),
           },
           {
             name: "label",
             prefix: "gem-c-",
-            element: $html.find(".gem-c-label")[0],
+            element: html.querySelector(".gem-c-label"),
           }
         ]
       )
@@ -128,13 +128,13 @@ describe("highlightComponent", function () {
 
       var highlightComponent = new HighlightComponent;
 
-      expect(highlightComponent.state).toEqual(false);
+      expect(highlightComponent.isComponentsHighlighted).toEqual(false);
 
       highlightComponent.toggleComponents();
-      expect(highlightComponent.state).toEqual(true);
+      expect(highlightComponent.isComponentsHighlighted).toEqual(true);
 
       highlightComponent.toggleComponents();
-      expect(highlightComponent.state).toEqual(false);
+      expect(highlightComponent.isComponentsHighlighted).toEqual(false);
     });
 
     it("toggles the highlight-component class", function () {
@@ -142,14 +142,14 @@ describe("highlightComponent", function () {
 
       var highlightComponent = new HighlightComponent;
 
-      var $buttonEl = $("#jasmine-fixtures .gem-c-button");
-      expect($buttonEl).not.toHaveClass("highlight-component");
+      var buttonElement = document.querySelector("#jasmine-fixtures .gem-c-button");
+      expect(buttonElement).not.toHaveClass("highlight-component");
 
       highlightComponent.toggleComponents();
-      expect($buttonEl).toHaveClass("highlight-component");
+      expect(buttonElement).toHaveClass("highlight-component");
 
       highlightComponent.toggleComponents();
-      expect($buttonEl).not.toHaveClass("highlight-component");
+      expect(buttonElement).not.toHaveClass("highlight-component");
     });
   });
 });
