@@ -1,6 +1,7 @@
 'use strict';
 describe("Toggling meta tags", function () {
-  var $bannerEl;
+  var showMetaTagsBannerId = "govuk-chrome-toolkit-banner";
+  var showMetaTagsBannerElement;
   var showMetaTagsComponent;
 
   beforeEach(function () {
@@ -18,21 +19,21 @@ describe("Toggling meta tags", function () {
     showMetaTagsComponent = new ShowMetaTagsComponent;
     showMetaTagsComponent.toggleMetaTags();
 
-    $bannerEl = $("#govuk-chrome-toolkit-banner");
+    showMetaTagsBannerElement = document.querySelector(`#${showMetaTagsBannerId}`);
   });
 
   it("shows meta tags with name and content", function () {
-    expect($bannerEl.text()).toMatch(/foo/);
+    expect(showMetaTagsBannerElement.textContent).toMatch(/foo/);
   });
 
   it("doesn't show meta tags that use property instead of name", function () {
     // No particular reason for this, it just doesn't
-    expect($bannerEl.text()).not.toMatch(/og:image/);
+    expect(showMetaTagsBannerElement.textContent).not.toMatch(/og:image/);
   });
 
   it("removes the banner when toggled off", function () {
     showMetaTagsComponent.toggleMetaTags();
 
-    expect($bannerEl.parent()).toHaveLength(0);
+    expect(showMetaTagsBannerElement).not.toBeVisible();
   });
 });

@@ -16,13 +16,13 @@
   "specFiles": [
     "**/show_meta_tags.spec.js",
     "**/highlight_component.spec.js",
-    "**/extract_path_spec.js",
-    "**/external_links_spec.js",
-    "**/environment_spec.js",
+    "**/extract_path.spec.js",
+    "**/external_links.spec.js",
+    "**/environment.spec.js",
     "**/design_mode_component.spec.js",
-    "**/content_links_spec.js",
-    "**/ab_tests_spec.js",
-    "**/ab_bucket_store_spec.js"
+    "**/content_links.spec.js",
+    "**/ab_tests.spec.js",
+    "**/ab_bucket_store.spec.js"
   ],
   "helpers": [
     "helpers/jquery.min.js",
