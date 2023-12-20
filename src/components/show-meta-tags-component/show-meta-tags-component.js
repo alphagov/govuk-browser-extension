@@ -1,30 +1,29 @@
-'use strict';
-function ShowMetaTagsComponent() {
-  this.isMetaTagsDisplayed = false;
+'use strict'
+function ShowMetaTagsComponent () {
+  this.isMetaTagsDisplayed = false
 
   chrome.runtime.onMessage.addListener(function (request) {
     if (request.trigger == 'toggleMetaTags') {
-      this.toggleMetaTags();
+      this.toggleMetaTags()
     }
-  }.bind(this));
+  }.bind(this))
 }
 
-ShowMetaTagsComponent.prototype.toggleMetaTags = function() {
-
-  if(this.isMetaTagsDisplayed) {
-    this.hideMetaTags();
+ShowMetaTagsComponent.prototype.toggleMetaTags = function () {
+  if (this.isMetaTagsDisplayed) {
+    this.hideMetaTags()
   } else {
-    this.showMetaTags();
+    this.showMetaTags()
   }
 
-  this.sendState();
-};
+  this.sendState()
+}
 
-ShowMetaTagsComponent.prototype.showMetaTags = function() {
-  var titleElement = document.querySelector("title");
-  var titleText = ""
+ShowMetaTagsComponent.prototype.showMetaTags = function () {
+  var titleElement = document.querySelector('title')
+  var titleText = ''
   if (titleElement) {
-    titleText = titleElement.textContent;
+    titleText = titleElement.textContent
   }
 
   var titleTag = `
@@ -34,23 +33,21 @@ ShowMetaTagsComponent.prototype.showMetaTags = function() {
     </p>
   `
 
-  var metaTagContainer = document.createElement("div");
-  metaTagContainer.setAttribute("id", "govuk-chrome-toolkit-banner")
+  var metaTagContainer = document.createElement('div')
+  metaTagContainer.setAttribute('id', 'govuk-chrome-toolkit-banner')
   // insert titleTag into metaTagContainer
-  metaTagContainer.insertAdjacentHTML("beforeend" ,titleTag);
+  metaTagContainer.insertAdjacentHTML('beforeend', titleTag)
 
-
-  var metaTags = document.querySelectorAll("meta");
-  metaTags.forEach(function(metaTag) {
-
-    var metaTagName = metaTag.getAttribute("name");
-    if(metaTagName === null) {
-      return;
+  var metaTags = document.querySelectorAll('meta')
+  metaTags.forEach(function (metaTag) {
+    var metaTagName = metaTag.getAttribute('name')
+    if (metaTagName === null) {
+      return
     }
-    
-    var metaTagContent = metaTag.getAttribute("content");
-    if(metaTagContent === null) {
-      metaTagContent = "";
+
+    var metaTagContent = metaTag.getAttribute('content')
+    if (metaTagContent === null) {
+      metaTagContent = ''
     }
 
     var metaTagInfo = `
@@ -61,25 +58,24 @@ ShowMetaTagsComponent.prototype.showMetaTags = function() {
   `
 
     // insert metaTagInfo into metaTagContainer
-    metaTagContainer.insertAdjacentHTML("beforeend", metaTagInfo);
-    
-  });
+    metaTagContainer.insertAdjacentHTML('beforeend', metaTagInfo)
+  })
 
-  document.body.prepend(metaTagContainer);
+  document.body.prepend(metaTagContainer)
 
-  this.isMetaTagsDisplayed = true;
+  this.isMetaTagsDisplayed = true
 }
 
-ShowMetaTagsComponent.prototype.hideMetaTags = function() {
-  var hideMetaTagsBanner = document.querySelector(`#govuk-chrome-toolkit-banner`);
-  hideMetaTagsBanner.remove();
+ShowMetaTagsComponent.prototype.hideMetaTags = function () {
+  var hideMetaTagsBanner = document.querySelector('#govuk-chrome-toolkit-banner')
+  hideMetaTagsBanner.remove()
 
-  this.isMetaTagsDisplayed = false;
+  this.isMetaTagsDisplayed = false
 }
 
-ShowMetaTagsComponent.prototype.sendState = function() {
+ShowMetaTagsComponent.prototype.sendState = function () {
   chrome.runtime.sendMessage({
-    action: "showMetaTagState",
+    action: 'showMetaTagState',
     showMetaTagsState: this.isMetaTagsDisplayed
-  });
-};
+  })
+}

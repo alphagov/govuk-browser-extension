@@ -1,5 +1,5 @@
-function pluck(array, key) {
+function pluck (array, key) {
   return array.map(function (object) {
-    return object[key];
+    return object[key]
   })
 }
