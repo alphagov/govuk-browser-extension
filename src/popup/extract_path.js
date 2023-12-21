@@ -29,7 +29,7 @@ Popup.extractPath = function (location, pathname, renderingApplication) {
     return extractedPath.replace('//', '/')
   }
 
-  function extractQueryParameter (location, parameter_name) {
-    return location.split(parameter_name + '=')[1].split('&')[0]
+  function extractQueryParameter (location, parameterName) {
+    return location.split(parameterName + '=')[1].split('&')[0]
   }
 }

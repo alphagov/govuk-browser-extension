@@ -1,4 +1,6 @@
 'use strict'
+/* global DesignModeComponent */
+
 describe('Toggling design mode', function () {
   var designModeBannerId = 'govuk-chrome-toolkit-design-mode-banner'
   var designModeBannerElement
@@ -10,6 +12,7 @@ describe('Toggling design mode', function () {
       runtime: {
         onMessage: {
           addListener: function (callback) {
+            /* eslint-disable-next-line */
             callback({ trigger: 'toggleDesignMode' })
           }
         },

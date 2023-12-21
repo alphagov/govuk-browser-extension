@@ -45,7 +45,7 @@ var abTestSettings = (function () {
   function addAbHeaders (details) {
     var abTestBuckets = abBucketStore.getAll(extractHostname(details.url))
 
-    Object.keys(abTestBuckets).map(function (abTestName) {
+    Object.keys(abTestBuckets).forEach(function (abTestName) {
       details.requestHeaders.push({
         name: 'GOVUK-ABTest-' + abTestName,
         value: abTestBuckets[abTestName].currentBucket

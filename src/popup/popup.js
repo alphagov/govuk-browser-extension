@@ -26,7 +26,7 @@ var Popup = Popup || {};
   // fetch-page-data.js (called above). It will forward the location to our main
   // render function.
   chrome.runtime.onMessage.addListener(function (request, _sender) {
-    if (request.action == 'populatePopup') {
+    if (request.action === 'populatePopup') {
       // When we're asked to populate the popup, we'll first send the current
       // buckets back to the main thread, which "persists" them.
       var abTestSettings = chrome.extension.getBackgroundPage().abTestSettings
@@ -45,7 +45,7 @@ var Popup = Popup || {};
   })
 
   chrome.runtime.onMessage.addListener(function (request, _sender) {
-    if (request.action == 'highlightState') {
+    if (request.action === 'highlightState') {
       // When we're asked to populate the popup, we'll first send the current
       // buckets back to the main thread, which "persists" them.
       if (request.highlightState) { document.querySelector('#highlight-components').textContent = 'Stop highlighting components' } else { document.querySelector('#highlight-components').textContent = 'Highlight Components' }
@@ -53,7 +53,7 @@ var Popup = Popup || {};
   })
 
   chrome.runtime.onMessage.addListener(function (request, _sender) {
-    if (request.action == 'showMetaTagState') {
+    if (request.action === 'showMetaTagState') {
       // When we're asked to populate the popup, we'll first send the current
       // buckets back to the main thread, which "persists" them.
       if (request.metaTags) { document.querySelector('#highlight-meta-tags').textContent = 'Hide meta tags' } else { document.querySelector('#highlight-meta-tags').textContent = 'Show meta tags' }
@@ -61,7 +61,7 @@ var Popup = Popup || {};
   })
 
   chrome.runtime.onMessage.addListener(function (request, _sender) {
-    if (request.action == 'designModeState') {
+    if (request.action === 'designModeState') {
       var toggleLink = document.querySelector('#toggle-design-mode')
       if (request.designModeState) { toggleLink.textContent = 'Turn off design mode' } else { toggleLink.textContent = 'Turn on design mode' }
     }
@@ -72,7 +72,7 @@ var Popup = Popup || {};
     // Creates a view object with the data and render a template with it.
     var view = createView(location, host, origin, pathname, renderingApplication, abTestBuckets)
 
-    var contentStore = view.contentLinks.find(function (el) { return el.name == 'Content item (JSON)' })
+    var contentStore = view.contentLinks.find(function (el) { return el.name === 'Content item (JSON)' })
 
     if (windowHeight < 600) {
       var popupContent = document.querySelector('#content')
@@ -181,7 +181,7 @@ var Popup = Popup || {};
   // Best guess if the user wants a new window opened.
   // https://stackoverflow.com/questions/20087368/how-to-detect-if-user-it-trying-to-open-a-link-in-a-new-tab
   function userOpensPageInNewWindow (e) {
-    return e.ctrlKey || e.shiftKey || e.metaKey || (e.button && e.button == 1)
+    return e.ctrlKey || e.shiftKey || e.metaKey || (e.button && e.button === 1)
   }
 
   function setupAbToggles (url) {

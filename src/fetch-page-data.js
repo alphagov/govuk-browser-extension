@@ -40,5 +40,3 @@ function getAbTestBuckets () {
 
   return buckets
 }
-
-undefined

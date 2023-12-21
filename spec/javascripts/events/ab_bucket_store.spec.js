@@ -1,3 +1,5 @@
+/* global abBucketStore */
+
 describe('abBucketStore', function () {
   it('is initialized empty', function () {
     var store = abBucketStore.createStore()

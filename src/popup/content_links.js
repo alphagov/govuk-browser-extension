@@ -11,7 +11,7 @@ Popup.generateContentLinks = function (location, origin, pathname, currentEnviro
   }
 
   // This is 'https://www.gov.uk' or 'https://www-origin.integration.publishing.service.gov.uk/', etc.
-  if (origin == 'http://webarchive.nationalarchives.gov.uk' || origin.match(/draft-origin/) || origin.match(/content-data/) || origin.match(/support/)) {
+  if (origin === 'http://webarchive.nationalarchives.gov.uk' || origin.match(/draft-origin/) || origin.match(/content-data/) || origin.match(/support/)) {
     origin = 'https://www.gov.uk'
   }
 
@@ -31,12 +31,12 @@ Popup.generateContentLinks = function (location, origin, pathname, currentEnviro
 
   var currentUrl = origin + path
 
-  if (renderingApplication == 'smartanswers') {
+  if (renderingApplication === 'smartanswers') {
     links.push({ name: 'SmartAnswers: Visualise', url: currentUrl.replace(/\/y.*$/, '') + '/y/visualise' })
   }
 
   return links.map(function (link) {
-    link.class = link.url == location ? 'current' : ''
+    link.class = link.url === location ? 'current' : ''
     return link
   })
 }

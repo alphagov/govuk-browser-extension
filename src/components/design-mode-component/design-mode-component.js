@@ -1,9 +1,10 @@
 'use strict'
+/* global DesignModeComponent */
 
 function DesignModeComponent () {
   this.state = false
   chrome.runtime.onMessage.addListener(function (request) {
-    if (request.trigger == 'toggleDesignMode') {
+    if (request.trigger === 'toggleDesignMode') {
       this.toggleDesignMode()
     }
   }.bind(this))

@@ -1,4 +1,6 @@
 'use strict'
+/* global HighlightComponent loadFixtures spyOnEvent setFixtures Helpers */
+
 describe('Toggling component highlighting', function () {
   var breadcrumbsElement
   var highlightComponent
@@ -11,6 +13,7 @@ describe('Toggling component highlighting', function () {
       runtime: {
         onMessage: {
           addListener: function (callback) {
+            /* eslint-disable-next-line */
             callback({ trigger: 'toggleComponents' })
           }
         },

@@ -1,4 +1,6 @@
 'use strict'
+/* global ShowMetaTagsComponent loadFixtures */
+
 describe('Toggling meta tags', function () {
   var showMetaTagsBannerId = 'govuk-chrome-toolkit-banner'
   var showMetaTagsBannerElement

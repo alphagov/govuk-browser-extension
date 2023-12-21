@@ -51,7 +51,7 @@ function HighlightComponent () {
   }
 
   chrome.runtime.onMessage.addListener(function (request) {
-    if (request.trigger == 'toggleComponents') {
+    if (request.trigger === 'toggleComponents') {
       this.toggleComponents()
     }
   }.bind(this))
@@ -87,9 +87,9 @@ var Helpers = {
   },
 
   appHostname: function () {
-    var rendering_element = document.querySelector('meta[name="govuk:rendering-application"]')
-    var rendering_app = rendering_element.getAttribute('content')
-    return this.substitutions[rendering_app] || rendering_app
+    var renderingElement = document.querySelector('meta[name="govuk:rendering-application"]')
+    var renderingApp = renderingElement.getAttribute('content')
+    return this.substitutions[renderingApp] || renderingApp
   }
 
 }

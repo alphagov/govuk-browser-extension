@@ -3,7 +3,7 @@ function ShowMetaTagsComponent () {
   this.isMetaTagsDisplayed = false
 
   chrome.runtime.onMessage.addListener(function (request) {
-    if (request.trigger == 'toggleMetaTags') {
+    if (request.trigger === 'toggleMetaTags') {
       this.toggleMetaTags()
     }
   }.bind(this))

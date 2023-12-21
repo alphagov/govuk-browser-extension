@@ -2,6 +2,9 @@
 //
 // It stores the environment-specific state of the user's A/B testing buckets in
 // memory, until the browser or the extension is next reloaded.
+/* global abTest */
+
+// eslint-disable-next-line no-unused-vars
 var abBucketStore = (function () {
   function createStore () {
     var abTestBuckets = {}
@@ -9,7 +12,7 @@ var abBucketStore = (function () {
     function addAbTests (initialBuckets, hostname) {
       abTestBuckets[hostname] = abTestBuckets[hostname] || {}
 
-      Object.keys(initialBuckets).map(function (testName) {
+      Object.keys(initialBuckets).forEach(function (testName) {
         // Add any A/B tests that are not already defined, but do not overwrite
         // any that we are already tracking.
         if (!abTestBuckets[hostname][testName]) {
@@ -23,6 +26,7 @@ var abBucketStore = (function () {
     }
 
     function setBucket (testName, bucket, hostname) {
+      /* eslint-disable-next-line */
       abTest = abTestBuckets[hostname][testName]
       abTest.currentBucket = bucket
       abTestBuckets[hostname][testName] = abTest

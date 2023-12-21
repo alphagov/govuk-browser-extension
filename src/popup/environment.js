@@ -65,9 +65,9 @@ Popup.environment = function (location, host, origin) {
     if (inFrontend) {
       var replacement = env.host
     } else if (isGOVUKAccount()) {
-      var replacement = env.protocol + '://www.' + application + '.' + env.serviceDomain
+      replacement = env.protocol + '://www.' + application + '.' + env.serviceDomain
     } else {
-      var replacement = env.protocol + '://' + application + '.' + env.serviceDomain
+      replacement = env.protocol + '://' + application + '.' + env.serviceDomain
     }
 
     env.url = location.replace(origin, replacement)
@@ -76,7 +76,7 @@ Popup.environment = function (location, host, origin) {
       env.url = 'http://www.login.service.dev.gov.uk/'
     }
 
-    if (location == env.url) {
+    if (location === env.url) {
       env.class = 'current'
       currentEnvironment = env
     } else {
@@ -86,7 +86,7 @@ Popup.environment = function (location, host, origin) {
     return env
   }).filter(function (env) {
     //  GOV.UK Account does not have an Integration environment – remove this option from the list of environments
-    if (env.name === 'Integration' && isGOVUKAccount()) return
+    if (env.name === 'Integration' && isGOVUKAccount()) return false
     return env
   })
 
