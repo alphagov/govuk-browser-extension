@@ -1,7 +1,7 @@
-describe("Popup.generateExternalLinks", function () {
+describe('Popup.generateExternalLinks', function () {
   var PROD_ENV = { protocol: 'https', serviceDomain: 'publishing.service.gov.uk' }
 
-  it("generates a link to the rendering app GitHub", function () {
+  it('generates a link to the rendering app GitHub', function () {
     var contentItem = {
       rendering_app: 'collections'
     }
@@ -14,7 +14,7 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
-  it("generates a Github link when the rendering app does not match the repository name", function () {
+  it('generates a Github link when the rendering app does not match the repository name', function () {
     var contentItem = {
       rendering_app: 'smartanswers',
       base_path: '/my-smart-answer'
@@ -28,7 +28,7 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
-  it("generates a link to the publishing app in the docs", function () {
+  it('generates a link to the publishing app in the docs', function () {
     var contentItem = {
       publishing_app: 'collections-publisher'
     }
@@ -41,7 +41,7 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
-  it("generates the correct docs link when a publishing app does not match the repository name", function () {
+  it('generates the correct docs link when a publishing app does not match the repository name', function () {
     var contentItem = {
       publishing_app: 'smartanswers',
       base_path: '/my-smart-answer'
@@ -55,7 +55,7 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
-  it("generates a link to the content schema", function () {
+  it('generates a link to the content schema', function () {
     var contentItem = {
       schema_name: 'topic'
     }
@@ -68,7 +68,7 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
-  it("correctly links to placeholder schemas", function () {
+  it('correctly links to placeholder schemas', function () {
     var contentItem = {
       schema_name: 'placeholder_something_or_other'
     }
@@ -81,7 +81,7 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
-  it("correctly links to document types", function () {
+  it('correctly links to document types', function () {
     var contentItem = {
       document_type: 'announcement'
     }
@@ -94,7 +94,7 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
-  it("generates edit links for topics", function () {
+  it('generates edit links for topics', function () {
     var contentItem = {
       content_id: '4d8568c4-67f2-48da-a578-5ac6f35b69b4',
       document_type: 'topic'
@@ -108,7 +108,7 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
-  it("generates edit links for mainstream browse pages", function () {
+  it('generates edit links for mainstream browse pages', function () {
     var contentItem = {
       content_id: '4d8568c4-67f2-48da-a578-5ac6f35b69b4',
       document_type: 'mainstream_browse_page'
@@ -122,7 +122,7 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
-  it("generates edit links for step by steps", function () {
+  it('generates edit links for step by steps', function () {
     var contentItem = {
       content_id: '4d8568c4-67f2-48da-a578-5ac6f35b69b4',
       document_type: 'step_by_step_nav'
@@ -136,7 +136,7 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
-  it("generates edit links for mainstream items", function () {
+  it('generates edit links for mainstream items', function () {
     var contentItem = {
       content_id: '4d8568c4-67f2-48da-a578-5ac6f35b69b4',
       publishing_app: 'publisher',
@@ -151,7 +151,7 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
-  it("generates edit links for Whitehall items", function () {
+  it('generates edit links for Whitehall items', function () {
     var contentItem = {
       content_id: '4d8568c4-67f2-48da-a578-5ac6f35b69b4',
       publishing_app: 'whitehall'
@@ -165,11 +165,11 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
-  it("generates edit links for Specalist Publisher items", function () {
+  it('generates edit links for Specalist Publisher items', function () {
     var contentItem = {
       publishing_app: 'specialist-publisher',
       content_id: '4dd888e6-e890-4498-9913-b89e4e5a0059',
-      document_type: 'business_finance_support_scheme',
+      document_type: 'business_finance_support_scheme'
     }
 
     var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
@@ -180,11 +180,11 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
-  it("generates edit links for Content Publisher items", function () {
+  it('generates edit links for Content Publisher items', function () {
     var contentItem = {
       publishing_app: 'content-publisher',
       content_id: '4d8568c4-67f2-48da-a578-5ac6f35b69b4',
-      locale: 'cy',
+      locale: 'cy'
     }
 
     var links = Popup.generateExternalLinks(contentItem, PROD_ENV)
@@ -195,7 +195,7 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
-  it("includes a link to content-tagger", function () {
+  it('includes a link to content-tagger', function () {
     var contentItem = {
       content_id: '4d8568c4-67f2-48da-a578-5ac6f35b69b4'
     }
@@ -208,7 +208,7 @@ describe("Popup.generateExternalLinks", function () {
     })
   })
 
-  it("includes an edit link to content-tagger", function () {
+  it('includes an edit link to content-tagger', function () {
     var contentItem = {
       content_id: '4d8568c4-67f2-48da-a578-5ac6f35b69b4',
       document_type: 'taxon'

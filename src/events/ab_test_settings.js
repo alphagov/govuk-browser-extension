@@ -5,23 +5,22 @@
 // with the correct A/B variant. It gets the current variant from the meta tags.
 // - Responds to messages to change the current A/B variant. It updates the
 // headers it will send and set a cookie like Fastly would.
-var abTestSettings = (function() {
+var abTestSettings = (function () {
+  var abBucketStore = chrome.extension.getBackgroundPage().abBucketStore.createStore()
 
-  var abBucketStore = chrome.extension.getBackgroundPage().abBucketStore.createStore();
+  function initialize (initialBuckets, url) {
+    var hostname = extractHostname(url)
 
-  function initialize(initialBuckets, url) {
-    var hostname = extractHostname(url);
-
-    abBucketStore.addAbTests(initialBuckets, hostname);
-    return abBucketStore.getAll(hostname);
+    abBucketStore.addAbTests(initialBuckets, hostname)
+    return abBucketStore.getAll(hostname)
   }
 
-  function updateCookie(name, bucket, url, callback) {
-    var cookieName = "ABTest-" + name;
+  function updateCookie (name, bucket, url, callback) {
+    var cookieName = 'ABTest-' + name
 
-    chrome.cookies.get({name: cookieName, url: url}, function (cookie) {
+    chrome.cookies.get({ name: cookieName, url: url }, function (cookie) {
       if (cookie) {
-        cookie.value = bucket;
+        cookie.value = bucket
 
         var updatedCookie = {
           name: cookieName,
@@ -29,45 +28,45 @@ var abTestSettings = (function() {
           url: url,
           path: cookie.path,
           expirationDate: cookie.expirationDate
-        };
+        }
 
-        chrome.cookies.set(updatedCookie, callback);
+        chrome.cookies.set(updatedCookie, callback)
       } else {
-        callback();
+        callback()
       }
-    });
+    })
   }
 
-  function setBucket(testName, bucketName, url, callback) {
-    abBucketStore.setBucket(testName, bucketName, extractHostname(url));
-    updateCookie(testName, bucketName, url, callback);
+  function setBucket (testName, bucketName, url, callback) {
+    abBucketStore.setBucket(testName, bucketName, extractHostname(url))
+    updateCookie(testName, bucketName, url, callback)
   }
 
-  function addAbHeaders(details) {
-    var abTestBuckets = abBucketStore.getAll(extractHostname(details.url));
+  function addAbHeaders (details) {
+    var abTestBuckets = abBucketStore.getAll(extractHostname(details.url))
 
-    Object.keys(abTestBuckets).map(function (abTestName) {
+    Object.keys(abTestBuckets).forEach(function (abTestName) {
       details.requestHeaders.push({
-        name: "GOVUK-ABTest-" + abTestName,
+        name: 'GOVUK-ABTest-' + abTestName,
         value: abTestBuckets[abTestName].currentBucket
-      });
-    });
+      })
+    })
 
-    return {requestHeaders: details.requestHeaders};
+    return { requestHeaders: details.requestHeaders }
   }
 
-  function extractHostname(url) {
-    return new URL(url).hostname;
+  function extractHostname (url) {
+    return new URL(url).hostname
   }
 
   chrome.webRequest.onBeforeSendHeaders.addListener(
     addAbHeaders,
-    {urls: ["*://*.gov.uk/*"]},
-    ["requestHeaders", "blocking"]
-  );
+    { urls: ['*://*.gov.uk/*'] },
+    ['requestHeaders', 'blocking']
+  )
 
   return {
     initialize: initialize,
     setBucket: setBucket
-  };
-}());
+  }
+}())
