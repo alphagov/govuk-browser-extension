@@ -1,12 +1,15 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "GOV.UK Browser Extension",
   "description": "Switch between GOV.UK environments and content",
   "homepage_url": "https://github.com/alphagov/govuk-browser-extension",
-  "version": "1.22.0",
+  "version": "1.22.1",
   "content_scripts": [
     {
-      "matches": ["https://*.gov.uk/*"],
+      "matches":
+       [
+         "https://*.gov.uk/*"
+        ],
       "js": [
         "popup/lib/jquery.min.js",
         "popup/lib/mustache.min.js",
@@ -27,14 +30,16 @@
     "128": "icons/128.png"
   },
   "permissions": [
-    "http://*.gov.uk/*",
-    "https://*.gov.uk/*",
     "cookies",
+    "scripting",
     "tabs",
     "webRequest",
-    "webRequestBlocking"
+    "declarativeContent"
   ],
-  "page_action": {
+  "background": {
+    "service_worker": "service_worker.js"
+  },
+  "action": {
     "default_icon": {
       "19": "icons/crown-logo-19-inactive.png",
       "38": "icons/crown-logo-38-inactive.png"
@@ -42,11 +47,9 @@
     "default_title": "GOV.UK",
     "default_popup": "popup.html"
   },
-  "background": {
-    "scripts": [
-      "events/icon.js",
-      "events/ab_bucket_store.js",
-      "events/ab_test_settings.js"
-    ]
-  }
+  "content_security_policy": {},
+  "host_permissions": [
+    "http://*.gov.uk/*",
+    "https://*.gov.uk/*"
+  ]
 }

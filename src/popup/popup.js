@@ -4,21 +4,33 @@ var Popup = Popup || {};
 (function () {
   // Execute a script on the main thread (which has access to the currently
   // loaded page). This script will call back to us.
+  async function getCurrentTab() {
+    let queryOptions = { active: true, lastFocusedWindow: true };
+    // `tab` will either be a `tabs.Tab` instance or `undefined`.
+    let [tab] = await chrome.tabs.query(queryOptions);
+    return tab;
+  }
+  var tab = await getCurrentTab();
+  console.log(tab)
   document.addEventListener('DOMContentLoaded', () => {
-    chrome.tabs.executeScript(null, {
+    chrome.scripting.executeScript({
+      target: {tabId: tab.id},
       code: 'window.highlightComponent = window.highlightComponent || new HighlightComponent; undefined;'
     })
 
-    chrome.tabs.executeScript(null, {
+    chrome.scripting.executeScript({
+      target: {tabId: tab.id},
       code: 'window.designModeComponent = window.designModeComponent || new DesignModeComponent; undefined;'
     })
 
-    chrome.tabs.executeScript(null, {
+    chrome.scripting.executeScript({
+      target: {tabId: tab.id},
       code: 'window.showMetaTagsComponent = window.showMetaTagsComponent || new ShowMetaTagsComponent; undefined;'
     })
 
-    chrome.tabs.executeScript(null, {
-      file: 'fetch-page-data.js'
+    chrome.scripting.executeScript({
+      target: {tabId: tab.id},
+      files: ['fetch-page-data.js']
     })
   })
 
@@ -108,15 +120,18 @@ var Popup = Popup || {};
 
     setupAbToggles(currentUrl)
 
-    chrome.tabs.executeScript(null, {
+    chrome.scripting.executeScript({
+      target: {tabId: tab.id},
       code: 'window.highlightComponent.sendState(); undefined;'
     })
 
-    chrome.tabs.executeScript(null, {
+    chrome.scripting.executeScript({
+      target: {tabId: tab.id},
       code: 'window.showMetaTagsComponent.sendState(); undefined;'
     })
 
-    chrome.tabs.executeScript(null, {
+    chrome.scripting.executeScript({
+      target: {tabId: tab.id},
       code: 'window.designModeComponent.sendState(); undefined;'
     })
   }
@@ -201,7 +216,7 @@ var Popup = Popup || {};
               testBucket.classList.remove('ab-bucket-selected')
             }
             abTestBucket.classList.add('ab-bucket-selected')
-            chrome.tabs.reload(null, { bypassCache: true })
+            chrome.tabs.reload(tab.id, { bypassCache: true })
           }
         )
       })

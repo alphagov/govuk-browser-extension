@@ -1,15 +1,31 @@
 // This script runs in the background in Chrome. It will activate the small
 // greyed out GOV.UK logo in the Chrome menu bar whenever we're on a gov.uk page.
-function showIconForGovukPages (tabId, changeInfo, tab) {
-  if (tab.url.match(/www\.gov\.uk/) || tab.url.match(/dev\.gov\.uk/) || tab.url.match(/.*publishing\.service\.gov\.uk/)) {
-    chrome.pageAction.show(tabId)
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      chrome.pageAction.setIcon({ tabId: tabId, path: { 19: 'icons/crown-logo-19-active-dark-mode.png', 38: 'icons/crown-logo-38-active-dark-mode.png' } })
-    } else {
-      chrome.pageAction.setIcon({ tabId: tabId, path: { 19: 'icons/crown-logo-19-active.png', 38: 'icons/crown-logo-38-active.png' } })
-    }
-  }
-}
+chrome.declarativeContent.onPageChanged.removeRules(async () => {
+  chrome.declarativeContent.onPageChanged.addRules([{
+    conditions: [
+      new chrome.declarativeContent.PageStateMatcher({
+        pageUrl: { hostSuffix: 'www.gov.uk' },
+      }),
+    ],
+    actions: [
+      new chrome.declarativeContent.SetIcon({
+        imageData: {
+          19: await loadImageData('icons/crown-logo-19-active.png'),
+          38: await loadImageData('icons/crown-logo-38-active.png'),
+        },
+      }),
+      chrome.declarativeContent.ShowAction
+        ? new chrome.declarativeContent.ShowAction()
+        : new chrome.declarativeContent.ShowPageAction(),
+    ],
+  }]);
+});
 
-chrome.tabs.onCreated.addListener(showIconForGovukPages)
-chrome.tabs.onUpdated.addListener(showIconForGovukPages)
+async function loadImageData(url) {
+  const img = await createImageBitmap(await (await fetch(url)).blob());
+  const {width: w, height: h} = img;
+  const canvas = new OffscreenCanvas(w, h);
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(img, 0, 0, w, h);
+  return ctx.getImageData(0, 0, w, h);
+}
