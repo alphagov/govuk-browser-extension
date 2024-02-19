@@ -11,7 +11,7 @@ chrome.runtime.sendMessage({
   renderingApplication: getMetatag('govuk:rendering-application'),
   abTestBuckets: getAbTestBuckets(),
   windowHeight: window.innerHeight,
-  highlightState: window.highlightComponent.state
+  highlightState: false // window.highlightComponent.state
 })
 
 function getMetatag (name) {

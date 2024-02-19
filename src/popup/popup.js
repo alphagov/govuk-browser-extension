@@ -4,21 +4,24 @@ var Popup = Popup || {};
 (function () {
   // Execute a script on the main thread (which has access to the currently
   // loaded page). This script will call back to us.
-  document.addEventListener('DOMContentLoaded', () => {
-    chrome.tabs.executeScript(null, {
-      code: 'window.highlightComponent = window.highlightComponent || new HighlightComponent; undefined;'
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    let queryOptions = { active: true, lastFocusedWindow: true };
+    // `tab` will either be a `tabs.Tab` instance or `undefined`.
+    let [tab] = await chrome.tabs.query(queryOptions);
+
+    chrome.scripting.executeScript({
+      target: {tabId: tab.id},
+      func: () => {
+        window.highlightComponent = window.highlightComponent || new HighlightComponent
+        window.designModeComponent = window.designModeComponent || new DesignModeComponent
+        window.showMetaTagsComponent = window.showMetaTagsComponent || new ShowMetaTagsComponent
+      }
     })
 
-    chrome.tabs.executeScript(null, {
-      code: 'window.designModeComponent = window.designModeComponent || new DesignModeComponent; undefined;'
-    })
-
-    chrome.tabs.executeScript(null, {
-      code: 'window.showMetaTagsComponent = window.showMetaTagsComponent || new ShowMetaTagsComponent; undefined;'
-    })
-
-    chrome.tabs.executeScript(null, {
-      file: 'fetch-page-data.js'
+    chrome.scripting.executeScript({
+      target: {tabId: tab.id},
+      files: ['fetch-page-data.js']
     })
   })
 
@@ -29,8 +32,8 @@ var Popup = Popup || {};
     if (request.action === 'populatePopup') {
       // When we're asked to populate the popup, we'll first send the current
       // buckets back to the main thread, which "persists" them.
-      var abTestSettings = chrome.extension.getBackgroundPage().abTestSettings
-      var abTestBuckets = abTestSettings.initialize(request.abTestBuckets, request.currentLocation)
+      //var abTestSettings = chrome.extension.getBackgroundPage().abTestSettings
+      // var abTestBuckets = abTestSettings.initialize(request.abTestBuckets, request.currentLocation)
 
       renderPopup(
         request.currentLocation,
@@ -39,7 +42,7 @@ var Popup = Popup || {};
         request.currentPathname,
         request.renderingApplication,
         request.windowHeight,
-        abTestBuckets
+        null // abTestBuckets
       )
     }
   })
@@ -53,10 +56,10 @@ var Popup = Popup || {};
   })
 
   chrome.runtime.onMessage.addListener(function (request, _sender) {
-    if (request.action === 'showMetaTagState') {
+    if (request.action === 'showMetaTagsState') {
       // When we're asked to populate the popup, we'll first send the current
       // buckets back to the main thread, which "persists" them.
-      if (request.metaTags) { document.querySelector('#highlight-meta-tags').textContent = 'Hide meta tags' } else { document.querySelector('#highlight-meta-tags').textContent = 'Show meta tags' }
+      if (request.metaTagsState) { document.querySelector('#highlight-meta-tags').textContent = 'Hide meta tags' } else { document.querySelector('#highlight-meta-tags').textContent = 'Show meta tags' }
     }
   })
 
@@ -100,7 +103,7 @@ var Popup = Popup || {};
     }
   }
 
-  function renderView (view, currentUrl) {
+  async function renderView (view, currentUrl) {
     var template = document.querySelector('#template').innerHTML
     var popupContent = document.querySelector('#content')
     popupContent.innerHTML = Mustache.render(template, view)
@@ -108,16 +111,17 @@ var Popup = Popup || {};
 
     setupAbToggles(currentUrl)
 
-    chrome.tabs.executeScript(null, {
-      code: 'window.highlightComponent.sendState(); undefined;'
-    })
+    let queryOptions = { active: true, lastFocusedWindow: true };
+    // `tab` will either be a `tabs.Tab` instance or `undefined`.
+    let [tab] = await chrome.tabs.query(queryOptions);
 
-    chrome.tabs.executeScript(null, {
-      code: 'window.showMetaTagsComponent.sendState(); undefined;'
-    })
-
-    chrome.tabs.executeScript(null, {
-      code: 'window.designModeComponent.sendState(); undefined;'
+    chrome.scripting.executeScript({
+      target: {tabId: tab.id},
+      func: () => {
+        window.highlightComponent.sendState()
+        window.showMetaTagsComponent.sendState()
+        window.designModeComponent.sendState()
+      }
     })
   }
 
@@ -158,7 +162,7 @@ var Popup = Popup || {};
         // TODO: we're not actually re-rendering the popup correctly here, because
         // we don't have access to the DOM here. This is a temporary solution to
         // make most functionality work after the user clicks a button in the popup.
-        renderPopup(location, '', {})
+        renderPopup(location.href, location.host, location.origin, location.pathname, {})
       })
     })
 
@@ -201,10 +205,10 @@ var Popup = Popup || {};
               testBucket.classList.remove('ab-bucket-selected')
             }
             abTestBucket.classList.add('ab-bucket-selected')
-            chrome.tabs.reload(null, { bypassCache: true })
+            chrome.tabs.reload(tab.id, { bypassCache: true })
           }
         )
-      })
+1      })
     })
   }
 
@@ -214,7 +218,7 @@ var Popup = Popup || {};
   function createView (location, host, origin, pathname, renderingApplication, abTestBuckets) {
     var environment = Popup.environment(location, host, origin)
     var contentLinks = Popup.generateContentLinks(location, origin, pathname, environment.currentEnvironment, renderingApplication)
-    var abTests = Popup.findActiveAbTests(abTestBuckets)
+    // var abTests = Popup.findActiveAbTests(abTestBuckets)
 
     return {
       environments: environment.allEnvironments,
@@ -222,7 +226,7 @@ var Popup = Popup || {};
       contentLinks: contentLinks,
       // external links will be populated by a call to the content store
       externalLinks: [],
-      abTests: abTests
+      abTests: [] // abTests
     }
   }
 

@@ -75,7 +75,7 @@ ShowMetaTagsComponent.prototype.hideMetaTags = function () {
 
 ShowMetaTagsComponent.prototype.sendState = function () {
   chrome.runtime.sendMessage({
-    action: 'showMetaTagState',
-    showMetaTagsState: this.isMetaTagsDisplayed
+    action: 'showMetaTagsState',
+    metaTagsState: this.isMetaTagsDisplayed
   })
 }
