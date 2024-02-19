@@ -20,7 +20,15 @@ Popup.environment = function (location, host, origin) {
       allEnvironments: {
         name: 'GOV.UK',
         url: 'https://www.gov.uk'
+      },
+      currentEnvironment: {
+        name: 'Production',
+        protocol: 'https',
+        serviceDomain: 'publishing.service.gov.uk',
+        host: 'https://www.gov.uk',
+        origin: origin
       }
+
     }
   }
 
