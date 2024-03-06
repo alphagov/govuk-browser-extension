@@ -43,7 +43,9 @@ function HighlightComponent () {
     component.element.setAttribute('data-app-name', component.prefix)
 
     // the method will add a click event (listener), it'll then open a new window with the documentationUrl for that component.
-    component.element.addEventListener('click', function () {
+    component.element.addEventListener('click', function (event) {
+      event.stopPropagation() // prevent event bubbling
+      event.preventDefault()
       if (this.isComponentsHighlighted) {
         window.open(Helpers.documentationUrl(component))
       }
