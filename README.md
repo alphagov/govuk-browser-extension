@@ -61,7 +61,7 @@ $ npx jasmine-browser-runner serve
 
 ## Getting permission to release
 1. You will need to be a registered Chrome Web Store Developer
-2. Once you are registered, ask to be added to the the [govukdevelopers google group](https://groups.google.com/forum/#!forum/govukdevelopers).
+2. Once you are registered, ask to be added to the the [govuk google chrome developers google group](https://groups.google.com/a/digital.cabinet-office.gov.uk/g/google-chrome-developers).
 3. An existing developer will then need to go into their Chrome web console and run the sync task so that you can release the extension as a member of the group.
 
 
