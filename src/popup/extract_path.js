@@ -5,23 +5,23 @@ var Popup = Popup || {}
 Popup.extractPath = function (location, pathname, renderingApplication) {
   var extractedPath
 
-  if (location.match(/api\/content/)) {
+  if (location.includes('api/content')) {
     extractedPath = pathname.replace('api/content/', '')
-  } else if (location.match(/anonymous_feedback/)) {
+  } else if (location.includes('anonymous_feedback')) {
     extractedPath = extractQueryParameter(location, 'path')
-  } else if (location.match(/content-data/)) {
+  } else if (location.includes('content-data')) {
     extractedPath = pathname.replace('metrics/', '')
-  } else if (location.match(/nationalarchives.gov.uk/)) {
+  } else if (location.includes('nationalarchives.gov.uk')) {
     extractedPath = pathname.split('https://www.gov.uk')[1]
-  } else if (location.match(/api\/search.json/)) {
+  } else if (location.includes('api/search.json')) {
     extractedPath = extractQueryParameter(location, 'filter_link')
-  } else if (location.match(/info/)) {
+  } else if (location.includes('info')) {
     extractedPath = pathname.replace('info/', '')
-  } else if (location.match(/api.*\.json/)) {
+  } else if (/api.*\.json/.test(location)) {
     extractedPath = pathname.replace('api/', '').replace('.json', '')
-  } else if (location.match(/visualise/)) {
+  } else if (location.includes('visualise')) {
     extractedPath = pathname.replace('/y/visualise', '')
-  } else if (location.match(/www/) || location.match(/draft-origin/)) {
+  } else if (/www|draft-origin/.test(location)) {
     extractedPath = pathname
   }
 
