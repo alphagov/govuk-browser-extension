@@ -3,6 +3,7 @@ var Popup = Popup || {}
 // Extract the relevant path from a location, such as `/foo` from URLs like
 // `www.gov.uk/foo` and `www.gov.uk/api/content/foo`.
 Popup.extractPath = function (location, pathname, renderingApplication) {
+  const url = new URL(location)
   var extractedPath
 
   if (location.includes('api/content')) {
@@ -11,7 +12,7 @@ Popup.extractPath = function (location, pathname, renderingApplication) {
     extractedPath = extractQueryParameter(location, 'path')
   } else if (location.includes('content-data')) {
     extractedPath = pathname.replace('metrics/', '')
-  } else if (location.includes('nationalarchives.gov.uk')) {
+  } else if (/\.?nationalarchives\.gov\.uk$/.test(url.hostname)) {
     extractedPath = pathname.split('https://www.gov.uk')[1]
   } else if (location.includes('api/search.json')) {
     extractedPath = extractQueryParameter(location, 'filter_link')
