@@ -2,7 +2,7 @@ describe('Popup.environment', function () {
   function createEnvironmentForUrl (location) {
     var a = document.createElement('a')
     a.href = location
-    return Popup.environment(a.href, a.host, a.origin).allEnvironments
+    return Popup.environment(a.href, a.hostname, a.origin).allEnvironments
   }
 
   it('returns the correct environment links when the user is on production', function () {

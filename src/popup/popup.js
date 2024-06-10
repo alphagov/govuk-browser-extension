@@ -71,9 +71,9 @@ var Popup = Popup || {};
   })
 
   // Render the popup.
-  function renderPopup (location, host, origin, pathname, renderingApplication, windowHeight, abTestBuckets) {
+  function renderPopup (location, hostname, origin, pathname, renderingApplication, windowHeight, abTestBuckets) {
     // Creates a view object with the data and render a template with it.
-    var view = createView(location, host, origin, pathname, renderingApplication, abTestBuckets)
+    var view = createView(location, hostname, origin, pathname, renderingApplication, abTestBuckets)
 
     var contentStore = view.contentLinks.find(function (el) { return el.name === 'Content item (JSON)' })
 
@@ -162,7 +162,7 @@ var Popup = Popup || {};
         // TODO: we're not actually re-rendering the popup correctly here, because
         // we don't have access to the DOM here. This is a temporary solution to
         // make most functionality work after the user clicks a button in the popup.
-        renderPopup(location.href, location.host, location.origin, location.pathname, {})
+        renderPopup(location.href, location.hostname, location.origin, location.pathname, {})
       })
     })
 
@@ -212,11 +212,11 @@ var Popup = Popup || {};
     })
   }
 
-  // This is the view object. It takes a location, host, origin, the name of the
+  // This is the view object. It takes a location, hostname, origin, the name of the
   // rendering app and a list of A/B test buckets and creates an object with all
   // URLs and other view data to render the popup.
-  function createView (location, host, origin, pathname, renderingApplication, abTestBuckets) {
-    var environment = Popup.environment(location, host, origin)
+  function createView (location, hostname, origin, pathname, renderingApplication, abTestBuckets) {
+    var environment = Popup.environment(location, hostname, origin)
     var contentLinks = Popup.generateContentLinks(location, origin, pathname, environment.currentEnvironment, renderingApplication)
     // var abTests = Popup.findActiveAbTests(abTestBuckets)
 

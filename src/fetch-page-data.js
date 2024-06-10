@@ -5,7 +5,7 @@
 chrome.runtime.sendMessage({
   action: 'populatePopup',
   currentLocation: window.location.href,
-  currentHost: window.location.host,
+  currentHost: window.location.hostname,
   currentOrigin: window.location.origin,
   currentPathname: window.location.pathname,
   renderingApplication: getMetatag('govuk:rendering-application'),

@@ -6,12 +6,13 @@ Popup.generateContentLinks = function (location, origin, pathname, currentEnviro
 
   // If no path can be found (which means we're probably in a publishing app)
   // Similarly if we're on GOVUK account, not many of the links are relevant
-  if (!path || origin.match(/www.account/)) {
+  if (!path || origin.includes('www.account')) {
     return []
   }
 
-  // This is 'https://www.gov.uk' or 'https://www-origin.integration.publishing.service.gov.uk/', etc.
-  if (origin === 'http://webarchive.nationalarchives.gov.uk' || origin.match(/draft-origin/) || origin.match(/content-data/) || origin.match(/support/)) {
+  // Origin looks like 'https://www.gov.uk' or 'https://www-origin.integration.publishing.service.gov.uk/' or similar.
+  if (origin === 'http://webarchive.nationalarchives.gov.uk' ||
+      /draft-origin|content-data|support/.test(origin)) {
     origin = 'https://www.gov.uk'
   }
 
