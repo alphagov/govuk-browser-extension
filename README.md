@@ -28,7 +28,8 @@ is open and are removed on exit. Permanently-active extensions can be only be
 installed from packages signed by Mozilla.
 
 1. [Download the source from GitHub](https://github.com/alphagov/govuk-browser-extension/archive/master.zip) and unzip.
-2. Visit [about:debugging](about:debugging) in your browser.
+2. Remove the `background` section from `src/manifest.json`. The service worker specified in this section changes the colour of the icon when on a GOV.UK page, but it relies on `background.service_worker`, which is [currently unsupported in Firefox with Manifest V3](https://bugzilla.mozilla.org/show_bug.cgi?id=1573659).
+3. Visit [about:debugging](about:debugging) in your browser.
 4. Click `Load Temporary Add-on` to pop up a file selection dialog.
 5. Navigate to `src` in the extension directory, and select `manifest.json`.
 6. Visit any page on [GOV.UK](https://www.gov.uk).
