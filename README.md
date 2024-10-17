@@ -27,7 +27,7 @@ Extensions installed using the following instructions are only active while Fire
 is open and are removed on exit. Permanently-active extensions can be only be
 installed from packages signed by Mozilla.
 
-1. [Download the source from GitHub](https://github.com/alphagov/govuk-browser-extension/archive/master.zip) and unzip.
+1. [Download the source from GitHub](https://github.com/alphagov/govuk-browser-extension/archive/main.zip) and unzip.
 2. Visit [about:debugging](about:debugging) in your browser.
 4. Click `Load Temporary Add-on` to pop up a file selection dialog.
 5. Navigate to `src` in the extension directory, and select `manifest.json`.
