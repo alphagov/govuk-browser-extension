@@ -3,7 +3,7 @@
   "name": "GOV.UK Browser Extension",
   "description": "Switch between GOV.UK environments and content",
   "homepage_url": "https://github.com/alphagov/govuk-browser-extension",
-  "version": "1.24.0",
+  "version": "1.25.0",
   "content_scripts": [
     {
       "matches":
