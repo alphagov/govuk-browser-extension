@@ -1,0 +1,59 @@
+{
+  "manifest_version": 3,
+  "name": "GOV.UK Browser Extension",
+  "description": "Switch between GOV.UK environments and content",
+  "homepage_url": "https://github.com/alphagov/govuk-browser-extension",
+  "version": "1.25.0",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{c69e1013-6f65-484b-938e-bde97635135c}"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches":
+       [
+         "https://*.gov.uk/*"
+        ],
+      "all_frames": true,
+      "js": [
+        "popup/lib/mustache.min.js",
+        "components/highlight-component/highlight-component.js",
+        "components/design-mode-component/design-mode-component.js",
+        "components/show-meta-tags-component/show-meta-tags-component.js"
+      ],
+      "css": [
+        "components/highlight-component/highlight-component.css",
+        "components/design-mode-component/design-mode-component.css",
+        "components/show-meta-tags-component/show-meta-tags-component.css"
+      ]
+    }
+  ],
+  "icons": {
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
+  "permissions": [
+    "cookies",
+    "declarativeContent",
+    "scripting",
+    "tabs",
+    "webRequest"
+  ],
+  "background": {
+    "scripts": ["service_worker.js"]
+  },
+  "action": {
+    "default_icon": {
+      "19": "icons/crown-logo-19-inactive.png",
+      "38": "icons/crown-logo-38-inactive.png"
+    },
+    "default_title": "GOV.UK",
+    "default_popup": "popup.html"
+  },
+  "content_security_policy": {},
+  "host_permissions": [
+    "http://*.gov.uk/*",
+    "https://*.gov.uk/*"
+  ]
+}
