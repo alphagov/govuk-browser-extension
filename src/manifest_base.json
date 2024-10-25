@@ -7,9 +7,9 @@
   "content_scripts": [
     {
       "matches":
-       [
-         "https://*.gov.uk/*"
-        ],
+      [
+        "https://*.gov.uk/*"
+      ],
       "all_frames": true,
       "js": [
         "popup/lib/mustache.min.js",
@@ -35,9 +35,6 @@
     "tabs",
     "webRequest"
   ],
-  "background": {
-    "service_worker": "service_worker.js"
-  },
   "action": {
     "default_icon": {
       "19": "icons/crown-logo-19-inactive.png",

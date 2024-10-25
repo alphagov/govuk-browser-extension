@@ -28,11 +28,10 @@ is open and are removed on exit. Permanently-active extensions can be only be
 installed from packages signed by Mozilla.
 
 1. [Download the source from GitHub](https://github.com/alphagov/govuk-browser-extension/archive/main.zip) and unzip.
-2. Remove the `background` section from `src/manifest.json`. The service worker specified in this section changes the colour of the icon when on a GOV.UK page, but it relies on `background.service_worker`, which is [currently unsupported in Firefox with Manifest V3](https://bugzilla.mozilla.org/show_bug.cgi?id=1573659).
-3. Visit [about:debugging](about:debugging) in your browser.
-4. Click `Load Temporary Add-on` to pop up a file selection dialog.
-5. Navigate to `src` in the extension directory, and select `manifest.json`.
-6. Visit any page on [GOV.UK](https://www.gov.uk).
+2. Visit [about:debugging](about:debugging/runtime/this-firefox) in your browser.
+3. Click `Load Temporary Add-on` to pop up a file selection dialog.
+4. Navigate to `src` in the extension directory, and select `manifest.json`.
+5. Visit any page on [GOV.UK](https://www.gov.uk).
 
 Source: [Temporary installation in Firefox](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Temporary_Installation_in_Firefox).
 
@@ -61,18 +60,26 @@ $ npx jasmine-browser-runner serve
 ..then navigate to http://localhost:8888/
 
 ## Getting permission to release
+
 1. You will need to be a registered Chrome Web Store Developer
 2. Once you are registered, ask to be added to the the [govuk google chrome developers google group](https://groups.google.com/a/digital.cabinet-office.gov.uk/g/google-chrome-developers).
 3. An existing developer will then need to go into their Chrome web console and run the sync task so that you can release the extension as a member of the group.
 
-
 ## Releasing the extension
 
-1. Update the version in `manifest.json`
-2. Run `npm run build`
-3. Create a Pull Request with the new package committed
-4. Upload newly created package in `/build` to the [Chrome web store](https://chrome.google.com/webstore/devconsole/06b3913d-07a7-479e-94aa-05bb5b3cd44d/dclfaikcemljbaoagjnedmlppnbiljen/edit/package).
-5. Upload newly created package in `/build` to [Firefox Add-ons](https://addons.mozilla.org/en-US/developers/addon/govuk-browser-extension-ff/versions/submit/). Account details in the [2nd line password store](https://github.com/alphagov/govuk-secrets/tree/master/pass/2ndline/firefox/add-ons).
+1. Install `jq`. For example, on mac, you can do it using brew 'brew install jq'
+2. Update the version in `manifest_base.json`
+3. Run `npm run build`
+4. Create a Pull Request with the new package committed
+5. Upload newly created package created for chrome at`/build/govuk-browser-extension-chrome-{version}.zip` to the [Chrome web store](https://chrome.google.com/webstore/devconsole/06b3913d-07a7-479e-94aa-05bb5b3cd44d/dclfaikcemljbaoagjnedmlppnbiljen/edit/package).
+6. Upload newly created package created for firefox at `/build/govuk-browser-extension-firefox-{version}.zip` to [Firefox Add-ons](https://addons.mozilla.org/en-US/developers/addon/govuk-browser-extension-ff/versions/submit/). Account details in the [AWS Secrets Manager](https://eu-west-1.console.aws.amazon.com/secretsmanager). See the documentation in [Retrieve a credential from Secrets Manager](https://docs.publishing.service.gov.uk/manual/secrets-manager.html#retrieve-a-credential-from-secrets-manager)
+
+### Note
+
+   Firefox and chrome currently disagree on few things with respect to V3 of manifest.json, so inorder to accommodate for
+   both the browser, we would need a separate build for each browser with their manifest.json catering to each of them. To
+   do this, we have created two manifest.json for each browser and have updated build script to generate separate
+   manifest.json for each of them during the build.
 
 ### License
 
