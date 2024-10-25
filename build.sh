@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Building package"
-version=$(jq -r '.version' < src/manifest.json)
+version=$(jq -r '.version' < src/manifest_base.json)
 echo "Version is $version"
 rm -f manifest.json
 cd src
