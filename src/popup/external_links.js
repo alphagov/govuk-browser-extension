@@ -91,7 +91,7 @@ function generateEditLink (contentItem, env) {
   } else if (contentItem.publishing_app === 'publisher') {
     return [{
       name: 'Look up in Mainstream Publisher',
-      url: env.protocol + '://publisher.' + env.serviceDomain + '/by-content-id/' + contentItem.content_id
+      url: env.protocol + '://publisher.' + env.serviceDomain + '/?list=published&string_filter=' + contentItem.base_path.substring(1) + '&user_filter=all'
     }]
   } else if (contentItem.publishing_app === 'content-publisher') {
     return [{
