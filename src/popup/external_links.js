@@ -40,11 +40,6 @@ Popup.generateExternalLinks = function (contentItem, env) {
   })
 
   links.push({
-    name: 'Look up in search-admin',
-    url: env.protocol + '://search-admin.' + env.serviceDomain + '/results/result?base_path=' + encodeURIComponent(contentItem.base_path)
-  })
-
-  links.push({
     name: 'Rendering app: ' + contentItem.rendering_app,
     url: 'https://docs.publishing.service.gov.uk/apps/' + renderingAppNameToRepo(contentItem.rendering_app) + '.html'
   })
