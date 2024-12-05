@@ -147,7 +147,7 @@ describe('Popup.generateExternalLinks', function () {
 
     expect(links).toContain({
       name: 'Look up in Mainstream Publisher',
-      url: 'https://publisher.publishing.service.gov.uk/?list=published&string_filter=certifying-a-document&user_filter=all'
+      url: 'https://publisher.publishing.service.gov.uk/by-content-id/4d8568c4-67f2-48da-a578-5ac6f35b69b4'
     })
   })
 
