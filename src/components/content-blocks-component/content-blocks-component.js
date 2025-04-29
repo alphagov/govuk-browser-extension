@@ -44,38 +44,42 @@ ContentBlocksComponent.prototype.showContentBlocksBanner = function () {
 
   wrapper.insertAdjacentHTML('beforeend', title)
 
-  var instances = Map.groupBy(this.contentBlocks, function (contentBlock) {
-    var documentType = contentBlock.dataset.documentType.replace('content_block', '').replaceAll('_', ' ')
-    return `${documentType} - ${contentBlock.innerText}`
-  })
+  if (this.contentBlocks.length) {
+    var instances = Map.groupBy(this.contentBlocks, function (contentBlock) {
+      var documentType = contentBlock.dataset.documentType.replace('content_block', '').replaceAll('_', ' ')
+      return `${documentType} - ${contentBlock.innerText}`
+    })
 
-  instances.forEach(function (blocks, category) {
-    var blockTitle = `<h3 class="govuk-chrome-content-blocks-banner__subhead govuk-heading-s">
+    instances.forEach(function (blocks, category) {
+      var blockTitle = `<h3 class="govuk-chrome-content-blocks-banner__subhead govuk-heading-s">
             ${category}
         </h3>`
-    wrapper.insertAdjacentHTML('beforeend', blockTitle)
-    var output = ''
+      wrapper.insertAdjacentHTML('beforeend', blockTitle)
+      var output = ''
 
-    blocks.forEach(function (contentBlock, index) {
-      output += `
+      blocks.forEach(function (contentBlock, index) {
+        output += `
                 <a class="govuk-button govuk-chrome-content-blocks-banner__button" 
                    data-content-block-target="${contentBlock.dataset.contentBlockPageIdentifier}"
                 >
                     Jump to instance ${index + 1}
                 </a>`
+      })
+
+      wrapper.insertAdjacentHTML('beforeend', output)
     })
 
-    wrapper.insertAdjacentHTML('beforeend', output)
-  })
-
-  wrapper.querySelectorAll('.govuk-chrome-content-blocks-banner__button').forEach(function (element) {
-    element.addEventListener('click', function (e) {
-      e.preventDefault()
-      var id = e.target.dataset.contentBlockId
-      var element = document.getElementById(id)
-      element.scrollIntoView()
+    wrapper.querySelectorAll('.govuk-chrome-content-blocks-banner__button').forEach(function (element) {
+      element.addEventListener('click', function (e) {
+        e.preventDefault()
+        var id = e.target.dataset.contentBlockTarget
+        var element = document.querySelector(`[data-content-block-page-identifier=${id}]`)
+        element.scrollIntoView()
+      })
     })
-  })
+  } else {
+    wrapper.insertAdjacentHTML('beforeend', "<p>No content blocks in use on this page</p>")
+  }
 
   document.body.prepend(wrapper)
 }
