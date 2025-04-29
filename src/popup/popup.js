@@ -1,3 +1,5 @@
+/* global HighlightComponent ContentBlocksComponent DesignModeComponent ShowMetaTagsComponent tab */
+
 // This script is executed when the popup is opened.
 var Popup = Popup || {};
 
@@ -6,22 +8,22 @@ var Popup = Popup || {};
   // loaded page). This script will call back to us.
 
   document.addEventListener('DOMContentLoaded', async () => {
-    let queryOptions = { active: true, lastFocusedWindow: true };
+    const queryOptions = { active: true, lastFocusedWindow: true }
     // `tab` will either be a `tabs.Tab` instance or `undefined`.
-    let [tab] = await chrome.tabs.query(queryOptions);
+    const [tab] = await chrome.tabs.query(queryOptions)
 
     chrome.scripting.executeScript({
-      target: {tabId: tab.id},
+      target: { tabId: tab.id },
       func: () => {
-        window.highlightComponent = window.highlightComponent || new HighlightComponent
-        window.higlightContentBlocksComponent = window.higlightContentBlocksComponent || new ContentBlocksComponent
-        window.designModeComponent = window.designModeComponent || new DesignModeComponent
-        window.showMetaTagsComponent = window.showMetaTagsComponent || new ShowMetaTagsComponent
+        window.highlightComponent = window.highlightComponent || new HighlightComponent()
+        window.higlightContentBlocksComponent = window.higlightContentBlocksComponent || new ContentBlocksComponent()
+        window.designModeComponent = window.designModeComponent || new DesignModeComponent()
+        window.showMetaTagsComponent = window.showMetaTagsComponent || new ShowMetaTagsComponent()
       }
     })
 
     chrome.scripting.executeScript({
-      target: {tabId: tab.id},
+      target: { tabId: tab.id },
       files: ['fetch-page-data.js']
     })
   })
@@ -33,45 +35,45 @@ var Popup = Popup || {};
     switch (request.action) {
       case 'populatePopup':
         renderPopup(
-            request.currentLocation,
-            request.currentHost,
-            request.currentOrigin,
-            request.currentPathname,
-            request.renderingApplication,
-            request.windowHeight,
-            null // abTestBuckets
+          request.currentLocation,
+          request.currentHost,
+          request.currentOrigin,
+          request.currentPathname,
+          request.renderingApplication,
+          request.windowHeight,
+          null // abTestBuckets
         )
         break
       case 'highlightState':
         toggleLinkText(
-            '#highlight-components',
-            'Stop highlighting components',
-            'Highlight Components',
-            request.highlightState
+          '#highlight-components',
+          'Stop highlighting components',
+          'Highlight Components',
+          request.highlightState
         )
         break
       case 'contentBlockState':
         toggleLinkText(
-            '#highlight-content-blocks',
-            'Stop highlighting content blocks',
-            'Highlight Content Blocks',
-            request.highlightState
+          '#highlight-content-blocks',
+          'Stop highlighting content blocks',
+          'Highlight Content Blocks',
+          request.highlightState
         )
         break
       case 'showMetaTagsState':
         toggleLinkText(
-            '#highlight-meta-tags',
-            'Hide meta tags',
-            'Show meta tags',
-            request.metaTagsState
+          '#highlight-meta-tags',
+          'Hide meta tags',
+          'Show meta tags',
+          request.metaTagsState
         )
         break
       case 'designModeState':
         toggleLinkText(
-            '#toggle-design-mode',
-            'Turn off design mode',
-            'Turn on design mode',
-            request.designModeState
+          '#toggle-design-mode',
+          'Turn off design mode',
+          'Turn on design mode',
+          request.designModeState
         )
         break
       default:
@@ -79,7 +81,7 @@ var Popup = Popup || {};
     }
   })
 
-  function toggleLinkText(selector, onValue, offValue, state) {
+  function toggleLinkText (selector, onValue, offValue, state) {
     var toggleLink = document.querySelector(selector)
     if (state) {
       toggleLink.textContent = onValue
@@ -129,12 +131,12 @@ var Popup = Popup || {};
 
     setupAbToggles(currentUrl)
 
-    let queryOptions = { active: true, lastFocusedWindow: true };
+    const queryOptions = { active: true, lastFocusedWindow: true }
     // `tab` will either be a `tabs.Tab` instance or `undefined`.
-    let [tab] = await chrome.tabs.query(queryOptions);
+    const [tab] = await chrome.tabs.query(queryOptions)
 
     chrome.scripting.executeScript({
-      target: {tabId: tab.id},
+      target: { tabId: tab.id },
       func: () => {
         window.highlightComponent.sendState()
         window.higlightContentBlocksComponent.sendState()
@@ -232,7 +234,7 @@ var Popup = Popup || {};
             chrome.tabs.reload(tab.id, { bypassCache: true })
           }
         )
-1      })
+      })
     })
   }
 

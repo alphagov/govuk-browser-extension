@@ -84,7 +84,7 @@ describe('Content blocks component', function () {
 
   describe('When no content blocks are present on a page', function () {
     beforeEach(function () {
-      loadFixtures("app-c-back-to-top.html")
+      loadFixtures('app-c-back-to-top.html')
 
       contentBlocksComponent = new ContentBlocksComponent()
       contentBlocksComponent.toggleHighlight()

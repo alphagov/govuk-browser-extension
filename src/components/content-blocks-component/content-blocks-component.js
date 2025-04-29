@@ -78,7 +78,7 @@ ContentBlocksComponent.prototype.showContentBlocksBanner = function () {
       })
     })
   } else {
-    wrapper.insertAdjacentHTML('beforeend', "<p>No content blocks in use on this page</p>")
+    wrapper.insertAdjacentHTML('beforeend', '<p>No content blocks in use on this page</p>')
   }
 
   document.body.prepend(wrapper)
