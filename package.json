@@ -6,7 +6,7 @@
   },
   "scripts": {
     "lint:js": "standardx 'spec/javascripts/**/*.js' 'src/**/*.js'",
-    "lint:js:fix": "npm run lint:js --fix",
+    "lint:js:fix": "npm run lint:js -- --fix",
     "test": "jasmine-browser-runner runSpecs",
     "build": "bash build.sh"
   },
