@@ -14,11 +14,13 @@
       "js": [
         "popup/lib/mustache.min.js",
         "components/highlight-component/highlight-component.js",
+        "components/content-blocks-component/content-blocks-component.js",
         "components/design-mode-component/design-mode-component.js",
         "components/show-meta-tags-component/show-meta-tags-component.js"
       ],
       "css": [
         "components/highlight-component/highlight-component.css",
+        "components/content-blocks-component/content-blocks-component.css",
         "components/design-mode-component/design-mode-component.css",
         "components/show-meta-tags-component/show-meta-tags-component.css"
       ]

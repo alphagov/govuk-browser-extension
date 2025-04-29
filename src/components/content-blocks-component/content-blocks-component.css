@@ -1,0 +1,33 @@
+.highlight-content-block {
+    cursor: pointer;
+    background-color: #ffdd00;
+    position: relative;
+}
+
+.highlight-content-block:hover:after {
+    background-color: #ffdd00;
+    color: #0B0C0C;
+    content: attr(data-document-type);
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    padding-left: 3px;
+    padding-bottom: 3px;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 1;
+}
+
+.govuk-chrome-content-blocks-banner {
+    padding: 20px;
+    background-color: #f3f2f1;
+}
+
+.govuk-chrome-content-blocks-banner__subhead:first-letter {
+    text-transform: uppercase;
+}
+
+.govuk-chrome-content-blocks-banner__button {
+    margin-left: 10px;
+}

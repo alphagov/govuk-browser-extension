@@ -14,6 +14,7 @@ var Popup = Popup || {};
       target: {tabId: tab.id},
       func: () => {
         window.highlightComponent = window.highlightComponent || new HighlightComponent
+        window.higlightContentBlocksComponent = window.higlightContentBlocksComponent || new ContentBlocksComponent
         window.designModeComponent = window.designModeComponent || new DesignModeComponent
         window.showMetaTagsComponent = window.showMetaTagsComponent || new ShowMetaTagsComponent
       }
@@ -46,6 +47,14 @@ var Popup = Popup || {};
             '#highlight-components',
             'Stop highlighting components',
             'Highlight Components',
+            request.highlightState
+        )
+        break
+      case 'contentBlockState':
+        toggleLinkText(
+            '#highlight-content-blocks',
+            'Stop highlighting content blocks',
+            'Highlight Content Blocks',
             request.highlightState
         )
         break
@@ -128,6 +137,7 @@ var Popup = Popup || {};
       target: {tabId: tab.id},
       func: () => {
         window.highlightComponent.sendState()
+        window.higlightContentBlocksComponent.sendState()
         window.showMetaTagsComponent.sendState()
         window.designModeComponent.sendState()
       }
@@ -178,6 +188,11 @@ var Popup = Popup || {};
     document.querySelector('#highlight-components').addEventListener('click', function (e) {
       e.preventDefault()
       sendChromeTabMessage('toggleComponents')
+    })
+
+    document.querySelector('#highlight-content-blocks').addEventListener('click', function (e) {
+      e.preventDefault()
+      sendChromeTabMessage('toggleContentBlocks')
     })
 
     document.querySelector('#highlight-meta-tags').addEventListener('click', function (e) {
