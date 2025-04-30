@@ -1,3 +1,5 @@
+/* global HighlightComponent ContentBlocksComponent DesignModeComponent ShowMetaTagsComponent tab */
+
 // This script is executed when the popup is opened.
 var Popup = Popup || {};
 
@@ -6,21 +8,22 @@ var Popup = Popup || {};
   // loaded page). This script will call back to us.
 
   document.addEventListener('DOMContentLoaded', async () => {
-    let queryOptions = { active: true, lastFocusedWindow: true };
+    const queryOptions = { active: true, lastFocusedWindow: true }
     // `tab` will either be a `tabs.Tab` instance or `undefined`.
-    let [tab] = await chrome.tabs.query(queryOptions);
+    const [tab] = await chrome.tabs.query(queryOptions)
 
     chrome.scripting.executeScript({
-      target: {tabId: tab.id},
+      target: { tabId: tab.id },
       func: () => {
-        window.highlightComponent = window.highlightComponent || new HighlightComponent
-        window.designModeComponent = window.designModeComponent || new DesignModeComponent
-        window.showMetaTagsComponent = window.showMetaTagsComponent || new ShowMetaTagsComponent
+        window.highlightComponent = window.highlightComponent || new HighlightComponent()
+        window.higlightContentBlocksComponent = window.higlightContentBlocksComponent || new ContentBlocksComponent()
+        window.designModeComponent = window.designModeComponent || new DesignModeComponent()
+        window.showMetaTagsComponent = window.showMetaTagsComponent || new ShowMetaTagsComponent()
       }
     })
 
     chrome.scripting.executeScript({
-      target: {tabId: tab.id},
+      target: { tabId: tab.id },
       files: ['fetch-page-data.js']
     })
   })
@@ -29,46 +32,63 @@ var Popup = Popup || {};
   // fetch-page-data.js (called above). It will forward the location to our main
   // render function.
   chrome.runtime.onMessage.addListener(function (request, _sender) {
-    if (request.action === 'populatePopup') {
-      // When we're asked to populate the popup, we'll first send the current
-      // buckets back to the main thread, which "persists" them.
-      //var abTestSettings = chrome.extension.getBackgroundPage().abTestSettings
-      // var abTestBuckets = abTestSettings.initialize(request.abTestBuckets, request.currentLocation)
-
-      renderPopup(
-        request.currentLocation,
-        request.currentHost,
-        request.currentOrigin,
-        request.currentPathname,
-        request.renderingApplication,
-        request.windowHeight,
-        null // abTestBuckets
-      )
+    switch (request.action) {
+      case 'populatePopup':
+        renderPopup(
+          request.currentLocation,
+          request.currentHost,
+          request.currentOrigin,
+          request.currentPathname,
+          request.renderingApplication,
+          request.windowHeight,
+          null // abTestBuckets
+        )
+        break
+      case 'highlightState':
+        toggleLinkText(
+          '#highlight-components',
+          'Stop highlighting components',
+          'Highlight Components',
+          request.highlightState
+        )
+        break
+      case 'contentBlockState':
+        toggleLinkText(
+          '#highlight-content-blocks',
+          'Stop highlighting content blocks',
+          'Highlight Content Blocks',
+          request.highlightState
+        )
+        break
+      case 'showMetaTagsState':
+        toggleLinkText(
+          '#highlight-meta-tags',
+          'Hide meta tags',
+          'Show meta tags',
+          request.metaTagsState
+        )
+        break
+      case 'designModeState':
+        toggleLinkText(
+          '#toggle-design-mode',
+          'Turn off design mode',
+          'Turn on design mode',
+          request.designModeState
+        )
+        break
+      default:
+        break
     }
   })
 
-  chrome.runtime.onMessage.addListener(function (request, _sender) {
-    if (request.action === 'highlightState') {
-      // When we're asked to populate the popup, we'll first send the current
-      // buckets back to the main thread, which "persists" them.
-      if (request.highlightState) { document.querySelector('#highlight-components').textContent = 'Stop highlighting components' } else { document.querySelector('#highlight-components').textContent = 'Highlight Components' }
+  function toggleLinkText (selector, onValue, offValue, state) {
+    var toggleLink = document.querySelector(selector)
+    if (state) {
+      toggleLink.textContent = onValue
+    } else {
+      toggleLink.textContent = offValue
     }
-  })
-
-  chrome.runtime.onMessage.addListener(function (request, _sender) {
-    if (request.action === 'showMetaTagsState') {
-      // When we're asked to populate the popup, we'll first send the current
-      // buckets back to the main thread, which "persists" them.
-      if (request.metaTagsState) { document.querySelector('#highlight-meta-tags').textContent = 'Hide meta tags' } else { document.querySelector('#highlight-meta-tags').textContent = 'Show meta tags' }
-    }
-  })
-
-  chrome.runtime.onMessage.addListener(function (request, _sender) {
-    if (request.action === 'designModeState') {
-      var toggleLink = document.querySelector('#toggle-design-mode')
-      if (request.designModeState) { toggleLink.textContent = 'Turn off design mode' } else { toggleLink.textContent = 'Turn on design mode' }
-    }
-  })
+  }
 
   // Render the popup.
   function renderPopup (location, hostname, origin, pathname, renderingApplication, windowHeight, abTestBuckets) {
@@ -111,14 +131,15 @@ var Popup = Popup || {};
 
     setupAbToggles(currentUrl)
 
-    let queryOptions = { active: true, lastFocusedWindow: true };
+    const queryOptions = { active: true, lastFocusedWindow: true }
     // `tab` will either be a `tabs.Tab` instance or `undefined`.
-    let [tab] = await chrome.tabs.query(queryOptions);
+    const [tab] = await chrome.tabs.query(queryOptions)
 
     chrome.scripting.executeScript({
-      target: {tabId: tab.id},
+      target: { tabId: tab.id },
       func: () => {
         window.highlightComponent.sendState()
+        window.higlightContentBlocksComponent.sendState()
         window.showMetaTagsComponent.sendState()
         window.designModeComponent.sendState()
       }
@@ -171,6 +192,11 @@ var Popup = Popup || {};
       sendChromeTabMessage('toggleComponents')
     })
 
+    document.querySelector('#highlight-content-blocks').addEventListener('click', function (e) {
+      e.preventDefault()
+      sendChromeTabMessage('toggleContentBlocks')
+    })
+
     document.querySelector('#highlight-meta-tags').addEventListener('click', function (e) {
       e.preventDefault()
       sendChromeTabMessage('toggleMetaTags')
@@ -208,7 +234,7 @@ var Popup = Popup || {};
             chrome.tabs.reload(tab.id, { bypassCache: true })
           }
         )
-1      })
+      })
     })
   }
 

@@ -8,12 +8,14 @@
     "popup/environment.js",
     "popup/extract_path.js",
     "popup/external_links.js",
+    "components/content-blocks-component/content-blocks-component.js",
     "components/highlight-component/highlight-component.js",
     "components/design-mode-component/design-mode-component.js",
     "components/show-meta-tags-component/show-meta-tags-component.js"
   ],
   "specDir": "spec",
   "specFiles": [
+    "**/content_blocks_component.spec.js",
     "**/show_meta_tags.spec.js",
     "**/highlight_component.spec.js",
     "**/extract_path.spec.js",

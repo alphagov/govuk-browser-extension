@@ -1,1 +1,3 @@
-importScripts("./service_utils/icon.js")
+/* global importScripts */
+
+importScripts('./service_utils/icon.js')
