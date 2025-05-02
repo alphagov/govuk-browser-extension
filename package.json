@@ -1,21 +1,25 @@
 {
   "devDependencies": {
+    "chrome-webstore-upload": "^3.1.4",
     "jasmine-browser-runner": "^3.0.0",
     "jasmine-core": "^5.7.1",
+    "node-fetch": "^2.7.0",
     "standardx": "^7.0.0"
   },
   "scripts": {
     "lint:js": "standardx 'spec/javascripts/**/*.js' 'src/**/*.js'",
     "lint:js:fix": "npm run lint:js -- --fix",
     "test": "jasmine-browser-runner runSpecs",
-    "build": "bash build.sh"
+    "build": "bash build.sh",
+    "check:firefox": "node utils/check-firefox-version.mjs",
+    "check:chrome": "node utils/check-chrome-version.mjs"
   },
   "eslintConfig": {
     "env": {
       "browser": true,
       "jasmine": true
     },
-    "rules":{
+    "rules": {
       "no-var": 0,
       "no-unused-vars": 0,
       "no-use-before-define": 0
