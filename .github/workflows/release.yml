@@ -1,0 +1,53 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    env:
+      CHROME_EXTENSION_ID: dclfaikcemljbaoagjnedmlppnbiljen
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
+      - name: Install Dependencies
+        shell: bash
+        run: npm install
+      - name: Set environment variables from the manifest
+        run: |
+          echo "FIREFOX_EXTENSION_ID=$(jq -s -r ".[0].browser_specific_settings.gecko.id" < src/manifest_firefox.json)" >> "$GITHUB_ENV"
+          echo "CURRENT_VERSION=$(jq -s -r '.[0].version' < src/manifest.json)" >> "$GITHUB_ENV"
+      - name: Check if Firefox version can be released
+        id: firefox_check
+        continue-on-error: true
+        run: npm run check:firefox
+      - name: Check if Chrome version can be released
+        id: chrome_check
+        continue-on-error: true
+        run: npm run check:chrome
+      - name: Upload & release Firefox
+        uses: wdzeng/firefox-addon@v1
+        if: steps.firefox_check.outcome == 'success'
+        with:
+          addon-guid: ${{ env.FIREFOX_EXTENSION_ID }}
+          xpi-path: build/govuk-browser-extension-${{ env.CURRENT_VERSION }}-firefox.zip
+          self-hosted: false
+          jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
+          jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
+      - name: Upload & release Chrome
+        if: steps.chrome_check.outcome == 'success'
+        uses: mnao305/chrome-extension-upload@v5.0.0
+        with:
+          xpi-path: build/govuk-browser-extension-${{ env.CURRENT_VERSION }}-chrome.zip
+          extension-id: ${{ env.CHROME_EXTENSION_ID }}
+          client-id: ${{ secrets.CHROME_CLIENT_ID }}
+          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+
