@@ -59,27 +59,10 @@ $ npx jasmine-browser-runner serve
 
 ..then navigate to http://localhost:8888/
 
-## Getting permission to release
-
-1. You will need to be a registered Chrome Web Store Developer
-2. Once you are registered, ask to be added to the the [govuk google chrome developers google group](https://groups.google.com/a/digital.cabinet-office.gov.uk/g/google-chrome-developers).
-3. An existing developer will then need to go into their Chrome web console and run the sync task so that you can release the extension as a member of the group.
-
 ## Releasing the extension
 
-1. Install `jq`. For example, on mac, you can do it using brew 'brew install jq'
-2. Update the version in `manifest_base.json`
-3. Run `npm run build`
-4. Create a Pull Request with the new package committed
-5. Upload newly created package created for chrome at`/build/govuk-browser-extension-chrome-{version}.zip` to the [Chrome web store](https://chrome.google.com/webstore/devconsole/06b3913d-07a7-479e-94aa-05bb5b3cd44d/dclfaikcemljbaoagjnedmlppnbiljen/edit/package).
-6. Upload newly created package created for firefox at `/build/govuk-browser-extension-firefox-{version}.zip` to [Firefox Add-ons](https://addons.mozilla.org/en-US/developers/addon/govuk-browser-extension-ff/versions/submit/). Account details in the [AWS Secrets Manager](https://eu-west-1.console.aws.amazon.com/secretsmanager). See the documentation in [Retrieve a credential from Secrets Manager](https://docs.publishing.service.gov.uk/manual/secrets-manager.html#retrieve-a-credential-from-secrets-manager)
-
-### Note
-
-   Firefox and chrome currently disagree on few things with respect to V3 of manifest.json, so inorder to accommodate for
-   both the browser, we would need a separate build for each browser with their manifest.json catering to each of them. To
-   do this, we have created two manifest.json for each browser and have updated build script to generate separate
-   manifest.json for each of them during the build.
+When a new version is merged to `main`, a new version of the extension is automatically packaged up and published to 
+Firefox Add-ons and to Chrome web store. See [releasing.md](https://github.com/alphagov/govuk-browser-extension/blob/main/docs/releasing.md)
 
 ### License
 
