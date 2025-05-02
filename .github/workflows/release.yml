@@ -23,7 +23,7 @@ jobs:
       - name: Set environment variables from the manifest
         run: |
           echo "FIREFOX_EXTENSION_ID=$(jq -s -r ".[0].browser_specific_settings.gecko.id" < src/manifest_firefox.json)" >> "$GITHUB_ENV"
-          echo "CURRENT_VERSION=$(jq -s -r '.[0].version' < src/manifest.json)" >> "$GITHUB_ENV"
+          echo "CURRENT_VERSION=$(jq -s -r '.[0].version' < src/manifest_base.json)" >> "$GITHUB_ENV"
       - name: Check if Firefox version can be released
         id: firefox_check
         continue-on-error: true
