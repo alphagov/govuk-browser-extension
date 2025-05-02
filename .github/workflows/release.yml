@@ -32,6 +32,10 @@ jobs:
         id: chrome_check
         continue-on-error: true
         run: npm run check:chrome
+        env:
+          CHROME_CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
+          CHROME_CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
+          CHROME_REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
       - name: Upload & release Firefox
         uses: wdzeng/firefox-addon@v1
         if: steps.firefox_check.outcome == 'success'
