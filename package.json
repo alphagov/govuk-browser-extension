@@ -3,7 +3,7 @@
     "chrome-webstore-upload": "^3.1.4",
     "jasmine-browser-runner": "^3.0.0",
     "jasmine-core": "^5.7.1",
-    "node-fetch": "^2.7.0",
+    "node-fetch": "^3.3.2",
     "standardx": "^7.0.0"
   },
   "scripts": {
