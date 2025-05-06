@@ -41,7 +41,7 @@ jobs:
         if: steps.firefox_check.outcome == 'success'
         with:
           addon-guid: ${{ env.FIREFOX_EXTENSION_ID }}
-          xpi-path: build/govuk-browser-extension-${{ env.CURRENT_VERSION }}-firefox.zip
+          xpi-path: build/govuk-browser-extension-firefox-${{ env.CURRENT_VERSION }}.zip
           self-hosted: false
           jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
           jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
@@ -49,7 +49,7 @@ jobs:
         if: steps.chrome_check.outcome == 'success'
         uses: mnao305/chrome-extension-upload@v5.0.0
         with:
-          xpi-path: build/govuk-browser-extension-${{ env.CURRENT_VERSION }}-chrome.zip
+          xpi-path: build/govuk-browser-extension-chrome-${{ env.CURRENT_VERSION }}.zip
           extension-id: ${{ env.CHROME_EXTENSION_ID }}
           client-id: ${{ secrets.CHROME_CLIENT_ID }}
           client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
