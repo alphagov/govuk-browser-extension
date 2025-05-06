@@ -49,7 +49,7 @@ jobs:
         if: steps.chrome_check.outcome == 'success'
         uses: mnao305/chrome-extension-upload@v5.0.0
         with:
-          xpi-path: build/govuk-browser-extension-chrome-${{ env.CURRENT_VERSION }}.zip
+          file-path: build/govuk-browser-extension-chrome-${{ env.CURRENT_VERSION }}.zip
           extension-id: ${{ env.CHROME_EXTENSION_ID }}
           client-id: ${{ secrets.CHROME_CLIENT_ID }}
           client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
