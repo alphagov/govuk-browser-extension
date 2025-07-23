@@ -35,12 +35,6 @@ describe('Popup.extractPath', function () {
     expect(path).toBe('/browse/disabilities')
   })
 
-  it('returns the path for info pages', function () {
-    var path = Popup.extractPath('https://www.gov.uk/info/browse/disabilities', '/info/browse/disabilities')
-
-    expect(path).toBe('/browse/disabilities')
-  })
-
   it('returns the path for search pages', function () {
     var path = Popup.extractPath('https://www.gov.uk/api/search.json?filter_link=/browse/disabilities', '/api/search.json')
 

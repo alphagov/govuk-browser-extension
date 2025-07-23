@@ -16,8 +16,6 @@ Popup.extractPath = function (location, pathname, renderingApplication) {
     extractedPath = pathname.split('https://www.gov.uk')[1]
   } else if (location.includes('api/search.json')) {
     extractedPath = extractQueryParameter(location, 'filter_link')
-  } else if (location.includes('info')) {
-    extractedPath = pathname.replace('info/', '')
   } else if (/api.*\.json/.test(location)) {
     extractedPath = pathname.replace('api/', '').replace('.json', '')
   } else if (location.includes('visualise')) {
