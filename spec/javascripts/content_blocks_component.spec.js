@@ -28,7 +28,7 @@ describe('Content blocks component', function () {
     })
 
     it('highlights content blocks', function () {
-      var contentBlocks = document.querySelectorAll('.content-embed')
+      var contentBlocks = document.querySelectorAll('.content-block')
 
       contentBlocks.forEach(function (el) {
         expect(el).toHaveClass('highlight-content-block')
