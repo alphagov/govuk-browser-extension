@@ -2,7 +2,7 @@
 
 function ContentBlocksComponent () {
   this.contentBlocksHighlighted = false
-  this.contentBlocks = Array.from(document.querySelectorAll('.content-embed'))
+  this.contentBlocks = Array.from(document.querySelectorAll('[data-content-block]'))
 
   chrome.runtime.onMessage.addListener(function (request) {
     if (request.trigger === 'toggleContentBlocks') {
