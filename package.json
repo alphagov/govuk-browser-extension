@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "chrome-webstore-upload": "^3.1.4",
+    "chrome-webstore-upload": "^3.2.0",
     "jasmine-browser-runner": "^3.0.0",
     "jasmine-core": "^5.9.0",
     "node-fetch": "^3.3.2",
