@@ -61,7 +61,9 @@ $ npx jasmine-browser-runner serve
 
 ## Releasing the extension
 
-When a new version is merged to `main`, a new version of the extension is automatically packaged up and published to 
+1. Update the version number in `src/manifest_base.json`
+1. Run `build.sh` to create the build artifacts and ensure they're committed
+1. Create a PR - when a new version is merged to `main`, a new version of the extension is automatically packaged up and published to
 Firefox Add-ons and to Chrome web store. See [releasing.md](https://github.com/alphagov/govuk-browser-extension/blob/main/docs/releasing.md)
 
 ### License
