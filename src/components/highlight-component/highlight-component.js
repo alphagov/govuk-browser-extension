@@ -89,7 +89,7 @@ var Helpers = {
   },
 
   appHostname: function () {
-    var renderingElement = document.querySelector('meta[name="govuk:rendering-application"]')
+    var renderingElement = document.querySelector('meta[name="govuk:rendering-app"]')
     var renderingApp = renderingElement.getAttribute('content')
     return this.substitutions[renderingApp] || renderingApp
   }

@@ -157,7 +157,7 @@ describe('highlightComponent', function () {
 
 describe('Helpers.documentationUrl', function () {
   it("creates the correct URL for 'app' components with substitution", function () {
-    setFixtures('<head><meta name="govuk:rendering-application" content="collections"></head>')
+    setFixtures('<head><meta name="govuk:rendering-app" content="collections"></head>')
     Helpers.substitutions = {
       collections: 'another_host'
     }
@@ -172,7 +172,7 @@ describe('Helpers.documentationUrl', function () {
   })
 
   it("creates the correct URL for 'app' components without substitution", function () {
-    setFixtures('<head><meta name="govuk:rendering-application" content="rendering_app"></head>')
+    setFixtures('<head><meta name="govuk:rendering-app" content="rendering_app"></head>')
     Helpers.substitutions = {
       collections: 'another_host'
     }
@@ -187,7 +187,7 @@ describe('Helpers.documentationUrl', function () {
   })
 
   it("creates the correct URL for 'gem' components", function () {
-    setFixtures('<head><meta name="govuk:rendering-application" content="rendering_app"></head>')
+    setFixtures('<head><meta name="govuk:rendering-app" content="rendering_app"></head>')
     Helpers.substitutions = {
       collections: 'another_host'
     }

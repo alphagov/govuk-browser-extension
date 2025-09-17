@@ -8,7 +8,7 @@ chrome.runtime.sendMessage({
   currentHost: window.location.hostname,
   currentOrigin: window.location.origin,
   currentPathname: window.location.pathname,
-  renderingApplication: getMetatag('govuk:rendering-application'),
+  renderingApplication: getMetatag('govuk:rendering-app'),
   abTestBuckets: getAbTestBuckets(),
   windowHeight: window.innerHeight,
   highlightState: false // window.highlightComponent.state
