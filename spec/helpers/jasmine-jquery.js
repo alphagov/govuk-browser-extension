@@ -203,8 +203,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   }
 
   jasmine.StyleFixtures.prototype.createStyle_ = function (html) {
-    var styleText = $('<div></div>').html(html).text()
-      , style = $('<style>' + styleText + '</style>')
+    var style = $('<style>').text(html)
 
     this.fixturesNodes_.push(style)
     $('head').append(style)

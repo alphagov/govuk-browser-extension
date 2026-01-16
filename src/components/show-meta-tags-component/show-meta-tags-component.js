@@ -26,17 +26,16 @@ ShowMetaTagsComponent.prototype.showMetaTags = function () {
     titleText = titleElement.textContent
   }
 
-  var titleTag = `
-    <p>
-      <strong>title (${titleText.length}): </strong>
-      ${titleText}
-    </p>
-  `
+  var titleTag = document.createElement('p')
+  var titleStrong = document.createElement('strong')
+  titleStrong.textContent = `title (${titleText.length}): `
+  titleTag.appendChild(titleStrong)
+  titleTag.appendChild(document.createTextNode(titleText))
 
   var metaTagContainer = document.createElement('div')
   metaTagContainer.setAttribute('id', 'govuk-chrome-toolkit-banner')
   // insert titleTag into metaTagContainer
-  metaTagContainer.insertAdjacentHTML('beforeend', titleTag)
+  metaTagContainer.appendChild(titleTag)
 
   var metaTags = document.querySelectorAll('meta')
   metaTags.forEach(function (metaTag) {
@@ -50,15 +49,14 @@ ShowMetaTagsComponent.prototype.showMetaTags = function () {
       metaTagContent = ''
     }
 
-    var metaTagInfo = `
-    <p>
-      <strong>${metaTagName} (${metaTagContent.length}): </strong>
-      ${metaTagContent}
-    </p>
-  `
+    var metaTagInfo = document.createElement('p')
+    var metaTagStrong = document.createElement('strong')
+    metaTagStrong.textContent = `${metaTagName} (${metaTagContent.length}): `
+    metaTagInfo.appendChild(metaTagStrong)
+    metaTagInfo.appendChild(document.createTextNode(metaTagContent))
 
     // insert metaTagInfo into metaTagContainer
-    metaTagContainer.insertAdjacentHTML('beforeend', metaTagInfo)
+    metaTagContainer.appendChild(metaTagInfo)
   })
 
   document.body.prepend(metaTagContainer)
