@@ -8,6 +8,7 @@
     "popup/environment.js",
     "popup/extract_path.js",
     "popup/external_links.js",
+    "popup/find_asset_parent_page.js",
     "components/content-blocks-component/content-blocks-component.js",
     "components/highlight-component/highlight-component.js",
     "components/design-mode-component/design-mode-component.js",
