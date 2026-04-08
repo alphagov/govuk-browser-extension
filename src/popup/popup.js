@@ -244,12 +244,14 @@ var Popup = Popup || {};
   function createView (location, hostname, origin, pathname, renderingApplication, abTestBuckets) {
     var environment = Popup.environment(location, hostname, origin)
     var contentLinks = Popup.generateContentLinks(location, origin, pathname, environment.currentEnvironment, renderingApplication)
+    var assetParentPageLinks = Popup.findAssetParentPage(location)
     // var abTests = Popup.findActiveAbTests(abTestBuckets)
 
     return {
       environments: environment.allEnvironments,
       currentEnvironment: environment.currentEnvironment,
       contentLinks: contentLinks,
+      assetParentPageLinks: assetParentPageLinks,
       // external links will be populated by a call to the content store
       externalLinks: [],
       abTests: [] // abTests
