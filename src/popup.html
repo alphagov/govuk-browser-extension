@@ -9,6 +9,7 @@
   <script src='popup/environment.js'></script>
   <script src='popup/external_links.js'></script>
   <script src='popup/extract_path.js'></script>
+  <script src='popup/find_asset_parent_page.js'></script>
   <script src='popup/popup.js'></script>
 
   <link href="popup/reset.css" rel="stylesheet" type="text/css">
@@ -26,6 +27,9 @@
       {{#contentLinks}}
         <li><a href="{{url}}" class="js-rerender-popup {{class}}">{{name}}</a></li>
       {{/contentLinks}}
+      {{#assetParentPageLinks}}
+        <li><a href="{{url}}" class="js-rerender-popup">{{name}}</a></li>
+      {{/assetParentPageLinks}}
     </ul>
 
     <ul class='add-top-border'>
