@@ -5,3 +5,6 @@ updates:
     dependency-type: production
     schedule:
       interval: daily
+    cooldown:
+      default-days: 3
+    open-pull-requests-limit: 25
