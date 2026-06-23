@@ -2,7 +2,15 @@ version: 2
 updates:
   - package-ecosystem: npm
     directory: /
-    dependency-type: production
+    # Security updates only: with no `allow` block, all dependencies (prod and
+    # dev) are eligible. Ignoring every routine semver bump suppresses version
+    # PRs without touching security updates (`update-types` never affects them).
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+          - "version-update:semver-minor"
+          - "version-update:semver-patch"
     schedule:
       interval: daily
     cooldown:
