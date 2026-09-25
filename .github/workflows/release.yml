@@ -47,10 +47,11 @@ jobs:
           jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
       - name: Upload & release Chrome
         if: steps.chrome_check.outcome == 'success'
-        uses: mnao305/chrome-extension-upload@v5.0.0
+        uses: mnao305/chrome-extension-upload@v7.0.0
         with:
           file-path: build/govuk-browser-extension-chrome-${{ env.CURRENT_VERSION }}.zip
           extension-id: ${{ env.CHROME_EXTENSION_ID }}
+          publisher-id: ${{ secrets.CHROME_PUBLISHER_ID }}
           client-id: ${{ secrets.CHROME_CLIENT_ID }}
           client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
           refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
