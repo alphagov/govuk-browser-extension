@@ -38,3 +38,18 @@ jobs:
 
       - name: Run Jasmine
         run: npm test
+
+  notify-slack-if-failure-on-main:
+    needs:
+      - codeql-sast
+      - dependency-review
+      - test
+    if: ${{ always() && github.ref == 'refs/heads/main' && contains(needs.*.result, 'failure') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Slack if failure on main
+        uses: alphagov/govuk-infrastructure/.github/actions/report-run-failure@main
+        with:
+          slack_webhook_url: ${{ secrets.GOVUK_SLACK_WEBHOOK_URL }}
+          channel: govuk-whitehall-experience-tech
+          message: "GOVUK Browser Extension CI failed on 'main' and blocked the deployment. Investigate!"
